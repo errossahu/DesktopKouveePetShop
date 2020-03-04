@@ -10,5 +10,5 @@ package Model;
  * @author ACER
  */
 public class CS {
-    
+ private int no ;   
 }
