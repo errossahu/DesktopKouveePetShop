@@ -10,5 +10,8 @@ package Session;
  * @author ACER
  */
 public class LoginSession {
-    
+    public void Login()
+    {
+        
+    }
 }

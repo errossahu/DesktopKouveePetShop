@@ -83,9 +83,23 @@ public class AdminDao {
     }
     
     
-    public void deletePegawai(Pegawai p )
+    public void deletePegawai(String cari)
     {
-        
-    }
+                String sql="UPDATE  FROM PEGAWAI SET ID=1 where Nama_Pengguna='"+cari+"'";
+
+                  System.out.println("DELETED PEGAWAI...");
+                  try
+                  {
+                      Statement stm = con.createStatement();
+                      int result = stm.executeUpdate(sql);
+                      System.out.println("added"+result+"Deleted Pegawai");
+                      stm.close();
+                      
+                  }catch(Exception e)
+                  {
+                      System.out.println("Error Deleted");
+                      System.out.println(e);
+                  }
+                      }
     
 }
