@@ -16,6 +16,10 @@ public class dataSama extends Exception{
        
         return "User Name Sudah Terdaftar" ;
     }
+    public String layananSama()
+    {
+        return "Layanan Sudah Ada";
+    }
     
 }
 

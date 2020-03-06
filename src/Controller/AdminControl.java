@@ -5,7 +5,9 @@
  */
 package Controller;
 import DAO.AdminDao ;
+import Model.Layanan;
 import Model.Pegawai;
+import java.util.List;
 /**
  *
  * @author ACER
@@ -13,6 +15,12 @@ import Model.Pegawai;
 public class AdminControl {
 private final AdminDao aDAO = new AdminDao();
   
+    public void tambahLayanan(Layanan L)
+    {
+        aDAO.makeConnection(); 
+        aDAO.tambahLayanan(L);
+        aDAO.closeConnection();
+    }
     public void tambahPegawai(Pegawai P)
     {
         aDAO.makeConnection();
@@ -35,6 +43,22 @@ private final AdminDao aDAO = new AdminDao();
         return pgw;
     
     }
-    
+    public List<Pegawai> tampilDataPegawai()
+    {
+        aDAO.makeConnection();
+        List<Pegawai> P =aDAO.TampilPegawai();
+        aDAO.closeConnection();
+        return P;
+        
+    }
+    public Layanan searchLayanan(String namaLayanan)
+    {
+        Layanan lyn = null ;
+        aDAO.makeConnection();
+        lyn = aDAO.searchLayanan(namaLayanan);
+        aDAO.closeConnection();
+        return lyn ;
+    }
+        
 }
   

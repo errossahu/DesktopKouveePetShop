@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package DAO;
+import Model.Layanan;
 import Model.Pegawai;
 import java.sql.Connection;
 
@@ -56,7 +57,26 @@ public class AdminDao {
         }
     }
   
-    
+    public void tambahLayanan(Layanan L)
+    {
+        String sql = "insert into Layanan(nama,CREATED_BY)"
+                +"values('"+L.getNamaLayanan()+"','"+"ADMIN"+"')";
+           System.out.println("Adding Layanan ..");
+           
+           try
+           {
+               Statement stm= con.createStatement();
+               int Result = stm.executeUpdate(sql);
+               System.out.println("Added" +Result+"Layanan \n");
+               stm.close();
+           }
+           catch (Exception e)
+           {
+               System.out.println("Gagal Menambahkan Layanan");
+               System.out.println(e);
+           }
+                
+    }
     public void tambahPegawai(Pegawai P)
     {
 
@@ -98,12 +118,42 @@ public class AdminDao {
                   {
                       System.out.println("Error Deleted");
                       System.out.println(e);
+                      
                   }
       }
-    
-  
+    public Layanan searchLayanan(String namaLayanan)
+    {
+        String sql = "Select * from Layanan where nama = '"+namaLayanan+"'";
+        System.out.println("Mencari Nama Layanan ");
+        Layanan lyn = null ; 
+        try
+        {
+            Statement stm = con.createStatement() ;
+            ResultSet rs = stm.executeQuery(sql);
+            if(rs!=null)
+            {
+                while(rs.next())
+                {
+                    lyn = new Layanan(rs.getString("NAMA"));
+                    
+                }
+            }
+            rs.close();
+            stm.close();
+        }
+        
+        catch(Exception e)
+        {
+            System.out.println("Error Mencari Layanan \n");
+            System.out.println(e);
+            
+        }
+        
+        return lyn ;
+    }
     public Pegawai searchPegawai (String userName){
-        String sql="SELECT * FROM PEGAWAI where USERNAME= '"+userName+"'";
+        String sql="SELECT * FROM PEGAWAI where AKTIF=1  AND USERNAME= '"+userName+"'" ;
+
         System.out.println("Mencari user Name Pegawai . . .");
         
         Pegawai pgw = null;
@@ -127,4 +177,46 @@ public class AdminDao {
         }
          return pgw;
     }
+    
+    
+    
+    ///////////////////////LIST PEGAWAI///////////////////////
+       public List<Pegawai> TampilPegawai()
+    {
+        String sql = "SELECT * FROM  PEGAWAI";
+        System.out.println("Daftar Pegawai. . .");
+
+        List<Pegawai> list = new ArrayList<>();
+
+        try
+        {
+            Statement statement = con.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            if(rs != null)
+            {
+                while(rs.next())
+                {
+                   
+                    Pegawai   pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+                    Integer.parseInt(rs.getString("TELP")),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"));                   
+                   
+                    list.add(pgw);
+                }
+            }
+            rs.close();
+            statement.close();
+        }
+
+        catch(Exception e)
+        {
+            System.out.println("Gagal Membaca Database...\n");
+            System.out.println(e);
+        }
+
+        return list;
+    }
+    
+    
+    
 }

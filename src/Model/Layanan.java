@@ -10,8 +10,21 @@ package Model;
  * @author ACER
  */
 public class Layanan {
-    public static void main(String[] args) {
-        
-    }
-    
+   public String namaLayanan  ;
+   public Layanan(String namaLayanan)
+   {
+       this.namaLayanan =namaLayanan ;
+   }
+   public void setNamaLayanan (String namaLayanan)
+   {
+       this.namaLayanan = namaLayanan ;
+   }
+   public String getNamaLayanan()
+   {
+       return namaLayanan ; 
+   }
+   
+   
+   
+         
 }

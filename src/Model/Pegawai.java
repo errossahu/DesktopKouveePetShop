@@ -20,6 +20,11 @@ public class Pegawai {
     public String userName ;
     public String password ;
            
+    public Pegawai(String nama , String tglLahir, String role, String userName)
+    {
+        this.role= role ;
+        
+    }
     public Pegawai (String namaPegawai , String tglLahir , String role ,int  noHp ,String alamat , String userName , String password )
     {
       this.alamat= alamat ; 
