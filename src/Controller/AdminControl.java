@@ -26,6 +26,15 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.deletePegawai(cari);
         aDAO.closeConnection();
     }
+    public Pegawai searchPegawai(String userName)
+    {
+        Pegawai pgw=null;
+        aDAO.makeConnection();
+        pgw= aDAO.searchPegawai(userName);
+        aDAO.closeConnection();
+        return pgw;
+    
+    }
     
 }
   

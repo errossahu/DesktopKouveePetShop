@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import static sun.misc.MessageUtils.where;
 
 /**
  *
@@ -99,6 +100,63 @@ public class AdminDao {
                       System.out.println("Error Deleted");
                       System.out.println(e);
                   }
-                      }
+      }
     
+    public void ubahPegawai(Pegawai P , String nama )
+    {
+        String sql = "UPDATE Pegawai SET Nama = '"+P.getNamaPegawai()+"',"
+                +"alamat= '"+P.getAlamat()+"',";
+          
+    }
+//       public void ubahAdmin(Admin A, String nama)
+//    {
+//        String sql = "UPDATE Admin SET Nama = '"+A.getNamaAdmin()+"', Alamat= '"+A.getAlamatAdmin()+"',"
+//                    + " Email='"+A.getEmail()+"', Nama_Pengguna='"+A.getNama_Pengguna()+"', "
+//                    + "Kata_Sandi='"+A.getKata_Sandi()+"' where Nama = '"+nama+"'";
+//    
+//        System.out.println("Editing Admin..");
+//
+//        try
+//        {
+//            Statement statement = CON.createStatement();
+//            int result = statement.executeUpdate(sql);
+//            System.out.println("Edit " + result + "Admin\n" + nama);
+//            statement.close();
+//        }
+//        catch(Exception e)
+//        {
+//            System.out.println("Error editing Admin..");
+//            System.out.println(e);
+//        }
+//    }
+    public void TampilPegawai(Pegawai P)
+    {
+        String sql = "Select* from Pegawai" ;
+                
+    }
+    public Pegawai searchPegawai (String userName){
+        String sql="SELECT * FROM PEGAWAI where USERNAME= '"+userName+"'";
+        System.out.println("Mencari user Name Pegawai . . .");
+        
+        Pegawai pgw = null;
+        try{
+            Statement statement = con.createStatement();
+            ResultSet rs=statement.executeQuery(sql);
+            if(rs!=null){
+                while(rs.next()){
+                    
+                    pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+                    Integer.parseInt(rs.getString("TELP")),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"));
+                }
+            }
+            rs.close();
+            statement.close();
+
+        }
+        catch(Exception Ex){
+            System.out.println("Error reading database information...\n");
+            System.out.println(Ex);
+        }
+         return pgw;
+    }
 }
