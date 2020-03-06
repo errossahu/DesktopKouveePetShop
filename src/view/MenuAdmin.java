@@ -12,6 +12,7 @@ import Model.Pemilik;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import Model.Pegawai ;
+import com.placeholder.PlaceHolder;
 import exception.dataSama;
 import java.text.SimpleDateFormat;
 /**
@@ -28,6 +29,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     public MenuAdmin() {
         
         initComponents();
+        PlaceHolder holder1 = new PlaceHolder(txtCari, "Masukkan User Name");
         setTitle("Menu Admin");
         AC = new AdminControl();
         
@@ -117,8 +119,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         txtCariNoTlp = new javax.swing.JTextField();
         txtCariNama = new javax.swing.JTextField();
         txtCariTanggalLahir = new javax.swing.JTextField();
-        jTextField22 = new javax.swing.JTextField();
-        jTextField23 = new javax.swing.JTextField();
+        txtCariAlamat = new javax.swing.JTextField();
+        txtCariPassword = new javax.swing.JTextField();
         txtCariUserName = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -382,11 +384,11 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel1.setText("Nama :");
+        jLabel1.setText("Nama ");
 
         jLabel2.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel2.setText("Tanggal Lahir :");
+        jLabel2.setText("Tanggal Lahir ");
 
         txtNoTelp.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         txtNoTelp.setForeground(new java.awt.Color(0, 0, 0));
@@ -398,11 +400,11 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel7.setText("No Tlp :");
+        jLabel7.setText("No Tlp ");
 
         jLabel8.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel8.setText("Alamat :");
+        jLabel8.setText("Alamat ");
 
         txtAlamat.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         txtAlamat.setForeground(new java.awt.Color(0, 0, 0));
@@ -412,18 +414,18 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel9.setText("User Name :");
+        jLabel9.setText("User Name ");
 
         txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel10.setText("Password :");
+        jLabel10.setText("Password ");
 
         jLabel11.setFont(new java.awt.Font("Felix Titling", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel11.setText("Role :");
+        jLabel11.setText("Role ");
 
         btnSimpanPegawai.setBackground(new java.awt.Color(102, 255, 255));
         btnSimpanPegawai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/save.png"))); // NOI18N
@@ -527,13 +529,13 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addGroup(tambahPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(tambahPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(tambahPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtNamaPegawai, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2))
-                    .addComponent(txtTanggalLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtTanggalLahir, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tambahPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(tambahPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -567,6 +569,12 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         cariPegawai.setBackground(new java.awt.Color(51, 51, 51));
 
+        txtCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariActionPerformed(evt);
+            }
+        });
+
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search-icon.png"))); // NOI18N
         btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -577,6 +585,12 @@ public class MenuAdmin extends javax.swing.JFrame {
         txtCariNoTlp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCariNoTlpActionPerformed(evt);
+            }
+        });
+
+        txtCariNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariNamaActionPerformed(evt);
             }
         });
 
@@ -620,7 +634,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel21.setBackground(new java.awt.Color(0, 255, 255));
         jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 255, 255));
-        jLabel21.setText("Cari User Name Pegawai");
+        jLabel21.setText("Cari Pegawai");
 
         javax.swing.GroupLayout cariPegawaiLayout = new javax.swing.GroupLayout(cariPegawai);
         cariPegawai.setLayout(cariPegawaiLayout);
@@ -638,7 +652,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, cariPegawaiLayout.createSequentialGroup()
                                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCariAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, cariPegawaiLayout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(22, 22, 22)
@@ -661,7 +675,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField23)
+                                    .addComponent(txtCariPassword)
                                     .addComponent(jComboBox1, 0, 290, Short.MAX_VALUE)))))
                     .addGroup(cariPegawaiLayout.createSequentialGroup()
                         .addContainerGap()
@@ -690,7 +704,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -698,7 +712,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1176,6 +1190,10 @@ public class MenuAdmin extends javax.swing.JFrame {
             String noHp = String.valueOf(P.getNoHp());
             txtCariNama.setText(P.getNamaPegawai());
             txtCariNoTlp.setText(noHp);
+            txtCariTanggalLahir.setText(P.getTglLahir());
+            txtCariAlamat.setText(P.getAlamat());
+            txtCariUserName.setText(P.getUserName());
+            txtCariPassword.setText(P.getPassword());
 
         }
         else
@@ -1249,6 +1267,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        setText();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnSimpanPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPegawaiActionPerformed
@@ -1303,6 +1322,14 @@ public class MenuAdmin extends javax.swing.JFrame {
     private void rdCustomerServiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdCustomerServiceActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rdCustomerServiceActionPerformed
+
+    private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariActionPerformed
+
+    private void txtCariNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariNamaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1395,8 +1422,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField23;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
@@ -1413,8 +1438,10 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel tampilSeluruh;
     private javax.swing.JTextField txtAlamat;
     private javax.swing.JTextField txtCari;
+    private javax.swing.JTextField txtCariAlamat;
     private javax.swing.JTextField txtCariNama;
     private javax.swing.JTextField txtCariNoTlp;
+    private javax.swing.JTextField txtCariPassword;
     private javax.swing.JTextField txtCariTanggalLahir;
     private javax.swing.JTextField txtCariUserName;
     private javax.swing.JTextField txtNamaPegawai;

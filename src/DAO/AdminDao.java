@@ -102,38 +102,7 @@ public class AdminDao {
                   }
       }
     
-    public void ubahPegawai(Pegawai P , String nama )
-    {
-        String sql = "UPDATE Pegawai SET Nama = '"+P.getNamaPegawai()+"',"
-                +"alamat= '"+P.getAlamat()+"',";
-          
-    }
-//       public void ubahAdmin(Admin A, String nama)
-//    {
-//        String sql = "UPDATE Admin SET Nama = '"+A.getNamaAdmin()+"', Alamat= '"+A.getAlamatAdmin()+"',"
-//                    + " Email='"+A.getEmail()+"', Nama_Pengguna='"+A.getNama_Pengguna()+"', "
-//                    + "Kata_Sandi='"+A.getKata_Sandi()+"' where Nama = '"+nama+"'";
-//    
-//        System.out.println("Editing Admin..");
-//
-//        try
-//        {
-//            Statement statement = CON.createStatement();
-//            int result = statement.executeUpdate(sql);
-//            System.out.println("Edit " + result + "Admin\n" + nama);
-//            statement.close();
-//        }
-//        catch(Exception e)
-//        {
-//            System.out.println("Error editing Admin..");
-//            System.out.println(e);
-//        }
-//    }
-    public void TampilPegawai(Pegawai P)
-    {
-        String sql = "Select* from Pegawai" ;
-                
-    }
+  
     public Pegawai searchPegawai (String userName){
         String sql="SELECT * FROM PEGAWAI where USERNAME= '"+userName+"'";
         System.out.println("Mencari user Name Pegawai . . .");

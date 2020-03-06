@@ -536,15 +536,15 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" pref="90" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="txtNamaPegawai" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                                           <Component id="jLabel1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="txtTanggalLahir" min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Component id="txtTanggalLahir" pref="30" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtUserName" alignment="0" min="-2" pref="29" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -607,7 +607,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Nama :"/>
+                            <Property name="text" type="java.lang.String" value="Nama "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -618,7 +618,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Tanggal Lahir :"/>
+                            <Property name="text" type="java.lang.String" value="Tanggal Lahir "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNoTelp">
@@ -642,7 +642,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="No Tlp :"/>
+                            <Property name="text" type="java.lang.String" value="No Tlp "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel8">
@@ -653,7 +653,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Alamat :"/>
+                            <Property name="text" type="java.lang.String" value="Alamat "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtAlamat">
@@ -684,7 +684,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="User Name :"/>
+                            <Property name="text" type="java.lang.String" value="User Name "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtPassword">
@@ -705,7 +705,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Password :"/>
+                            <Property name="text" type="java.lang.String" value="Password "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel11">
@@ -716,7 +716,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="99" green="99" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Role :"/>
+                            <Property name="text" type="java.lang.String" value="Role "/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JButton" name="btnSimpanPegawai">
@@ -835,7 +835,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel17" min="-2" pref="76" max="-2" attributes="0"/>
                                                   <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="jTextField22" min="-2" pref="290" max="-2" attributes="0"/>
+                                                  <Component id="txtCariAlamat" min="-2" pref="290" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel14" min="-2" pref="76" max="-2" attributes="0"/>
@@ -864,7 +864,7 @@
                                                   </Group>
                                                   <EmptySpace max="32767" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="jTextField23" max="32767" attributes="0"/>
+                                                      <Component id="txtCariPassword" max="32767" attributes="0"/>
                                                       <Component id="jComboBox1" pref="290" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
@@ -905,7 +905,7 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField22" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCariAlamat" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel17" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -915,7 +915,7 @@
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jTextField23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCariPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel19" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -930,6 +930,9 @@
                       </Layout>
                       <SubComponents>
                         <Component class="javax.swing.JTextField" name="txtCari">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCariActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="btnSearch">
                           <Properties>
@@ -947,12 +950,15 @@
                           </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtCariNama">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCariNamaActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtCariTanggalLahir">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField22">
+                        <Component class="javax.swing.JTextField" name="txtCariAlamat">
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField23">
+                        <Component class="javax.swing.JTextField" name="txtCariPassword">
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtCariUserName">
                         </Component>
@@ -1079,7 +1085,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="0" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Cari User Name Pegawai"/>
+                            <Property name="text" type="java.lang.String" value="Cari Pegawai"/>
                           </Properties>
                         </Component>
                       </SubComponents>
