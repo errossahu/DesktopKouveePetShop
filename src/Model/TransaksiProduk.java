@@ -19,11 +19,7 @@ public class TransaksiProduk {
     {
         this.pgw = pgw ; 
     }
-    public int getPegawai()
-    {
-        return pgw.getNoHp();
-    }
-
+  
     
     
             

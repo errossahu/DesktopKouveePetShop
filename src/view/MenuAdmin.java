@@ -48,18 +48,19 @@ public class MenuAdmin extends javax.swing.JFrame {
         tabelModel = (DefaultTableModel) tablePegawai.getModel();
         tampilPegawai();
         dissLayanan(false);
+        tablePegawai.setEnabled(false);
 
     }
      public void addTablePegawai(Pegawai P) {
         Vector data = new Vector();
     
+        data.add(P.getId());
         data.add(P.getNamaPegawai());
         data.add(P.getUserName());
         data.add(P.getPassword());
         data.add(P.getRole());
-        data.add(P.getAlamat());
-        data.add(P.getTglLahir());
-        data.add(P.getNoHp());
+     
+     
        
         tabelModel.addRow(data);
     }
@@ -69,17 +70,19 @@ public class MenuAdmin extends javax.swing.JFrame {
         for (int i = 0; i < a; i++) {
             tabelModel.removeRow(0);
         }
+        P = new Pegawai() ; 
         
         List<Pegawai> M = AC.tampilDataPegawai();
         for (int i = 0; i < M.size(); i++) {
-           
-            String noHp= String.valueOf(P.getNoHp());
-//            public Pegawai (String namaPegawai , String tglLahir , String role ,int  noHp ,String alamat , String userName , String password )
-//   
-//            P = new Pegawai(M.get(i).getNamaPegawai(),M.get(i).getUserName(),M.get(i).getPassword());
-                P= new Pegawai(M.get(i).getNamaPegawai(),M.get(i).getTglLahir(),M.get(i).getRole(),M.get(i)
-                .getNoHp(),M.get(i).getAlamat(),M.get(i).getUserName(),M.get(i).getPassword());
-               addTablePegawai(P);
+           Pegawai P = new Pegawai();
+           P.setNama(M.get(i).getNamaPegawai());
+           P.setUserName(M.get(i).getUserName());
+           P.setPassword(M.get(i).getPassword());
+           P.setRole(M.get(i).getRole());
+           P.setID_Pegawai(M.get(i).getId());
+              addTablePegawai(P);
+ 
+    M.get(i).getTglLahir() ;
         }
     }
     public void namaLayanan() throws dataSama
@@ -441,7 +444,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 684, Short.MAX_VALUE)
+            .addGap(0, 523, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -773,7 +776,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(cariPegawaiLayout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -820,20 +823,23 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         tampilSeluruh.setBackground(new java.awt.Color(51, 51, 51));
 
-        tablePegawai.setBackground(new java.awt.Color(0, 255, 255));
+        tablePegawai.setBackground(new java.awt.Color(255, 255, 255));
         tablePegawai.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        tablePegawai.setFont(new java.awt.Font("Times New Roman", 0, 11)); // NOI18N
+        tablePegawai.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        tablePegawai.setForeground(new java.awt.Color(0, 0, 0));
         tablePegawai.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nama Pegawai", "User Name ", "Password", "Role"
+                "ID_PEGAWAI", "Nama Pegawai", "User Name ", "Password", "Role"
             }
         ));
+        tablePegawai.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tablePegawai);
 
         javax.swing.GroupLayout tampilSeluruhLayout = new javax.swing.GroupLayout(tampilSeluruh);
@@ -842,7 +848,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tampilSeluruhLayout.setVerticalGroup(
@@ -1453,7 +1459,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         String format = "yyyy-MM-dd";
         SimpleDateFormat fm = new SimpleDateFormat(format);
         String tanggal = String.valueOf(fm.format(txtTanggalLahir.getDate()));
-        int noTelp = Integer.parseInt(txtNoTelp.getText());
+      
         String role ;
         
         if(rdCustomerService.isSelected())
@@ -1474,8 +1480,15 @@ public class MenuAdmin extends javax.swing.JFrame {
 //            P = new  Pegawai (String namaPegawai , Date tglLahir , String role ,int  noHp ,String alamat , String userName , String password )
             
             userNameSama();
-            P = new Pegawai(txtNamaPegawai.getText(),tanggal,role,noTelp, txtAlamat.getText(),txtUserName.getText(),txtPassword.getText() );
-            AC.tambahPegawai(P);
+            Pegawai peg = new Pegawai();
+                    peg.setAlamat(txtNamaPegawai.getText());
+                    peg.setNama(txtNamaPegawai.getText());
+                    peg.setNoHp(txtNoTelp.getText());
+                    peg.setPassword(txtPassword.getText());
+                    peg.setTglLahir(tanggal);
+                    peg.setUserName(txtUserName.getText());
+                    peg.setRole(role);
+            AC.tambahPegawai(peg);
             setText();
             
             JOptionPane.showMessageDialog(this,"Data Pegawai Berhasil Ditambahkan");

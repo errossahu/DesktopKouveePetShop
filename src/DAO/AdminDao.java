@@ -154,7 +154,7 @@ public class AdminDao {
     public Pegawai searchPegawai (String userName){
         String sql="SELECT * FROM PEGAWAI where AKTIF=1  AND USERNAME= '"+userName+"'" ;
 
-        System.out.println("Mencari user Name Pegawai . . .");
+        System.out.println("Me     ncari user Name Pegawai . . .");
         
         Pegawai pgw = null;
         try{
@@ -163,8 +163,11 @@ public class AdminDao {
             if(rs!=null){
                 while(rs.next()){
                     
-                    pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
-                    Integer.parseInt(rs.getString("TELP")),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"));
+                pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+                rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
+                rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
+                   
+
                 }
             }
             rs.close();
@@ -183,9 +186,9 @@ public class AdminDao {
     ///////////////////////LIST PEGAWAI///////////////////////
        public List<Pegawai> TampilPegawai()
     {
-        String sql = "SELECT * FROM  PEGAWAI";
+        String sql = "SELECT * FROM  PEGAWAI WHERE AKTIF=1";
         System.out.println("Daftar Pegawai. . .");
-
+        Pegawai P ;
         List<Pegawai> list = new ArrayList<>();
 
         try
@@ -197,11 +200,14 @@ public class AdminDao {
             {
                 while(rs.next())
                 {
+
+                P = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+                rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
+                rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
                    
-                    Pegawai   pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
-                    Integer.parseInt(rs.getString("TELP")),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"));                   
-                   
-                    list.add(pgw);
+                    list.add(P);
+                    System.out.println(P.getUserName());
+                    
                 }
             }
             rs.close();
