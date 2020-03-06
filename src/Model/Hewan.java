@@ -5,10 +5,13 @@
  */
 package Model;
 
+import DAO.NetClientGet;
+
 /**
  *
  * @author ACER
  */
 public class Hewan {
+    
         
 }

@@ -30,5 +30,9 @@ public class NetClientGet {
         }
     }
     
+    public void anjing(){
+        
+    }
+    
     
 }
