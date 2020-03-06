@@ -84,7 +84,7 @@ public class AdminDao {
     
     public void deletePegawai(String cari)
     {
-                String sql="UPDATE  FROM PEGAWAI SET ID=1 where Nama_Pengguna='"+cari+"'";
+                String sql="UPDATE  FROM PEGAWAI SET AKTIF=0 where Nama_Pengguna='"+cari+"'";
 
                   System.out.println("DELETED PEGAWAI...");
                   try

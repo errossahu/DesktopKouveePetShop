@@ -20,7 +20,12 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         
     }
-    
+    public void deletePegawai(String cari)
+    {
+        aDAO.makeConnection();
+        aDAO.deletePegawai(cari);
+        aDAO.closeConnection();
+    }
     
 }
   

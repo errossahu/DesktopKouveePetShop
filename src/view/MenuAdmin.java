@@ -32,9 +32,21 @@ public class MenuAdmin extends javax.swing.JFrame {
         
         
     }
+    public void setText()
+    {
+       
+        txtAlamat.setText("");
+        txtNamaPegawai.setText("");
+        txtNoTelp.setText("");
+        txtPassword.setText("");
+        txtTanggalLahir.setDate(null);
+        txtUserName.setText("");    
+        btnRole.clearSelection();
+    }
 
     public void disspegawai()
     {
+       
         
     }
     /**
@@ -1235,6 +1247,8 @@ public class MenuAdmin extends javax.swing.JFrame {
 //            P = new  Pegawai (String namaPegawai , Date tglLahir , String role ,int  noHp ,String alamat , String userName , String password )
             P = new Pegawai(txtNamaPegawai.getText(),tanggal,role,noTelp, txtAlamat.getText(),txtUserName.getText(),txtPassword.getText() );
             AC.tambahPegawai(P);
+            setText();
+            JOptionPane.showMessageDialog(this,"Data Pegawai Berhasil Ditambahkan");
         }
         catch(Exception e)
         {
