@@ -30,9 +30,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         
         initComponents();
         PlaceHolder holder1 = new PlaceHolder(txtCari, "Masukkan User Name");
+        holder1.setCursiva(true);
         setTitle("Menu Admin");
+        disspegawai(false);
         AC = new AdminControl();
-        
+        txtAlamat.getBorder();
         
     }
     public void userNameSama() throws dataSama
@@ -60,10 +62,18 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnRole.clearSelection();
     }
 
-    public void disspegawai()
+    public void disspegawai(boolean nilai)
+    
     {
+       txtCariAlamat.setEnabled(nilai);
+       txtCariNama.setEnabled(nilai);
+       txtCariUserName.setEnabled(nilai);
+       txtCariTanggalLahir.setEnabled(nilai);
+       txtCariNoTlp.setEnabled(nilai);
+       txtCariPassword.setEnabled(nilai);
+      txtCariRole.setEnabled(nilai);
+
        
-        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -129,8 +139,9 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel21 = new javax.swing.JLabel();
+        txtCariRole = new javax.swing.JTextField();
+        btnEdit = new javax.swing.JButton();
         tampilSeluruh = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -629,12 +640,23 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel20.setForeground(new java.awt.Color(0, 255, 255));
         jLabel20.setText("Role");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Role ", "Customer Kasir ", "Kasir" }));
-
         jLabel21.setBackground(new java.awt.Color(0, 255, 255));
         jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 255, 255));
         jLabel21.setText("Cari Pegawai");
+
+        txtCariRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariRoleActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("EDIT");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout cariPegawaiLayout = new javax.swing.GroupLayout(cariPegawai);
         cariPegawai.setLayout(cariPegawaiLayout);
@@ -673,13 +695,16 @@ public class MenuAdmin extends javax.swing.JFrame {
                                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtCariPassword)
-                                    .addComponent(jComboBox1, 0, 290, Short.MAX_VALUE)))))
+                                    .addComponent(txtCariPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                                    .addComponent(txtCariRole)))))
                     .addGroup(cariPegawaiLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(cariPegawaiLayout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(111, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
@@ -717,8 +742,10 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(243, 243, 243))
+                    .addComponent(txtCariRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         mainPanel2.add(cariPegawai, "card3");
@@ -1081,10 +1108,12 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnCariSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariSupplierMouseClicked
         // TODO add your handling code here:
+        setText();
     }//GEN-LAST:event_btnCariSupplierMouseClicked
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
+   
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void btnCariHewanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariHewanMouseClicked
@@ -1125,6 +1154,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         mainPanel2.add(bantuan);
         mainPanel2.repaint(); 
         mainPanel2.revalidate();
+        
     }//GEN-LAST:event_btnHelpActionPerformed
 
     private void btnTampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilActionPerformed
@@ -1194,6 +1224,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             txtCariAlamat.setText(P.getAlamat());
             txtCariUserName.setText(P.getUserName());
             txtCariPassword.setText(P.getPassword());
+            txtCariRole.setText(P.getRole());
 
         }
         else
@@ -1232,7 +1263,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         MainPanel.add(dataProduk);
         MainPanel.repaint();
         MainPanel.revalidate();
-
+        setText();
     }//GEN-LAST:event_btnProdukActionPerformed
 
     private void btnLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLayananActionPerformed
@@ -1243,6 +1274,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         MainPanel.add(dataLayanan);
         MainPanel.repaint();
         MainPanel.revalidate();
+        setText();
 
     }//GEN-LAST:event_btnLayananActionPerformed
 
@@ -1254,7 +1286,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         MainPanel.add(dataPegawai);
         MainPanel.repaint();
         MainPanel.revalidate();
-
+        setText();
     }//GEN-LAST:event_btnPegawaiActionPerformed
 
     private void txtCariNoTlpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariNoTlpActionPerformed
@@ -1331,6 +1363,15 @@ public class MenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCariNamaActionPerformed
 
+    private void txtCariRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariRoleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariRoleActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        disspegawai(true);
+    }//GEN-LAST:event_btnEditActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1373,6 +1414,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel btnCariHewan;
     private javax.swing.JButton btnCariLyn;
     private javax.swing.JLabel btnCariSupplier;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnHelp1;
     private javax.swing.JButton btnHewan;
@@ -1395,7 +1437,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel dataProduk;
     private javax.swing.JPanel dataSupplier;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1442,6 +1483,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtCariNama;
     private javax.swing.JTextField txtCariNoTlp;
     private javax.swing.JTextField txtCariPassword;
+    private javax.swing.JTextField txtCariRole;
     private javax.swing.JTextField txtCariTanggalLahir;
     private javax.swing.JTextField txtCariUserName;
     private javax.swing.JTextField txtNamaPegawai;

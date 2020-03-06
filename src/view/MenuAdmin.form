@@ -862,10 +862,10 @@
                                                       <Component id="jLabel19" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                                                       <Component id="jLabel20" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <EmptySpace max="32767" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="32767" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="txtCariPassword" max="32767" attributes="0"/>
-                                                      <Component id="jComboBox1" pref="290" max="32767" attributes="0"/>
+                                                      <Component id="txtCariPassword" pref="290" max="32767" attributes="0"/>
+                                                      <Component id="txtCariRole" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -873,6 +873,10 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel21" min="-2" pref="202" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+                                          <Component id="btnEdit" min="-2" pref="84" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace pref="111" max="32767" attributes="0"/>
@@ -921,9 +925,11 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel20" alignment="3" min="-2" pref="19" max="-2" attributes="0"/>
-                                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCariRole" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                                  <Component id="btnEdit" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1060,20 +1066,6 @@
                             <Property name="text" type="java.lang.String" value="Role"/>
                           </Properties>
                         </Component>
-                        <Component class="javax.swing.JComboBox" name="jComboBox1">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="3">
-                                <StringItem index="0" value="Pilih Role "/>
-                                <StringItem index="1" value="Customer Kasir "/>
-                                <StringItem index="2" value="Kasir"/>
-                              </StringArray>
-                            </Property>
-                          </Properties>
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                          </AuxValues>
-                        </Component>
                         <Component class="javax.swing.JLabel" name="jLabel21">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -1087,6 +1079,19 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Cari Pegawai"/>
                           </Properties>
+                        </Component>
+                        <Component class="javax.swing.JTextField" name="txtCariRole">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCariRoleActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="btnEdit">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="EDIT"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

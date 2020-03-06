@@ -41,8 +41,7 @@ public class AdminDao {
             System.err.println("koneksi gagal" +e.getMessage());
         }
     }
-    
-  
+   
     public void closeConnection()
     {
         System.out.println("Closing database. . . .");
@@ -63,10 +62,10 @@ public class AdminDao {
 
 
         String sql = "insert into Pegawai(NAMA ,Tanggal_Lahir ,ROLE  ,TELP, ALAMAT , USERNAME, PASSWORD,CREATED_BY)"
-        +"values('"+P.getNamaPegawai()+"','"+P.getTglLahir()+"','"+P.getRole()+"','"+P.getNoHp()+"','"+P.getAlamat()+"','"+P.getUserName()+"','"+P.getPassword()+"','"+"PEMILIK"+"')";
+        +"values('"+P.getNamaPegawai()+"','"+P.getTglLahir()+"','"+P.getRole()+"','"+P.getNoHp()+"','"+P.getAlamat()+"','"+P.getUserName()+"','"+P.getPassword()+"','"+"ADMIN"+"')";
                  
       
-        System.out.println("Adding Admin..");
+        System.out.println("Adding Pegawai..");
         
         try
         {
