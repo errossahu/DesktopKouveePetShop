@@ -1,13 +1,15 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package DAO;
 import Model.Layanan;
 import Model.Pegawai;
+import Model.Suplier;
 import java.sql.Connection;
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,209 +22,293 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 import static sun.misc.MessageUtils.where;
 
 /**
- *
- * @author ACER
- */
+*
+* @author ACER
+*/
 
 public class AdminDao {
-    public static Connection con;
-    public static Statement stm;
-    
-    public void makeConnection(){
-        try {
-            String url ="jdbc:mysql://localhost/db9393";
-            String user="root";
-            String pass="";
+public static Connection con;
+public static Statement stm;
+public  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+public  LocalDateTime now = LocalDateTime.now();  
+public void makeConnection(){
+    try {
+        String url ="jdbc:mysql://localhost/db9393";
+        String user="root";
+        String pass="";
 
-            Class.forName("com.mysql.jdbc.Driver");
-            con =DriverManager.getConnection(url,user,pass);
-            
-            System.out.println("koneksi berhasil;");
-        } catch (Exception e) {
-            System.err.println("koneksi gagal" +e.getMessage());
-        }
+        Class.forName("com.mysql.jdbc.Driver");
+        con =DriverManager.getConnection(url,user,pass);
+
+        System.out.println("koneksi berhasil;");
+    } catch (Exception e) {
+        System.err.println("koneksi gagal" +e.getMessage());
     }
-   
-    public void closeConnection()
+}
+
+public void closeConnection()
+{
+    System.out.println("Closing database. . . .");
+    try
     {
-        System.out.println("Closing database. . . .");
+        con.close();
+        System.out.println("Success...\n");
+    }catch (Exception e)
+    {
+        System.out.println("Error closing the database. . .");
+        System.out.println(e);
+    }
+}
+
+public void tambahLayanan(Layanan L)
+{
+    String sql = "insert into Layanan(nama,CREATED_BY)"
+            +"values('"+L.getNamaLayanan()+"','"+"ADMIN"+"')";
+       System.out.println("Adding Layanan ..");
+
+       try
+       {
+           Statement stm= con.createStatement();
+           int Result = stm.executeUpdate(sql);
+           System.out.println("Added" +Result+"Layanan \n");
+           stm.close();
+       }
+       catch (Exception e)
+       {
+           System.out.println("Gagal Menambahkan Layanan");
+           System.out.println(e);
+       }
+
+}
+
+public void tambahSuplier(Suplier S)
+{
+    String sql = "Insert INTO SUPLIER(NAMA ,ALAMAT , TELP , CREATE_AT, CREATE_BY)"
+            +"values('"+S.getNama()+"','"+S.getAlamat()+"','"+S.getTelp()+"','"+dtf.format(now)+"','"+
+            "ADMIN"+"')";
+    System.out.println("ADDING SUPPLIER");
+    
+    try
+    {
+        Statement stm = con.createStatement();
+        int Result = stm.executeUpdate(sql);
+        System.out.println("Added"+Result+"Pegawai\n");
+        stm.close();
+             
+        
+    }catch(Exception e)
+    {
+        System.out.println("Error Adding Supplier ");
+        System.out.println(e);
+    }
+    
+}
+public void tambahPegawai(Pegawai P)
+{
+
+
+    String sql = "insert into Pegawai(NAMA ,Tanggal_Lahir ,ROLE  ,TELP, ALAMAT , USERNAME, PASSWORD,CREATED_BY)"
+    +"values('"+P.getNamaPegawai()+"','"+P.getTglLahir()+"','"+P.getRole()+"','"+P.getNoHp()+"','"+P.getAlamat()+"','"+P.getUserName()+"','"+P.getPassword()+"','"+"ADMIN"+"')";
+
+
+    System.out.println("Adding Pegawai..");
+
+    try
+    {
+        Statement statement = con.createStatement();
+        int result = statement.executeUpdate(sql);
+        System.out.println("Added" + result + "Pegawai\n");
+        statement.close();
+    }
+    catch(Exception e)
+    {
+        System.out.println("Error adding Pegawai..");
+        System.out.println(e);
+    }
+}
+
+///////////////////DELETE //////////////////////////
+public void deletePegawai(String cari)
+{
+            String sql="UPDATE   PEGAWAI SET AKTIF=0,DELETE_BY='ADMIN' , DELETE_AT='"+dtf.format(now)+"' where USERNAME='"+cari+"'";
+
+              System.out.println("DELETED PEGAWAI...");
+              try
+              {
+                  Statement stm = con.createStatement();
+                  int result = stm.executeUpdate(sql);
+                  System.out.println("added"+result+"Deleted Pegawai");
+                  stm.close();
+
+              }catch(Exception e)
+              {
+                  System.out.println("Error Deleted");
+                  System.out.println(e);
+
+              }
+  }
+public void deleteLayanan(String Cari)
+{
+    String sql = "UPDATE LAYANAN SET AKTIF=0, DELETE_BY='ADMIN' , DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+Cari+"'";
+    System.out.println("Deleted Layanan....");
+    try
+    {
+        Statement stm = con.createStatement() ;
+        int result= stm.executeUpdate(sql);
+        System.out.println("Added "+result +"Deleted Layanan");
+        stm.close();
+    }catch(Exception e)
+    {
+        System.out.println("Deleted Pegawai ");
+        System.out.println(e);
+    }
+}
+
+/////////////////////////////////SEARCH///////////////////////////////////////
+public Layanan searchLayanan(String namaLayanan)
+{
+    String sql = "Select * from Layanan WHERE AKTIF=1 AND  nama = '"+namaLayanan+"'";
+    System.out.println("Mencari Nama Layanan ");
+    Layanan lyn = null ; 
+    try
+    {
+        Statement stm = con.createStatement() ;
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+
+                lyn = new Layanan(rs.getString("Nama"),Integer.parseInt(rs.getString("ID_LAYANAN")),rs.getString("CREATED_BY"),
+                rs.getString("DELETE_BY"),rs.getString("delete_at"),rs.getString("Created_at"),rs.getString("MODIFIED_BY"),rs.getString("MODIFIED_AT"));
+
+
+            }
+        }
+        rs.close();
+        stm.close();
+    }
+
+    catch(Exception e)
+    {
+        System.out.println("Error Mencari Layanan \n");
+        System.out.println(e);
+
+    }
+
+    return lyn ;
+}
+
+
+public Pegawai searchPegawai (String userName){
+    String sql="SELECT * FROM PEGAWAI where AKTIF=1  AND USERNAME= '"+userName+"'" ;
+
+    System.out.println("Mencari user Name Pegawai . . .");
+
+    Pegawai pgw = null;
+    try{
+        Statement statement = con.createStatement();
+        ResultSet rs=statement.executeQuery(sql);
+        if(rs!=null){
+            while(rs.next()){
+
+            pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+            rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
+            rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
+
+
+            }
+        }
+        rs.close();
+        statement.close();
+
+    }
+    catch(Exception Ex){
+        System.out.println("Error reading database information...\n");
+        System.out.println(Ex);
+    }
+     return pgw;
+}
+
+
+
+///////////////////////LIST PEGAWAI///////////////////////
+   public List<Pegawai> TampilPegawai()
+{
+    String sql = "SELECT * FROM  PEGAWAI WHERE AKTIF=1";
+    System.out.println("Daftar Pegawai. . .");
+    Pegawai P ;
+    List<Pegawai> list = new ArrayList<>();
+
+    try
+    {
+        Statement statement = con.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+
+        if(rs != null)
+        {
+            while(rs.next())
+            {
+
+            P = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+            rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
+            rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
+
+                list.add(P);
+                System.out.println(P.getUserName());
+
+            }
+        }
+        rs.close();
+        statement.close();
+    }
+
+    catch(Exception e)
+    {
+        System.out.println("Gagal Membaca Database...\n");
+        System.out.println(e);
+    }
+
+    return list;
+}
+
+public List<Layanan> TampilLayanan()
+{
+
+    List <Layanan> list = new ArrayList<>();
+    return list ;
+}
+
+////////////////////////////////EDIT /////////////////
+    public void editPegawai(Pegawai P,String userName)
+{
+
+        String sql = "UPDATE Pegawai set MODIFIED_BY='ADMIN',"
+                +"',Alamat = '"+P.getAlamat()
+                +"',Tanggal_Lahir = '"+P.getTglLahir()
+                +"',TELP = '"+P.getNoHp()
+                +"',USERNAME='"+P.getUserName()
+                +"',ROLE ='"+P.getRole()
+                +"'NAMA = '"+P.getNamaPegawai()
+                +"',MODIFIED_AT='"+dtf.format(now)+"'where userName = '"+userName+"'";
+
+
+
         try
         {
-            con.close();
-            System.out.println("Success...\n");
+            Statement s= con.createStatement() ;
+            int Result = s.executeUpdate(sql);
+            System.out.println("Data Updated " +Result+ "\n");
+
         }catch (Exception e)
         {
-            System.out.println("Error closing the database. . .");
+            System.out.println("Gagal Updated ");
             System.out.println(e);
         }
-    }
-  
-    public void tambahLayanan(Layanan L)
+}
+    public void editLayanan(Layanan L , String namaLayanan)
     {
-        String sql = "insert into Layanan(nama,CREATED_BY)"
-                +"values('"+L.getNamaLayanan()+"','"+"ADMIN"+"')";
-           System.out.println("Adding Layanan ..");
-           
-           try
-           {
-               Statement stm= con.createStatement();
-               int Result = stm.executeUpdate(sql);
-               System.out.println("Added" +Result+"Layanan \n");
-               stm.close();
-           }
-           catch (Exception e)
-           {
-               System.out.println("Gagal Menambahkan Layanan");
-               System.out.println(e);
-           }
-                
+//            String sql =
     }
-    public void tambahPegawai(Pegawai P)
-    {
 
-
-        String sql = "insert into Pegawai(NAMA ,Tanggal_Lahir ,ROLE  ,TELP, ALAMAT , USERNAME, PASSWORD,CREATED_BY)"
-        +"values('"+P.getNamaPegawai()+"','"+P.getTglLahir()+"','"+P.getRole()+"','"+P.getNoHp()+"','"+P.getAlamat()+"','"+P.getUserName()+"','"+P.getPassword()+"','"+"ADMIN"+"')";
-                 
-      
-        System.out.println("Adding Pegawai..");
-        
-        try
-        {
-            Statement statement = con.createStatement();
-            int result = statement.executeUpdate(sql);
-            System.out.println("Added" + result + "Pegawai\n");
-            statement.close();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Error adding Pegawai..");
-            System.out.println(e);
-        }
-    }
-    
-    
-    public void deletePegawai(String cari)
-    {
-                String sql="UPDATE  FROM PEGAWAI SET AKTIF=0 where Nama_Pengguna='"+cari+"'";
-
-                  System.out.println("DELETED PEGAWAI...");
-                  try
-                  {
-                      Statement stm = con.createStatement();
-                      int result = stm.executeUpdate(sql);
-                      System.out.println("added"+result+"Deleted Pegawai");
-                      stm.close();
-                      
-                  }catch(Exception e)
-                  {
-                      System.out.println("Error Deleted");
-                      System.out.println(e);
-                      
-                  }
-      }
-    public Layanan searchLayanan(String namaLayanan)
-    {
-        String sql = "Select * from Layanan where nama = '"+namaLayanan+"'";
-        System.out.println("Mencari Nama Layanan ");
-        Layanan lyn = null ; 
-        try
-        {
-            Statement stm = con.createStatement() ;
-            ResultSet rs = stm.executeQuery(sql);
-            if(rs!=null)
-            {
-                while(rs.next())
-                {
-                    lyn = new Layanan(rs.getString("NAMA"));
-                    
-                }
-            }
-            rs.close();
-            stm.close();
-        }
-        
-        catch(Exception e)
-        {
-            System.out.println("Error Mencari Layanan \n");
-            System.out.println(e);
-            
-        }
-        
-        return lyn ;
-    }
-    public Pegawai searchPegawai (String userName){
-        String sql="SELECT * FROM PEGAWAI where AKTIF=1  AND USERNAME= '"+userName+"'" ;
-
-        System.out.println("Me     ncari user Name Pegawai . . .");
-        
-        Pegawai pgw = null;
-        try{
-            Statement statement = con.createStatement();
-            ResultSet rs=statement.executeQuery(sql);
-            if(rs!=null){
-                while(rs.next()){
-                    
-                pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
-                rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
-                rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
-                   
-
-                }
-            }
-            rs.close();
-            statement.close();
-
-        }
-        catch(Exception Ex){
-            System.out.println("Error reading database information...\n");
-            System.out.println(Ex);
-        }
-         return pgw;
-    }
-    
-    
-    
-    ///////////////////////LIST PEGAWAI///////////////////////
-       public List<Pegawai> TampilPegawai()
-    {
-        String sql = "SELECT * FROM  PEGAWAI WHERE AKTIF=1";
-        System.out.println("Daftar Pegawai. . .");
-        Pegawai P ;
-        List<Pegawai> list = new ArrayList<>();
-
-        try
-        {
-            Statement statement = con.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
-
-            if(rs != null)
-            {
-                while(rs.next())
-                {
-
-                P = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
-                rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
-                rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
-                   
-                    list.add(P);
-                    System.out.println(P.getUserName());
-                    
-                }
-            }
-            rs.close();
-            statement.close();
-        }
-
-        catch(Exception e)
-        {
-            System.out.println("Gagal Membaca Database...\n");
-            System.out.println(e);
-        }
-
-        return list;
-    }
-    
-    
-    
 }

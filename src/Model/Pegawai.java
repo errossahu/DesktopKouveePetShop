@@ -54,6 +54,30 @@ public class Pegawai {
       this.userName = userName ; 
       
     }
+    public void setDelelted_by(String delete_by)
+    {
+        this.deleted_by = delete_by ;
+    }
+    public String getDeleted_by( )
+    {
+        return deleted_by ;
+    }
+    public void setDeleted_at(String delete_at)
+    {
+        this.deleted_at =delete_at;
+    }
+    public String getDeleted_at()
+    {
+        return deleted_at;
+    }
+    public String getModified_at()
+    {
+        return Modified_at ;
+    }
+    public void setModified_at(String Modified_at)
+    {
+        this.Modified_at= Modified_at ;
+    }
     public int getId()
     {
         return Id_Pegawai;
@@ -119,5 +143,13 @@ public class Pegawai {
     public String getUserName ()
     {
         return userName ; 
+    }
+    public int getAktif()
+    {
+        return Aktif ;
+    }
+    public void setAktif(int Aktif)
+    {
+        this.Aktif= Aktif;
     }
 }

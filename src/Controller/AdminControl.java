@@ -7,6 +7,7 @@ package Controller;
 import DAO.AdminDao ;
 import Model.Layanan;
 import Model.Pegawai;
+import Model.Suplier;
 import java.util.List;
 /**
  *
@@ -19,6 +20,13 @@ private final AdminDao aDAO = new AdminDao();
     {
         aDAO.makeConnection(); 
         aDAO.tambahLayanan(L);
+        aDAO.closeConnection();
+    }
+    public void editPegawai( Pegawai P,String userName )
+    {
+
+        aDAO.makeConnection(); 
+        aDAO.editPegawai(P, userName);
         aDAO.closeConnection();
     }
     public void tambahPegawai(Pegawai P)
@@ -34,6 +42,20 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.deletePegawai(cari);
         aDAO.closeConnection();
     }
+    public void deleteLayanan(String cari)
+    {
+        aDAO.makeConnection(); 
+        aDAO.deleteLayanan(cari);
+        aDAO.closeConnection();
+    }
+    
+    public void tambahSuplier(Suplier S)
+    {
+        aDAO.makeConnection(); 
+        aDAO.tambahSuplier(S);
+        aDAO.closeConnection(); 
+    }    
+  
     public Pegawai searchPegawai(String userName)
     {
         Pegawai pgw=null;
