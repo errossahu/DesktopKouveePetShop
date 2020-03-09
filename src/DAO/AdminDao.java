@@ -83,7 +83,7 @@ public void tambahLayanan(Layanan L)
 
 public void tambahSuplier(Suplier S)
 {
-    String sql = "Insert INTO SUPLIER(NAMA ,ALAMAT , TELP , CREATE_AT, CREATE_BY)"
+    String sql = "Insert INTO SUPPLIER(NAMA ,ALAMAT , TELP , CREATED_AT, CREATED_BY)"
             +"values('"+S.getNama()+"','"+S.getAlamat()+"','"+S.getTelp()+"','"+dtf.format(now)+"','"+
             "ADMIN"+"')";
     System.out.println("ADDING SUPPLIER");
@@ -107,8 +107,8 @@ public void tambahPegawai(Pegawai P)
 {
 
 
-    String sql = "insert into Pegawai(NAMA ,Tanggal_Lahir ,ROLE  ,TELP, ALAMAT , USERNAME, PASSWORD,CREATED_BY)"
-    +"values('"+P.getNamaPegawai()+"','"+P.getTglLahir()+"','"+P.getRole()+"','"+P.getNoHp()+"','"+P.getAlamat()+"','"+P.getUserName()+"','"+P.getPassword()+"','"+"ADMIN"+"')";
+    String sql = "insert into Pegawai(NAMA ,Tanggal_Lahir ,ROLE  ,TELP, ALAMAT , USERNAME, PASSWORD,CREATED_BY,CREATED_AT)"
+    +"values('"+P.getNamaPegawai()+"','"+P.getTglLahir()+"','"+P.getRole()+"','"+P.getNoHp()+"','"+P.getAlamat()+"','"+P.getUserName()+"','"+P.getPassword()+"','"+"ADMIN"+"','"+dtf.format(now)+"')";
 
 
     System.out.println("Adding Pegawai..");
@@ -162,6 +162,22 @@ public void deleteLayanan(String Cari)
         System.out.println("Deleted Pegawai ");
         System.out.println(e);
     }
+}
+public void deleteSuplier(String cari )
+{
+    String sql = "Update Supplier set AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+cari+"'";
+   try
+   {
+        Statement stm = con.createStatement();
+    int result =stm.executeUpdate(sql);
+    System.out.println("");
+   }
+   catch(Exception e)
+   {
+       System.out.println("Gagal Hapus Suplier");
+       System.out.println(e);
+   }
+    
 }
 
 /////////////////////////////////SEARCH///////////////////////////////////////
@@ -308,7 +324,10 @@ public List<Layanan> TampilLayanan()
 }
     public void editLayanan(Layanan L , String namaLayanan)
     {
-//            String sql =
+//                      String sql ="UPDATE Layanan set MODIFIED_BY='ADMIN',"
+//                              + ",Nama = '"+L.getNamaLayanan()
+//                              +",Modified_at='"
+                      
     }
 
 }
