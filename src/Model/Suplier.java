@@ -20,11 +20,13 @@ public class Suplier {
     public String Modified_at ;
     public String delete_by ;
     public String delete_at ;
+    public int id;
     
     public Suplier(){}
     public Suplier(String nama , String alamat , String telp , String create_by,String create_at ,String Modified_by , 
-            String Modifie_at , String delete_by , String delete_at)
+            String Modifie_at , String delete_by , String delete_at,int id)
     {
+        this.id= id ;
         this.nama = nama ;
         this.alamat = alamat ; 
         this.telp= telp ;
@@ -36,6 +38,14 @@ public class Suplier {
         this.delete_by = this.delete_by;
                 
         
+    }
+    public void setId(int id)
+    {
+        this.id = id ;
+    }
+    public int getId()
+    {
+        return id ;
     }
     public void setTelp (String telp)
     {

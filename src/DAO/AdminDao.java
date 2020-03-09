@@ -196,8 +196,8 @@ public void deleteSuplier(String cari )
    try
    {
         Statement stm = con.createStatement();
-    int result =stm.executeUpdate(sql);
-    System.out.println("");
+        int result =stm.executeUpdate(sql);
+        System.out.println("DELETE SUP "+result);
    }
    catch(Exception e)
    {
@@ -208,6 +208,39 @@ public void deleteSuplier(String cari )
 }
 
 /////////////////////////////////SEARCH///////////////////////////////////////
+public Suplier searchSupplier(String namaSupplier)
+{
+    String sql= "Select *from SUPPLIER where AKTIF=1 and nama='"+namaSupplier+"'";
+    System.out.println("Mencari Nama Suppler");
+    Suplier sp = null ;
+    try
+    {
+        
+        Statement stm = con.createStatement();
+        ResultSet result = stm.executeQuery(sql);
+        if(result!=null)
+        {
+            while(result.next())
+            {
+//                  public Suplier(String nama , String alamat , String telp , String create_by,String create_at ,String Modified_by , 
+//            String Modifie_at , String delete_by , String delete_at)
+                
+                sp = new Suplier(result.getString("NAmA"),result.getString("ALAMAT"),result.getString("TELP"),
+                result.getString("CREATED_BY"),result.getString("CREATED_AT"),result.getString("MODIFIED_BY"),
+                result.getString("MODIFIED_AT"),result.getString("DELETE_BY"),result.getString("DELETE_AT"),Integer.parseInt(result.getString("ID_SUPPLIER")));
+            }
+            result.close();
+            stm.close();
+        }
+        
+    }
+    catch(Exception e)
+    {
+        System.out.println("Gagal Mencari Database");
+        System.out.println(e);
+    }
+    return sp ;
+}
 public Layanan searchLayanan(String namaLayanan)
 {
     String sql = "Select * from Layanan WHERE AKTIF=1 AND  nama = '"+namaLayanan+"'";

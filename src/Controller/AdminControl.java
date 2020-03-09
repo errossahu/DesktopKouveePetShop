@@ -48,7 +48,13 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.deleteLayanan(cari);
         aDAO.closeConnection();
     }
-    
+    public void deleteSup(String cari )
+    {
+        aDAO.makeConnection();
+        aDAO.deleteSuplier(cari);
+        aDAO.closeConnection();
+        
+    }
     public void tambahSuplier(Suplier S)
     {
         aDAO.makeConnection(); 
@@ -64,7 +70,15 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         return adm;
     }
-    
+    public Suplier searchSup(String namaSup )
+    {
+        Suplier sp = null ;
+        aDAO.makeConnection(); 
+        sp= aDAO.searchSupplier(namaSup);
+        aDAO.closeConnection();
+        return sp ;
+                
+    }
     public Pegawai searchPegawai(String userName)
     {
         Pegawai pgw=null;
