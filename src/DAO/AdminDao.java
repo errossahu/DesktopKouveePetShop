@@ -62,8 +62,8 @@ public void closeConnection()
 
 public void tambahLayanan(Layanan L)
 {
-    String sql = "insert into Layanan(nama,CREATED_BY)"
-            +"values('"+L.getNamaLayanan()+"','"+"ADMIN"+"')";
+    String sql = "insert into Layanan(nama,CREATED_BY,CREATED_AT)"
+            +"values('"+L.getNamaLayanan()+"','"+"ADMIN"+"','"+dtf.format(now)+"')";
        System.out.println("Adding Layanan ..");
 
        try
@@ -130,7 +130,7 @@ public void tambahPegawai(Pegawai P)
 ///////////////////DELETE //////////////////////////
 public void deletePegawai(String cari)
 {
-            String sql="UPDATE   PEGAWAI SET AKTIF=0,DELETE_BY='ADMIN' , DELETE_AT='"+dtf.format(now)+"' where USERNAME='"+cari+"'";
+            String sql="UPDATE   PEGAWAI SET AKTIF=0, DELETE_BY='ADMIN' , DELETE_AT='"+dtf.format(now)+"' where USERNAME='"+cari+"'";
 
               System.out.println("DELETED PEGAWAI...");
               try

@@ -9,12 +9,15 @@ import java.util.GregorianCalendar;
 
 import Controller.AdminControl ;
 import Model.Layanan;
+import exception.CekHuruf;
 import Model.Pemilik;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import Model.Pegawai ;
 import Model.Suplier;
 import com.placeholder.PlaceHolder;
+import exception.CekAngka;
+import exception.CekHuruf;
 import exception.dataSama;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -56,6 +59,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         tablePegawai.setEnabled(false);
 
     }
+  
      public void addTablePegawai(Pegawai P) {
         Vector data = new Vector();
     
@@ -69,6 +73,28 @@ public class MenuAdmin extends javax.swing.JFrame {
        
         tabelModel.addRow(data);
     }
+     public void cekAngka()throws CekAngka
+     {
+       if(txtNoTelp.getText().matches("[0-9]*")) 
+       {
+           System.out.println("ok");
+       }
+       else
+       {
+           throw new  CekAngka();
+       }
+     }
+     public void cekHuruf()throws CekHuruf
+     {
+         if(txtNamaPegawai.getText().matches("[0-9]*"))
+         {
+             throw new CekHuruf();
+         }
+         else
+         {
+             System.out.println("okk");
+         }
+     }
     public void tampilPegawai()
     {
         int a = tabelModel.getRowCount();
@@ -278,16 +304,6 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnCariSup = new javax.swing.JButton();
         jLabel29 = new javax.swing.JLabel();
         mainPanel4 = new javax.swing.JPanel();
-        TambahSuplier = new javax.swing.JPanel();
-        txtNamSup = new javax.swing.JTextField();
-        txtAlamatSup = new javax.swing.JTextField();
-        txtTelpSup = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        btnSimpanSuplier = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         CariSuplier = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         txtCariSup = new javax.swing.JTextField();
@@ -303,6 +319,16 @@ public class MenuAdmin extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         TampilSuplier = new javax.swing.JPanel();
         HelpSuplier = new javax.swing.JPanel();
+        TambahSuplier = new javax.swing.JPanel();
+        txtNamSup = new javax.swing.JTextField();
+        txtAlamatSup = new javax.swing.JTextField();
+        txtTelpSup = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        btnSimpanSuplier = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         dataHewan = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         btnCariHewan = new javax.swing.JLabel();
@@ -311,13 +337,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/dogg.png")).getImage());
 
-        background.setBackground(new java.awt.Color(158, 242, 255));
+        background.setBackground(new java.awt.Color(255, 255, 255));
         background.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        menuHome.setBackground(new java.awt.Color(65, 224, 248));
+        menuHome.setBackground(new java.awt.Color(99, 175, 241));
         menuHome.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         judul.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        judul.setForeground(new java.awt.Color(0, 0, 0));
         judul.setText("MENU ADMIN");
 
         btnPegawai.setFont(new java.awt.Font("Serif", 1, 12)); // NOI18N
@@ -403,7 +430,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(menuHomeLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(judul)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         menuHomeLayout.setVerticalGroup(
             menuHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -425,13 +452,14 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        MainPanel.setBackground(new java.awt.Color(65, 224, 248));
+        MainPanel.setBackground(new java.awt.Color(168, 238, 244));
         MainPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         MainPanel.setLayout(new java.awt.CardLayout());
 
-        dataPegawai.setBackground(new java.awt.Color(65, 224, 248));
+        dataPegawai.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel1.setBackground(new java.awt.Color(38, 39, 37));
+        jPanel1.setBackground(new java.awt.Color(99, 175, 241));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnTambah.setBackground(new java.awt.Color(51, 255, 255));
         btnTambah.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -473,8 +501,8 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel12.setFont(new java.awt.Font("Bodoni MT Condensed", 0, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("MENGELOLA PEGAWAI KOEVEE PET SHOP");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -484,15 +512,15 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnTambah)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCari, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnTampil)))
-                .addGap(49, 49, 49)
-                .addComponent(btnHelp)
+                        .addComponent(btnTampil)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnHelp))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -511,7 +539,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel2.setLayout(new java.awt.CardLayout());
 
-        bantuan.setBackground(new java.awt.Color(51, 51, 51));
+        bantuan.setBackground(new java.awt.Color(89, 238, 191));
 
         javax.swing.GroupLayout bantuanLayout = new javax.swing.GroupLayout(bantuan);
         bantuan.setLayout(bantuanLayout);
@@ -526,10 +554,11 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel2.add(bantuan, "card5");
 
-        tambahPegawai.setBackground(new java.awt.Color(51, 51, 51));
+        tambahPegawai.setBackground(new java.awt.Color(99, 175, 241));
+        tambahPegawai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tambahPegawai.setForeground(new java.awt.Color(0, 0, 0));
 
-        txtNamaPegawai.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtNamaPegawai.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         txtNamaPegawai.setForeground(new java.awt.Color(0, 0, 0));
         txtNamaPegawai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,14 +567,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nama ");
 
         jLabel2.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Tanggal Lahir ");
 
-        txtNoTelp.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtNoTelp.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         txtNoTelp.setForeground(new java.awt.Color(0, 0, 0));
         txtNoTelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -554,32 +583,32 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("No Tlp ");
 
         jLabel8.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Alamat ");
 
-        txtAlamat.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtAlamat.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         txtAlamat.setForeground(new java.awt.Color(0, 0, 0));
 
-        txtUserName.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtUserName.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         txtUserName.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel9.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("User Name ");
 
-        txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabel10.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Password ");
 
         jLabel11.setFont(new java.awt.Font("Felix Titling", 1, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Role ");
 
         btnSimpanPegawai.setBackground(new java.awt.Color(102, 255, 255));
@@ -596,7 +625,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel6.setBackground(new java.awt.Color(153, 153, 255));
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
+        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/w.png"))); // NOI18N
         jLabel6.setText("Tambah Pegawai ");
 
@@ -722,7 +751,8 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel2.add(tambahPegawai, "card2");
 
-        cariPegawai.setBackground(new java.awt.Color(51, 51, 51));
+        cariPegawai.setBackground(new java.awt.Color(99, 175, 241));
+        cariPegawai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         txtCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -751,42 +781,42 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         jLabel14.setBackground(new java.awt.Color(0, 255, 255));
         jLabel14.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Nama");
 
         jLabel15.setBackground(new java.awt.Color(0, 255, 255));
         jLabel15.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Tanggal Lahir");
 
         jLabel16.setBackground(new java.awt.Color(0, 255, 255));
         jLabel16.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("No Tlp");
 
         jLabel17.setBackground(new java.awt.Color(0, 255, 255));
         jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel17.setForeground(new java.awt.Color(0, 0, 0));
         jLabel17.setText("Alamat");
 
         jLabel18.setBackground(new java.awt.Color(0, 255, 255));
         jLabel18.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel18.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("User Name");
 
         jLabel19.setBackground(new java.awt.Color(0, 255, 255));
         jLabel19.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Password");
 
         jLabel20.setBackground(new java.awt.Color(0, 255, 255));
         jLabel20.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Role");
 
         jLabel21.setBackground(new java.awt.Color(0, 255, 255));
         jLabel21.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Cari Pegawai");
 
         txtCariRole.addActionListener(new java.awt.event.ActionListener() {
@@ -869,7 +899,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(cariPegawaiLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -917,7 +947,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel2.add(cariPegawai, "card3");
 
-        tampilSeluruh.setBackground(new java.awt.Color(51, 51, 51));
+        tampilSeluruh.setBackground(new java.awt.Color(99, 175, 241));
 
         tablePegawai.setBackground(new java.awt.Color(255, 255, 255));
         tablePegawai.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -979,10 +1009,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         MainPanel.add(dataPegawai, "card6");
 
-        dataLayanan.setBackground(new java.awt.Color(65, 224, 248));
+        dataLayanan.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(38, 39, 37));
+        jPanel2.setBackground(new java.awt.Color(99, 175, 241));
 
+        btnTambahLyn.setBackground(new java.awt.Color(51, 255, 255));
+        btnTambahLyn.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnTambahLyn.setForeground(new java.awt.Color(0, 0, 0));
         btnTambahLyn.setText("Tambah Layanan");
         btnTambahLyn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -997,6 +1030,9 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnTampilLyn.setBackground(new java.awt.Color(51, 255, 255));
+        btnTampilLyn.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnTampilLyn.setForeground(new java.awt.Color(0, 0, 0));
         btnTampilLyn.setText("Tampil Seluruh");
         btnTampilLyn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1004,6 +1040,9 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        btnCariLyn.setBackground(new java.awt.Color(51, 255, 255));
+        btnCariLyn.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        btnCariLyn.setForeground(new java.awt.Color(0, 0, 0));
         btnCariLyn.setText("Cari Layanan");
         btnCariLyn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1012,7 +1051,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel25.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel25.setForeground(new java.awt.Color(0, 0, 0));
         jLabel25.setText("MENGELOLA LAYANAN KOEVEE PET SHOP");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1049,7 +1088,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel3.setLayout(new java.awt.CardLayout());
 
-        tambahLayanan.setBackground(new java.awt.Color(38, 39, 37));
+        tambahLayanan.setBackground(new java.awt.Color(99, 175, 241));
 
         txtNamaLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1108,12 +1147,12 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76)
                 .addComponent(btnTambahLayanan)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
 
         mainPanel3.add(tambahLayanan, "card2");
 
-        cariLayanan.setBackground(new java.awt.Color(38, 39, 37));
+        cariLayanan.setBackground(new java.awt.Color(99, 175, 241));
 
         txtCariLayanan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1178,17 +1217,14 @@ public class MenuAdmin extends javax.swing.JFrame {
                                 .addComponent(btnHapusLayanan))
                             .addGroup(cariLayananLayout.createSequentialGroup()
                                 .addGroup(cariLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(cariLayananLayout.createSequentialGroup()
-                                        .addGap(51, 51, 51)
-                                        .addComponent(btnCariLayanan))
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(24, 24, 24)
+                                        .addComponent(btnCariLayanan)))
+                                .addGap(1, 1, 1)
                                 .addGroup(cariLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(cariLayananLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtCariLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(cariLayananLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(txtNamaLayananCari, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtCariLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNamaLayananCari, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         cariLayananLayout.setVerticalGroup(
@@ -1200,21 +1236,21 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addGroup(cariLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCariLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCariLayanan))
-                .addGap(105, 105, 105)
+                .addGap(18, 18, 18)
                 .addGroup(cariLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNamaLayananCari, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(110, 110, 110)
+                .addGap(41, 41, 41)
                 .addGroup(cariLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditLayanan)
                     .addComponent(btnSimpanEditLayanan)
                     .addComponent(btnHapusLayanan))
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(380, Short.MAX_VALUE))
         );
 
         mainPanel3.add(cariLayanan, "card3");
 
-        tampilLayanan.setBackground(new java.awt.Color(38, 39, 37));
+        tampilLayanan.setBackground(new java.awt.Color(99, 175, 241));
 
         javax.swing.GroupLayout tampilLayananLayout = new javax.swing.GroupLayout(tampilLayanan);
         tampilLayanan.setLayout(tampilLayananLayout);
@@ -1224,7 +1260,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
         tampilLayananLayout.setVerticalGroup(
             tampilLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 573, Short.MAX_VALUE)
+            .addGap(0, 575, Short.MAX_VALUE)
         );
 
         mainPanel3.add(tampilLayanan, "card4");
@@ -1250,9 +1286,9 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         MainPanel.add(dataLayanan, "card3");
 
-        dataProduk.setBackground(new java.awt.Color(65, 224, 248));
+        dataProduk.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel3.setBackground(new java.awt.Color(38, 39, 37));
+        jPanel3.setBackground(new java.awt.Color(99, 175, 241));
 
         btnTambah1.setBackground(new java.awt.Color(51, 255, 255));
         btnTambah1.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
@@ -1344,16 +1380,16 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(dataProdukLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(589, Short.MAX_VALUE))
+                .addContainerGap(591, Short.MAX_VALUE))
         );
 
         MainPanel.add(dataProduk, "card4");
 
-        dataSupplier.setBackground(new java.awt.Color(65, 224, 248));
+        dataSupplier.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel4.setBackground(new java.awt.Color(38, 39, 37));
+        jPanel4.setBackground(new java.awt.Color(99, 175, 241));
 
-        btnTambahSup.setBackground(new java.awt.Color(51, 255, 255));
+        btnTambahSup.setBackground(new java.awt.Color(255, 255, 255));
         btnTambahSup.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnTambahSup.setForeground(new java.awt.Color(0, 0, 0));
         btnTambahSup.setText("Tambah Suplier");
@@ -1373,7 +1409,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnTampilSup.setBackground(new java.awt.Color(51, 255, 255));
+        btnTampilSup.setBackground(new java.awt.Color(255, 255, 255));
         btnTampilSup.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnTampilSup.setForeground(new java.awt.Color(0, 0, 0));
         btnTampilSup.setText("Tampil Seluruh Suplier");
@@ -1383,7 +1419,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        btnCariSup.setBackground(new java.awt.Color(51, 255, 255));
+        btnCariSup.setBackground(new java.awt.Color(255, 255, 255));
         btnCariSup.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         btnCariSup.setForeground(new java.awt.Color(0, 0, 0));
         btnCariSup.setText("Cari Suplier");
@@ -1394,7 +1430,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
 
         jLabel29.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 0, 24)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setText("MENGELOLA SUPLIER KOEVEE PET SHOP");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1431,92 +1467,6 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel4.setPreferredSize(new java.awt.Dimension(684, 421));
         mainPanel4.setLayout(new java.awt.CardLayout());
-
-        TambahSuplier.setBackground(java.awt.Color.darkGray);
-
-        txtNamSup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamSupActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(153, 255, 255));
-        jLabel3.setText("Nama Suplier");
-
-        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(153, 255, 255));
-        jLabel4.setText("Alamat");
-
-        jLabel30.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
-        jLabel30.setForeground(new java.awt.Color(153, 255, 255));
-        jLabel30.setText("Telephone");
-
-        jLabel31.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(51, 255, 255));
-        jLabel31.setText("TAMBAH SUPLIER");
-
-        btnSimpanSuplier.setText("SIMPAN");
-        btnSimpanSuplier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanSuplierActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("BATAL");
-
-        javax.swing.GroupLayout TambahSuplierLayout = new javax.swing.GroupLayout(TambahSuplier);
-        TambahSuplier.setLayout(TambahSuplierLayout);
-        TambahSuplierLayout.setHorizontalGroup(
-            TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TambahSuplierLayout.createSequentialGroup()
-                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(TambahSuplierLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 409, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(TambahSuplierLayout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTelpSup, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAlamatSup, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNamSup, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TambahSuplierLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSimpanSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(263, Short.MAX_VALUE))
-        );
-        TambahSuplierLayout.setVerticalGroup(
-            TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TambahSuplierLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
-                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNamSup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAlamatSup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTelpSup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98)
-                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSimpanSuplier)
-                    .addComponent(jButton2))
-                .addGap(181, 181, 181))
-        );
-
-        mainPanel4.add(TambahSuplier, "card2");
 
         CariSuplier.setBackground(java.awt.Color.darkGray);
 
@@ -1618,7 +1568,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                             .addGroup(CariSuplierLayout.createSequentialGroup()
                                 .addGap(78, 78, 78)
                                 .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 68, Short.MAX_VALUE))
+                                .addGap(0, 69, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CariSuplierLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1637,7 +1587,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
 
         mainPanel4.add(CariSuplier, "card3");
@@ -1650,7 +1600,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
         TampilSuplierLayout.setVerticalGroup(
             TampilSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 567, Short.MAX_VALUE)
         );
 
         mainPanel4.add(TampilSuplier, "card4");
@@ -1663,10 +1613,98 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
         HelpSuplierLayout.setVerticalGroup(
             HelpSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 565, Short.MAX_VALUE)
+            .addGap(0, 567, Short.MAX_VALUE)
         );
 
         mainPanel4.add(HelpSuplier, "card5");
+
+        TambahSuplier.setBackground(new java.awt.Color(99, 175, 241));
+
+        txtNamSup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamSupActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Nama Suplier");
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setText("Alamat");
+
+        jLabel30.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel30.setText("Telephone");
+
+        jLabel31.setFont(new java.awt.Font("Sylfaen", 1, 14)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/truk2.png"))); // NOI18N
+        jLabel31.setText("TAMBAH SUPLIER");
+
+        btnSimpanSuplier.setText("SIMPAN");
+        btnSimpanSuplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanSuplierActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("BATAL");
+
+        javax.swing.GroupLayout TambahSuplierLayout = new javax.swing.GroupLayout(TambahSuplier);
+        TambahSuplier.setLayout(TambahSuplierLayout);
+        TambahSuplierLayout.setHorizontalGroup(
+            TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TambahSuplierLayout.createSequentialGroup()
+                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TambahSuplierLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(TambahSuplierLayout.createSequentialGroup()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSimpanSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(TambahSuplierLayout.createSequentialGroup()
+                                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtTelpSup, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAlamatSup, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNamSup, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(TambahSuplierLayout.createSequentialGroup()
+                        .addGap(173, 173, 173)
+                        .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(181, Short.MAX_VALUE))
+        );
+        TambahSuplierLayout.setVerticalGroup(
+            TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TambahSuplierLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNamSup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAlamatSup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelpSup, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(TambahSuplierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSimpanSuplier)
+                    .addComponent(jButton2))
+                .addGap(220, 220, 220))
+        );
+
+        mainPanel4.add(TambahSuplier, "card2");
 
         javax.swing.GroupLayout dataSupplierLayout = new javax.swing.GroupLayout(dataSupplier);
         dataSupplier.setLayout(dataSupplierLayout);
@@ -1685,7 +1723,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(mainPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                .addComponent(mainPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 567, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1731,7 +1769,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addGroup(dataHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCariHewan))
-                .addContainerGap(643, Short.MAX_VALUE))
+                .addContainerGap(645, Short.MAX_VALUE))
         );
 
         MainPanel.add(dataHewan, "card6");
@@ -1741,9 +1779,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(menuHome, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(menuHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -1963,7 +2000,7 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnSimpanPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPegawaiActionPerformed
         // TODO add your handling code here:
-        
+       
         String format = "yyyy-MM-dd";
         SimpleDateFormat fm = new SimpleDateFormat(format);
         String tanggal = String.valueOf(fm.format(txtTanggalLahir.getDate()));
@@ -1982,30 +2019,47 @@ public class MenuAdmin extends javax.swing.JFrame {
             role= "Kasir ";
         }
 
-           
-        try
+        if(txtNoTelp.getText().length()<12)
         {
-//            P = new  Pegawai (String namaPegawai , Date tglLahir , String role ,int  noHp ,String alamat , String userName , String password )
-            
-            userNameSama();
-            Pegawai peg = new Pegawai();
-                    peg.setAlamat(txtAlamat.getText());
-                    peg.setNama(txtNamaPegawai.getText());
-                    peg.setNoHp(txtNoTelp.getText());
-                    peg.setPassword(txtPassword.getText());
-                    peg.setTglLahir(tanggal);
-                    peg.setUserName(txtUserName.getText());
-                    peg.setRole(role);
-            AC.tambahPegawai(peg);
-            setText();
-            
-            JOptionPane.showMessageDialog(this,"Data Pegawai Berhasil Ditambahkan");
+            JOptionPane.showMessageDialog(this, "NO HP kurang 12");
         }
-        catch(dataSama ds)
-        {
-            JOptionPane.showMessageDialog(this,ds.dataSama());
-         
+        else
+            {
+            try
+            {
+    //            P = new  Pegawai (String namaPegawai , Date tglLahir , String role ,int  noHp ,String alamat , String userName , String password )
+                cekAngka();
+                cekHuruf();
+                userNameSama();
+                Pegawai peg = new Pegawai();
+                        peg.setAlamat(txtAlamat.getText());
+                        peg.setNama(txtNamaPegawai.getText());
+                        peg.setNoHp(txtNoTelp.getText());
+                        peg.setPassword(txtPassword.getText());
+                        peg.setTglLahir(tanggal);
+                        peg.setUserName(txtUserName.getText());
+                        peg.setRole(role);
+                AC.tambahPegawai(peg);
+                setText();
+
+                JOptionPane.showMessageDialog(this,"Data Pegawai Berhasil Ditambahkan");
+            }
+            catch(dataSama ds)
+            {
+                JOptionPane.showMessageDialog(this,ds.dataSama());
+
+            }
+            catch(CekAngka cd)
+            {
+                JOptionPane.showMessageDialog(this,cd.dataHanyaHuruf());
+            }
+            catch(CekHuruf dc)
+            {
+                JOptionPane.showMessageDialog(this, dc.cekHuruf());
+                
+            }
         }
+       
 
     }//GEN-LAST:event_btnSimpanPegawaiActionPerformed
 
@@ -2100,16 +2154,45 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        String cari = txtCari.getText();
-     if(JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
-        {
-            AC.deletePegawai(cari);
-            setTextCariPegawai();
-        }
-     else
+        setText();
+       
+       
+        
+      
+        
+     try
      {
+         String cari = txtCari.getText();
          
+         if(txtCariNama.getText().equalsIgnoreCase(""))
+         {
+             JOptionPane.showMessageDialog(this, "Tidak Ada Yang Di Hapus");
+         }
+         else
+         {
+            if (JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+            {
+                AC.deletePegawai(cari);
+                JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus..");
+                
+            }  
+         }
+            
+        
+            setTextCariPegawai();
+
+        
      }
+     catch(Exception e)
+     {
+         System.out.println(e);
+     }
+     
+        
+        
+         
+    
+     
       
     }//GEN-LAST:event_btnHapusActionPerformed
 
@@ -2149,23 +2232,35 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnHapusLayananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusLayananActionPerformed
         // TODO add your handling code here:
-        try
+        if(txtCariLayanan.getText().endsWith(" "))
         {
-        String cari = txtCariLayanan.getText();
-          if(JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
-          {
-              AC.deleteLayanan(cari);
-              setTextLayanan();
-          } 
-          else
-          {
-              setTextLayanan();
-              dissLayanan(false);
-          }
+            JOptionPane.showMessageDialog(this,"Tidak Ada Data Yang Dihapus .");
+            
+
         }
-        catch(Exception e)
+        else
         {
-            System.out.println(e);
+
+            try   
+            {
+            String cari = txtCariLayanan.getText();
+              if(JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+              {
+                  AC.deleteLayanan(cari);
+                  setTextLayanan();
+              
+                  JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus ..");
+              } 
+              else
+              {
+                  setTextLayanan();
+                  dissLayanan(false);
+              }
+            }
+            catch(Exception e)
+            {
+                System.out.println(e);
+            }
         }
     }//GEN-LAST:event_btnHapusLayananActionPerformed
 
