@@ -44,7 +44,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         initComponents();
         dissLayanan(false);
         PlaceHolder holder0 = new PlaceHolder(txtNamaLayanan,"Masukan Nama Layanan");
-        PlaceHolder holder2 = new  PlaceHolder(txtCariLayanan,"Masukan Nama Layanan ");
+        PlaceHolder holder2 = new PlaceHolder(txtCariLayanan,"Masukan Nama Layanan ");
         PlaceHolder holder1 = new PlaceHolder(txtCari, "Masukkan User Name");
         PlaceHolder holder3 = new PlaceHolder(txtCariSup, "Masukan Nama Supplier");
         holder3.setCursiva(true);

@@ -43,6 +43,13 @@ public class Pelanggan {
         this.tglLahir = tgllahir ;
     }
     
-    
+    public void setId_pelanggan(int Id_Pelanggan)
+    {
+        this.Id_pelanggan = Id_Pelanggan ;
+    }
+    public int getId_pelanggan()
+    {
+        return Id_pelanggan ;
+    }
    
 }

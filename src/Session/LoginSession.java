@@ -11,6 +11,7 @@ import view.LoginAdmin ;
  * @author ACER
  */
 public class LoginSession {
+    public static String nama ;
     public static int idUser ;
     public static  void setIdUser(int idUser)
     {
@@ -20,6 +21,16 @@ public class LoginSession {
     {
         return idUser;
     }
+    public static void setNama(String nama )
+    {
+        LoginSession.nama = nama ;
+    }
+    public static String getNama()
+    {
+        return nama  ; 
+        
+    }
+    
     
    
 }
