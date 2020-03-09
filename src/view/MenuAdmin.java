@@ -61,6 +61,13 @@ public class MenuAdmin extends javax.swing.JFrame {
         tablePegawai.setEnabled(false);
         int id = LoginSession.getIduser();
         System.out.println("Idnya: "+id);
+        if(id==0)
+        {
+            JOptionPane.showMessageDialog(this, "Anda Belum Login..");
+         
+        }
+
+            
     }
   
      public void addTablePegawai(Pegawai P) {
@@ -137,7 +144,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         {
             
            throw new dataSama();
-    
+           
         }
         
  
