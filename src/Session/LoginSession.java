@@ -11,8 +11,15 @@ import view.LoginAdmin ;
  * @author ACER
  */
 public class LoginSession {
-    public void Login()
+    public static int idUser ;
+    public static  void setIdUser(int idUser)
     {
-        
+      LoginSession.idUser=idUser ;
     }
+    public static int getIduser()
+    {
+        return idUser;
+    }
+    
+   
 }

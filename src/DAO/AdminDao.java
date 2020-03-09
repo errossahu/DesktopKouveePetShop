@@ -126,7 +126,34 @@ public void tambahPegawai(Pegawai P)
         System.out.println(e);
     }
 }
+   public Pegawai getPegawai (){
+        String sql="SELECT * FROM PEGAWAI";
+        System.out.println("Searching Nama Pengguna . . .");
+        
+        Pegawai pgw = null;
+        try{
+            Statement statement = con.createStatement();
+            ResultSet rs=statement.executeQuery(sql);
+            if(rs!=null){
+                while(rs.next()){
+                    pgw = new Pegawai (rs.getString("nama"),rs.getString("Tanggal_Lahir"),rs.getString("role"),
+                    rs.getString("TELP"),rs.getString("alamat"),rs.getString("USERNAME"),rs.getString("password"),Integer.parseInt(rs.getString("id_Pegawai")),
+                    rs.getString("Created_at"),rs.getString("CREATED_BY"),rs.getString("Modified_at"),rs.getString("Modified_by"),rs.getString("delete_at"),rs.getString("delete_by"),Integer.parseInt(rs.getString("AKTIF")));                   
 
+
+                
+                }
+            }
+            rs.close();
+            statement.close();
+
+        }
+        catch(Exception Ex){
+            System.out.println("Error reading database information...\n");
+            System.out.println(Ex);
+        }
+         return pgw;
+    }
 ///////////////////DELETE //////////////////////////
 public void deletePegawai(String cari)
 {

@@ -6,7 +6,7 @@
 package view;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+import view.LoginAdmin ;
 import Controller.AdminControl ;
 import Model.Layanan;
 import exception.CekHuruf;
@@ -15,6 +15,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import Model.Pegawai ;
 import Model.Suplier;
+import Session.LoginSession;
 import com.placeholder.PlaceHolder;
 import exception.CekAngka;
 import exception.CekHuruf;
@@ -23,6 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
+import static org.hsqldb.lib.tar.TarHeaderField.uid;
 /**
  *
  * @author ACER
@@ -57,7 +59,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         tampilPegawai();
         dissLayanan(false);
         tablePegawai.setEnabled(false);
-
+        int id = LoginSession.getIduser();
+        System.out.println("Idnya: "+id);
     }
   
      public void addTablePegawai(Pegawai P) {
@@ -73,6 +76,7 @@ public class MenuAdmin extends javax.swing.JFrame {
        
         tabelModel.addRow(data);
     }
+
      public void cekAngka()throws CekAngka
      {
        if(txtNoTelp.getText().matches("[0-9]*")) 
@@ -97,6 +101,7 @@ public class MenuAdmin extends javax.swing.JFrame {
      }
     public void tampilPegawai()
     {
+        
         int a = tabelModel.getRowCount();
         for (int i = 0; i < a; i++) {
             tabelModel.removeRow(0);
@@ -2000,7 +2005,20 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnSimpanPegawaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPegawaiActionPerformed
         // TODO add your handling code here:
-       
+        String originalPassword ;
+        originalPassword = txtPassword.getText();
+        String generatedSecuredPasswordHash;
+        BCrypt bcrp=new BCrypt();
+        boolean matched;
+        if (originalPassword == null || "".equals(originalPassword)) {
+        	
+             txtPassword.requestFocus();
+		return;
+	}
+        generatedSecuredPasswordHash = bcrp.hashpw(originalPassword, BCrypt.gensalt(12));
+        matched= bcrp.checkpw(originalPassword, generatedSecuredPasswordHash);
+        String password =Boolean.toString(matched) ;
+		
         String format = "yyyy-MM-dd";
         SimpleDateFormat fm = new SimpleDateFormat(format);
         String tanggal = String.valueOf(fm.format(txtTanggalLahir.getDate()));
@@ -2009,20 +2027,21 @@ public class MenuAdmin extends javax.swing.JFrame {
         
         if(rdCustomerService.isSelected())
         {
-            role=rdCustomerService.getText() ;
-            role= "Customer Service";
+           
+            role="Customer Service";
  
         }
         else
         {
-            role= rdKasir.getText();
-            role= "Kasir ";
+          
+            role="Kasir";
         }
 
         if(txtNoTelp.getText().length()<12)
         {
             JOptionPane.showMessageDialog(this, "NO HP kurang 12");
         }
+        
         else
             {
             try
@@ -2035,7 +2054,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                         peg.setAlamat(txtAlamat.getText());
                         peg.setNama(txtNamaPegawai.getText());
                         peg.setNoHp(txtNoTelp.getText());
-                        peg.setPassword(txtPassword.getText());
+                        peg.setPassword(generatedSecuredPasswordHash);
                         peg.setTglLahir(tanggal);
                         peg.setUserName(txtUserName.getText());
                         peg.setRole(role);
@@ -2132,7 +2151,20 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnSimpanEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanEditActionPerformed
         // TODO add your handling code here:
-        
+        String originalPassword ;
+        originalPassword = txtPassword.getText();
+        String generatedSecuredPasswordHash;
+        BCrypt bcrp=new BCrypt();
+        boolean matched;
+        if (originalPassword == null || "".equals(originalPassword)) {
+        	
+             txtPassword.requestFocus();
+		return;
+	}
+        generatedSecuredPasswordHash = bcrp.hashpw(originalPassword, BCrypt.gensalt(12));
+        matched= bcrp.checkpw(originalPassword, generatedSecuredPasswordHash);
+        String password =Boolean.toString(matched) ;
+		
         try
         {
            
@@ -2140,7 +2172,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             P.setAlamat(txtCariAlamat.getText());
             P.setNama(txtCariNama.getText());
             P.setNoHp(txtCariNoTlp.getText());
-            P.setPassword(txtPassword.getText());
+            P.setPassword(password);
             P.setTglLahir(txtCariTanggalLahir.getText());
             P.setUserName(txtCariUserName.getText());
             P.setRole(txtCariRole.getText());

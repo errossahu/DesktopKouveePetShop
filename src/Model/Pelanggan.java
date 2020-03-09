@@ -26,7 +26,8 @@ public class Pelanggan {
     
     public Pelanggan(){}
     public Pelanggan(int  id_pelanggan , String nama , String alamat, String tgllahir , String telp , 
-            String Create_at ,String create_By , String modified_at , String modified_By , String  delete_by, String delete_at )
+            String Create_at ,String create_By , String modified_at , String modified_By , 
+            String  delete_by, String delete_at )
     {
         this.Id_pelanggan = id_pelanggan ;
         this.Aktif = Aktif ;
@@ -41,5 +42,7 @@ public class Pelanggan {
         this.telp= telp ;
         this.tglLahir = tgllahir ;
     }
+    
+    
    
 }

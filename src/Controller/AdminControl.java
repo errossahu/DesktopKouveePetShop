@@ -55,7 +55,16 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.tambahSuplier(S);
         aDAO.closeConnection(); 
     }    
-  
+     
+    public Pegawai getPegawai()
+    {
+        Pegawai adm=null;
+        aDAO.makeConnection();
+        adm=aDAO.getPegawai();
+        aDAO.closeConnection();
+        return adm;
+    }
+    
     public Pegawai searchPegawai(String userName)
     {
         Pegawai pgw=null;

@@ -1,5 +1,10 @@
 package view;
 
+import Controller.AdminControl;
+import Model.Pegawai;
+import Session.LoginSession;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,13 +17,21 @@ package view;
  */
 public class LoginAdmin extends javax.swing.JFrame {
 
+    AdminControl AC ;
+      Pegawai PGW;
+    Pegawai P ;
     /**
      * Creates new form Login
      */
     public LoginAdmin() {
         initComponents();
         setResizable(false);
+        AC = new AdminControl();
         
+         PGW= AC.getPegawai() ;
+          P= AC.getPegawai();
+            int uid = PGW.getId() ;
+      String userName= PGW.getUserName();
     }
 
     /**
@@ -34,8 +47,8 @@ public class LoginAdmin extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtUserName = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(94, 234, 234));
@@ -74,37 +87,92 @@ public class LoginAdmin extends javax.swing.JFrame {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 110, 40));
 
-        jTextField1.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        jTextField1.setText("Nama");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtUserName.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        txtUserName.setText("Nama");
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtUserNameActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 270, 40));
+        getContentPane().add(txtUserName, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 270, 40));
 
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        txtPassword.setText("jPasswordField1");
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                txtPasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 270, 40));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 270, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    
+      
+       
+        
+         P  = AC.searchPegawai(txtUserName.getText());
+       
+    
+      
+      
+        if(P!=null)
+          
+        {
+           
+        String originalPassword ;
+        originalPassword = P.getPassword();
+   
+        System.out.println(originalPassword);
+        String generatedSecuredPasswordHash;
+        BCrypt bcrp=new BCrypt();
+        boolean matched;
+            matched= bcrp.checkpw(txtPassword.getText(), originalPassword);
+        
+            String password =Boolean.toString(matched) ;
+
+             if(txtUserName.getText().equalsIgnoreCase(P.getUserName()) && matched==true)
+             {
+                 System.out.println(P.getRole());
+                 String role = P.getRole();
+                 int jumlah = P.getRole().length();
+                 System.out.println(jumlah);
+                 if(P.getRole().equalsIgnoreCase("Kasir"))
+                 {
+                     JOptionPane.showMessageDialog(this, "Kamu Kasir ");
+                       LoginSession.setIdUser(P.getId());
+                        MenuAdmin n = new MenuAdmin();
+                        this.setVisible(false);
+                        n.setVisible(true);
+                 }
+                if(P.getRole().equalsIgnoreCase("CS"))
+                 {
+                     JOptionPane.showMessageDialog(this, "Kamus CS");
+                 }
+                  
+             }
+             else
+             {
+
+                 JOptionPane.showMessageDialog(this, "PASSWORD SALAH");
+             }
+        }
+        else
+        {
+            System.out.println("Tidak adda user nAME");
+        }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtUserNameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -151,7 +219,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }
