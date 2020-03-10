@@ -5,6 +5,7 @@
  */
 package Controller;
 import DAO.AdminDao ;
+import Model.JenisHewan;
 import Model.Layanan;
 import Model.Pegawai;
 import Model.Suplier;
@@ -48,12 +49,24 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.deleteLayanan(cari);
         aDAO.closeConnection();
     }
+    public void deleteJenisHewan(String cari)
+    {
+        aDAO.makeConnection();
+        aDAO.deleteJenisHewan(cari);
+        aDAO.closeConnection(); 
+    }
     public void deleteSup(String cari )
     {
         aDAO.makeConnection();
         aDAO.deleteSuplier(cari);
         aDAO.closeConnection();
         
+    }
+    public void tambahJenisHewan(JenisHewan jh)
+    {
+        aDAO.makeConnection();
+        aDAO.tambahJenisHewan(jh);
+        aDAO.closeConnection(); 
     }
     public void tambahSuplier(Suplier S)
     {
@@ -79,6 +92,14 @@ private final AdminDao aDAO = new AdminDao();
         return sp ;
                 
     }
+    public JenisHewan searchJenisHewan(String nama)
+    {
+        JenisHewan sp = null ;
+        aDAO.makeConnection();
+        sp= aDAO.searchJenisHewan(nama);
+        aDAO.closeConnection();
+        return sp ;
+    }
     public Pegawai searchPegawai(String userName)
     {
         Pegawai pgw=null;
@@ -87,6 +108,13 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         return pgw;
     
+    }
+    public List<JenisHewan>tampilJenisHewan()
+    {
+        aDAO.makeConnection(); 
+        List<JenisHewan> J = aDAO.tampilJenisHewan();
+        aDAO.closeConnection(); 
+        return J ;
     }
     public List<Layanan> tampilLayanan()
     {

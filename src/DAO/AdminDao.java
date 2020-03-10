@@ -4,6 +4,7 @@
 * and open the template in the editor.
 */
 package DAO;
+import Model.JenisHewan;
 import Model.Layanan;
 import Model.Pegawai;
 import Model.Suplier;
@@ -60,6 +61,26 @@ public void closeConnection()
     }
 }
 
+
+public void tambahJenisHewan(JenisHewan JH)
+{
+    String sql = "Insert Into jenis_hewan(Nama, Created_by ,Created_at)"
+            +"Values('"+JH.getnNama()+"','"+"ADMIN"+"','"+dtf.format(now)+"')";
+    System.out.println("Adding Layanan.. ");
+    try
+    {
+        Statement stm =  con.createStatement() ;
+        int Result = stm.executeUpdate(sql);
+        stm.close();
+        System.out.println(Result);
+        
+    }
+    catch(Exception e)
+    {
+        System.out.println("Gagal Adding Data ..");
+        System.out.println(e);
+    }
+}
 public void tambahLayanan(Layanan L)
 {
     String sql = "insert into Layanan(nama,CREATED_BY,CREATED_AT)"
@@ -190,6 +211,20 @@ public void deleteLayanan(String Cari)
         System.out.println(e);
     }
 }
+public void deleteJenisHewan(String cari)
+{
+    String sql = "Update Jenis_Hewan set AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+cari+"'";
+    try
+    {
+        Statement stm = con.createStatement();
+        int result =stm.executeUpdate(sql);
+        System.out.println("DELETE SUP "+result);
+    }catch(Exception e)
+    {
+        
+    }
+        
+}
 public void deleteSuplier(String cari )
 {
     String sql = "Update Supplier set AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+cari+"'";
@@ -240,6 +275,35 @@ public Suplier searchSupplier(String namaSupplier)
         System.out.println(e);
     }
     return sp ;
+}
+public JenisHewan searchJenisHewan(String namaJenis)
+{
+    String sql = "Select * from jenis_hewan where AKTIF=1 and NAMA= '"+namaJenis+"'";
+    System.out.println("Mencari Nama Jenis Hewan .. ");
+    JenisHewan js = null ;
+    try
+    {
+        Statement stm = con.createStatement() ;
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+
+              
+                js = new JenisHewan(Integer.parseInt(rs.getString("ID_JENIS_HEWAN")), rs.getString("NAMA"), rs.getString("CREATED_AT"), rs.getString("CREATED_BY"), rs.getString("MODIFIED_BY"), 
+                        rs.getString("MODIFIED_AT"), rs.getString("DELETE_AT"), rs.getString("DELETE_BY"));
+            }
+        }
+        rs.close();
+        stm.close();
+    }
+    catch (Exception e)
+    {
+        System.out.println(e);
+        System.out.println(" Gagal ");
+    }
+    return js ;
 }
 public Layanan searchLayanan(String namaLayanan)
 {
@@ -309,6 +373,45 @@ public Pegawai searchPegawai (String userName){
 
 
 ///////////////////////LIST PEGAWAI///////////////////////
+
+
+public List<JenisHewan> tampilJenisHewan()
+{
+    String sql = "Select * FROM jenis_hewan where AKTIF=1" ;
+    System.out.println("Daftar Jenis Hewan ..");
+    JenisHewan jh ;
+    List<JenisHewan> list = new ArrayList<>();
+    try 
+    {
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+                
+//                //    public JenisHewan(int id ,String nama , String created_at , String created_by , String modified_by , 
+//            String modified_at , String deleteat , String deletBy  )
+                
+                jh = new JenisHewan(Integer.parseInt(rs.getString("ID_JENIS_HEWAN")), rs.getString("NAMA"), rs.getString("CREATED_AT"), rs.getString("CREATED_BY"), rs.getString("MODIFIED_BY"), 
+                        rs.getString("MODIFIED_AT"), rs.getString("DELETE_AT"), rs.getString("DELETE_BY"));
+               
+                list.add(jh);
+                
+            }
+            rs.close();
+            stm.close();
+            
+        }
+   
+    }
+    catch(Exception e)
+    {
+        System.out.println(e);
+        System.out.println("Gagal Menambahkan Data ...");
+    }
+        return list ; 
+}
 public List<Layanan> tampilLayanan()
 {
     String sql = "Select * FROM LAYANAN WHERE AKTIF=1 " ;
