@@ -309,6 +309,39 @@ public Pegawai searchPegawai (String userName){
 
 
 ///////////////////////LIST PEGAWAI///////////////////////
+
+public List<Suplier> tampilSuplier()
+{
+    String sql = "Select * from SUPPLIER WHERE AKTIF=1";
+    System.out.println("Daftar Supplier");
+    Suplier s ;
+    List<Suplier> sp = new ArrayList<>();
+    try
+    {
+        Statement st = con.createStatement() ;
+        ResultSet result = st.executeQuery(sql);
+        if(result!=null)
+        {
+            while(result.next())
+            {
+                 s = new Suplier(result.getString("NAmA"),result.getString("ALAMAT"),result.getString("TELP"),
+                result.getString("CREATED_BY"),result.getString("CREATED_AT"),result.getString("MODIFIED_BY"),
+                result.getString("MODIFIED_AT"),result.getString("DELETE_BY"),result.getString("DELETE_AT"),Integer.parseInt(result.getString("ID_SUPPLIER")));
+                 
+                 sp.add(s);
+            }
+             result.close();
+             stm.close();
+            
+        }
+        
+    }catch(Exception e)
+    {
+        System.out.println(e);
+        System.out.println("Gagal Tampil");
+    }
+    return sp ;
+}
    public List<Pegawai> TampilPegawai()
 {
     String sql = "SELECT * FROM  PEGAWAI WHERE AKTIF=1";
