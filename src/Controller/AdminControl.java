@@ -88,6 +88,13 @@ private final AdminDao aDAO = new AdminDao();
         return pgw;
     
     }
+    public List<Layanan> tampilLayanan()
+    {
+        aDAO.makeConnection();
+        List<Layanan> L = aDAO.tampilLayanan();
+        aDAO.closeConnection();
+        return L ;
+    }
     public List<Suplier> tampilDataSup()
     {
         aDAO.makeConnection();

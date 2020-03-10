@@ -309,7 +309,39 @@ public Pegawai searchPegawai (String userName){
 
 
 ///////////////////////LIST PEGAWAI///////////////////////
-
+public List<Layanan> tampilLayanan()
+{
+    String sql = "Select * FROM LAYANAN WHERE AKTIF=1 " ;
+    System.out.println("Daftar Layanan");
+    System.out.println(sql);
+    Layanan lyn ;
+    List<Layanan> list = new ArrayList<>();
+    try 
+    {
+        Statement stm = con.createStatement();
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+                lyn = new Layanan(rs.getString("Nama"),Integer.parseInt(rs.getString("ID_LAYANAN")),rs.getString("CREATED_BY"),
+                rs.getString("DELETE_BY"),rs.getString("delete_at"),rs.getString("Created_at"),rs.getString("MODIFIED_BY"),rs.getString("MODIFIED_AT"));
+                list.add(lyn);
+                
+            }
+            rs.close();
+            stm.close();
+            
+        }
+   
+    }
+    catch(Exception e)
+    {
+        System.out.println(e);
+        System.out.println("Gagal Menambahkan Data ...");
+    }
+        return list ;         
+}
 public List<Suplier> tampilSuplier()
 {
     String sql = "Select * from SUPPLIER WHERE AKTIF=1";
@@ -381,12 +413,7 @@ public List<Suplier> tampilSuplier()
     return list;
 }
 
-public List<Layanan> TampilLayanan()
-{
 
-    List <Layanan> list = new ArrayList<>();
-    return list ;
-}
 
 ////////////////////////////////EDIT /////////////////
     public void editPegawai(Pegawai P,String userName)

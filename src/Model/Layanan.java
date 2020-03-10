@@ -36,6 +36,14 @@ public class Layanan {
        this.modified_by =modified_by ;
        this.namaLayanan =namaLayanan ;
    }
+   public void setIdLayanan(int  layanan)
+   {
+       this.Id_layanan = layanan ;
+   }
+   public int getIdLayanan()
+   {
+       return Id_layanan ;
+   }
    public void setCreateBY(String Create_by)
    {
        this.Create_by =Create_by ;
