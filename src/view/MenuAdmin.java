@@ -83,7 +83,12 @@ public class MenuAdmin extends javax.swing.JFrame {
        
         tabelModel.addRow(data);
     }
-
+     public void setTextDataPencarian()
+     {
+         txtCariNamaSup.setText(" ");
+         txtCariAlaSup.setText(" ");
+         txtCariTelpSup.setText(" ");
+     }
      public void cekAngka()throws CekAngka
      {
        if(txtNoTelp.getText().matches("[0-9]*")) 
@@ -561,7 +566,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 571, Short.MAX_VALUE)
+            .addGap(0, 573, Short.MAX_VALUE)
         );
 
         mainPanel2.add(bantuan, "card5");
@@ -994,7 +999,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         mainPanel2.add(tampilSeluruh, "card4");
@@ -1159,7 +1164,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76)
                 .addComponent(btnTambahLayanan)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
 
         mainPanel3.add(tambahLayanan, "card2");
@@ -1257,7 +1262,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(btnEditLayanan)
                     .addComponent(btnSimpanEditLayanan)
                     .addComponent(btnHapusLayanan))
-                .addContainerGap(380, Short.MAX_VALUE))
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
         mainPanel3.add(cariLayanan, "card3");
@@ -1272,7 +1277,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
         tampilLayananLayout.setVerticalGroup(
             tampilLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGap(0, 577, Short.MAX_VALUE)
         );
 
         mainPanel3.add(tampilLayanan, "card4");
@@ -1392,7 +1397,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(dataProdukLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(591, Short.MAX_VALUE))
+                .addContainerGap(593, Short.MAX_VALUE))
         );
 
         MainPanel.add(dataProduk, "card4");
@@ -1787,7 +1792,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addGroup(dataHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCariHewan))
-                .addContainerGap(645, Short.MAX_VALUE))
+                .addContainerGap(647, Short.MAX_VALUE))
         );
 
         MainPanel.add(dataHewan, "card6");
