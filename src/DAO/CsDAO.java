@@ -61,8 +61,10 @@ public void closeConnection()
 /////Tambah Data/////////
 public void tambahPelanggan(Pelanggan P)
 {
-    String sql = "Insert into (NAMA,ALAMAT,TANGGAL_LAHIR, TELP, CREATED_AT, CREATED_BY)"
-                        +"Values('"+P.getNama()+"','"+P.getAlamat()+"','"+P.getTelp()+"','"+"','"+dtf.format(now)+"','"+LoginSession.getNama()+"')";
+    String sql = "Insert into PELANGGAN (NAMA,ALAMAT,TANGGAL_LAHIR, TELP, CREATED_AT, CREATED_BY)"
+     +"Values('"+P.getNama()+"','"+P.getAlamat()+"','"
+            +P.getTglLahir()+"','" +P.getTelp()+"','"
+            +dtf.format(now)+"','"+LoginSession.getNama()+"')";
     System.out.println("Menambah Pegawai");
     try
     {

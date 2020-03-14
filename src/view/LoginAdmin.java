@@ -111,12 +111,10 @@ public class LoginAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     
       
-       
-        
+             
          P  = AC.searchPegawai(txtUserName.getText());
        
-    
-      
+        
       
         if(P!=null)
           
@@ -147,9 +145,14 @@ public class LoginAdmin extends javax.swing.JFrame {
                         this.setVisible(false);
                         n.setVisible(true);
                  }
-                if(P.getRole().equalsIgnoreCase("CS"))
+               else if(P.getRole().equalsIgnoreCase("Customer Service"))
                  {
                      JOptionPane.showMessageDialog(this, "Kamus CS");
+                     LoginSession.setIdUser(P.getId());
+                     LoginSession.setNama(P.getNamaPegawai());
+                     MenuCS MS = new MenuCS();
+                     this.setVisible(false);
+                     MS.setVisible(true);
                  }
                   
              }
