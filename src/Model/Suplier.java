@@ -35,7 +35,7 @@ public class Suplier {
         this.Modified_by = Modified_by ;
         this.Modified_at =Modifie_at ;
         this.delete_at = delete_at ;
-        this.delete_by = this.delete_by;
+        this.delete_by = delete_by;
                 
         
     }

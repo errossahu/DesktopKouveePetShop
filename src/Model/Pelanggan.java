@@ -10,6 +10,7 @@ package Model;
  * @author ACER
  */
 public class Pelanggan {
+    
     public int Id_pelanggan ;
     public String nama ;
     public String alamat ; 
@@ -42,7 +43,54 @@ public class Pelanggan {
         this.telp= telp ;
         this.tglLahir = tgllahir ;
     }
-    
+    public void setTelp(String telp)
+    {
+        this.telp = telp ;
+    }
+    public String getTelp()
+    {
+        return telp ;
+    }
+    public void setTglLahir(String tglLahir)
+    {
+        this.tglLahir = tglLahir;
+    }
+    public String getTglLahir()
+    {
+        return tglLahir ;
+    }
+    public void setNama (String nama)
+    {
+        this.nama = nama ;
+    }
+    public String getNama()
+    {
+        return nama ; 
+    }
+    public void setAlamat(String Alamat)
+    {
+        this.alamat = Alamat ;
+    }
+    public String getAlamat()
+    {
+        return alamat ;
+    }
+    public void setCreated_by (String createdby)
+    {
+        this.Create_by = createdby;
+    }
+    public String getCreated_by()
+    {
+        return Create_by ;
+    }
+    public void setCreated_At(String created_at )
+    {
+        this.Create_at = created_at ;
+    }
+    public String  getCreated_At()
+    {
+        return Create_at ;
+    }
     public void setId_pelanggan(int Id_Pelanggan)
     {
         this.Id_pelanggan = Id_Pelanggan ;

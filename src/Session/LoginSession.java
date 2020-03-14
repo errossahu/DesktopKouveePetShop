@@ -13,6 +13,16 @@ import view.LoginAdmin ;
 public class LoginSession {
     public static String nama ;
     public static int idUser ;
+    public static String role;
+    
+    public static void setRole(String role)
+    {
+        LoginSession.role= role;
+    }
+    public static  String getRole()
+    {
+        return role ;
+    }
     public static  void setIdUser(int idUser)
     {
       LoginSession.idUser=idUser ;

@@ -8,6 +8,7 @@ import DAO.AdminDao ;
 import Model.JenisHewan;
 import Model.Layanan;
 import Model.Pegawai;
+import Model.Produk;
 import Model.Suplier;
 import java.util.List;
 /**
@@ -17,6 +18,19 @@ import java.util.List;
 public class AdminControl {
 private final AdminDao aDAO = new AdminDao();
   
+    public void tambahProduk(Produk P )
+    {
+        aDAO.makeConnection(); 
+        aDAO.tambahProduk(P);
+        aDAO.closeConnection();
+        
+    }
+    public void deleteProduk(String cari)
+    {
+        aDAO.makeConnection();
+        aDAO.deleteProduk(cari);
+        aDAO.closeConnection();
+    }
     public void tambahLayanan(Layanan L)
     {
         aDAO.makeConnection(); 
@@ -82,6 +96,15 @@ private final AdminDao aDAO = new AdminDao();
         adm=aDAO.getPegawai();
         aDAO.closeConnection();
         return adm;
+        
+    }
+    public Produk searchPro(String namaProd)
+    {
+        Produk p= null ;
+        aDAO.makeConnection(); 
+        p= aDAO.searchProduk(namaProd);
+        aDAO.closeConnection();
+        return p ;
     }
     public Suplier searchSup(String namaSup )
     {
@@ -108,6 +131,13 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         return pgw;
     
+    }
+    public List<Produk>tampilComboBoxNama()
+    {
+        aDAO.makeConnection();
+        List<Produk> P= aDAO.tampilComboNamaProduk();
+        aDAO.closeConnection();
+        return  P ;
     }
     public List<JenisHewan>tampilJenisHewan()
     {
@@ -137,6 +167,13 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         return P;
         
+    }
+    public List<Produk>tampilDataProduk()
+    {
+        aDAO.makeConnection();
+        List<Produk> P= aDAO.tampilProduk();
+        aDAO.closeConnection();
+        return P ;
     }
    
     public Layanan searchLayanan(String namaLayanan)

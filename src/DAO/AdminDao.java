@@ -7,6 +7,7 @@ package DAO;
 import Model.JenisHewan;
 import Model.Layanan;
 import Model.Pegawai;
+import Model.Produk;
 import Model.Suplier;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;  
@@ -30,8 +31,15 @@ import static sun.misc.MessageUtils.where;
 public class AdminDao {
 public static Connection con;
 public static Statement stm;
+
 public  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 public  LocalDateTime now = LocalDateTime.now();  
+
+public Connection GETcon()
+        {
+            return con ;
+        }
+       
 public void makeConnection(){
     try {
         String url ="jdbc:mysql://localhost/db9393";
@@ -80,6 +88,25 @@ public void tambahJenisHewan(JenisHewan JH)
         System.out.println("Gagal Adding Data ..");
         System.out.println(e);
     }
+}
+public void tambahProduk(Produk Pr)
+{
+    String sql = "INSERT INTO PRODUK(NAMA,SATUAN,JUMLAH_STOK,HARGA,MIN_STOK,CREATED_AT,CREATED_BY)"
+            +"VALUES('"+Pr.getNama()+"','"+Pr.getSatuan()+"','"+Pr.getJumlah()+"','"+Pr.getHarga()+"','"+Pr.getMin_stok()+"','"+dtf.format(now)+"','"+"ADMIN"+"')";
+            
+            System.out.println("TAMBAH PRODUK");
+            try
+            {
+                Statement stm = con.createStatement();
+                int Result = stm.executeUpdate(sql);
+                stm.close();
+                System.out.println(Result);
+            }catch(Exception e)
+            {
+                System.out.println("Gagal Menambahkan Produk\n");
+                System.out.println(e);
+            }
+    
 }
 public void tambahLayanan(Layanan L)
 {
@@ -195,6 +222,24 @@ public void deletePegawai(String cari)
 
               }
   }
+public void deleteProduk(String cari)
+{
+    String sql = "UPDATE PRODUK SET AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"'WHERE NAMA='"+cari+"'";
+    System.out.println("Delete Produk ... ");
+    try
+    {
+        Statement stm = con.createStatement();
+        int result = stm.executeUpdate(sql);
+        System.out.println(result);
+        stm.close();
+    }
+    catch(Exception e)
+    {
+        
+    }
+}
+
+        
 public void deleteLayanan(String Cari)
 {
     String sql = "UPDATE LAYANAN SET AKTIF=0, DELETE_BY='ADMIN' , DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+Cari+"'";
@@ -221,7 +266,8 @@ public void deleteJenisHewan(String cari)
         System.out.println("DELETE SUP "+result);
     }catch(Exception e)
     {
-        
+        System.out.println("Gagal Hapus");
+        System.out.println(e);
     }
         
 }
@@ -243,6 +289,41 @@ public void deleteSuplier(String cari )
 }
 
 /////////////////////////////////SEARCH///////////////////////////////////////
+
+public Produk searchProduk(String namaProduk)
+{
+    String sql = "Select * from Produk where AKTIF=1 and nama='"+namaProduk+"'";
+    System.out.println("Mencari Nama Produk");
+    Produk P = null ;
+    try 
+    {
+        Statement stm = con.createStatement();
+        ResultSet result = stm.executeQuery(sql);
+        if(result!=null)
+        {
+            while(result.next())
+            {
+//                public Produk(String nama , String satuan, int jumlah, int harga , int min_stok,String Create_by ,String Create_At , 
+//               String modified_by , String modified_at , String delete_at , String delete_by )
+                P = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
+                Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
+                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),Integer.parseInt(result.getString("ID_PRODUK")));
+            }
+            result.close();
+            stm.close();
+
+        }
+        
+
+    }
+    catch(Exception e)
+    {
+        System.out.println(e);
+        System.out.println("Gagal ");
+        
+    }
+    return P ;
+}
 public Suplier searchSupplier(String namaSupplier)
 {
     String sql= "Select *from SUPPLIER where AKTIF=1 and nama='"+namaSupplier+"'";
@@ -373,7 +454,71 @@ public Pegawai searchPegawai (String userName){
 
 
 ///////////////////////LIST PEGAWAI///////////////////////
+public List<Produk> tampilComboNamaProduk()
+{
+    String sql = "Select NAMA FROM PRODUK WHERE AKTIF=1 ";
+            List<Produk> list = new ArrayList<>();
 
+    try
+    {
+        Produk Pr ;
+        Statement stm = con.createStatement();
+        ResultSet result = stm.executeQuery(sql);
+        if(result!=null)
+        {
+            while(result.next())
+            {
+                Pr = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
+                Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
+                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),Integer.parseInt(result.getString("ID_PRODUK")));
+                list.add(Pr);
+            }
+            
+            result.close();
+            stm.close();
+        }
+
+    }
+    catch(Exception e)
+    {
+        System.out.println(e);
+        System.out.println("Gagal");
+    }
+            return list ;
+}
+
+public List<Produk> tampilProduk()
+{
+    String sql = "Select * from Produk where aktif= 1";
+           
+    System.out.println("Daftar Jenis Produk ");
+    Produk Pr ;
+    List<Produk> list = new ArrayList<>();
+    try
+    {
+        
+        Statement stm = con.createStatement();
+        ResultSet result = stm.executeQuery(sql);
+        if(result!=null)
+        {
+            while (result.next())
+            {
+                Pr = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
+                Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
+                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),
+                        Integer.parseInt(result.getString("ID_PRODUK")));
+                list.add(Pr);
+            }
+        }
+                    result.close();
+            stm.close();
+    }
+   catch(Exception E)
+   {
+       System.out.println(E);
+   }
+    return list ;
+}
 
 public List<JenisHewan> tampilJenisHewan()
 {

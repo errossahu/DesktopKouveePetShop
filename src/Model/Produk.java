@@ -14,22 +14,80 @@ public class Produk {
     public String satuan ;
     public int jumlah  ; 
     public int harga ; 
-    public int min_stok ; 
+    public int min_stok ;
     
+    public String Create_at ;
+    public String Create_by ;
+    public String delete_by ;
+    public String delete_at ;
+    public String modified_at ;
+    public String modified_by ;
     
+    public int id;
+   
+    public Produk(){}
     
-    public Produk(String nama , String satuan, int jumlah, int harga , int min_stok )
+    public Produk(String nama , String satuan, int jumlah, int harga , int min_stok,String Create_by ,String Create_At , 
+            String modified_by , String modified_at , String delete_at , String delete_by ,int Id)
     {
+        this.Create_at = Create_At ;
+        this.Create_by= Create_by ;
+        this.delete_at = delete_at;
+        this.delete_by = delete_by ;
+        this.modified_at = modified_at ;
+        this.modified_by = modified_by ;
+        
         this.harga= harga ; 
         this.jumlah= jumlah ;
         this.min_stok = min_stok ; 
         this.nama = nama  ; 
         this.satuan = satuan ; 
-        
+        this.id= Id ;
     }
+    public void setId(int idProduk)
+    {
+        this.id = idProduk ;
+    }
+    public int getIdProduk()
+    {
+        return id ;
+    }
+    public void setCreate_By (String create_By)
+    {
+        this.Create_by = create_By ;
+    }
+    public String getCreate_by()
+    {
+        return Create_by ;
+    }
+    public void setModified_at(String modified_at )
+    {
+        this.modified_at = modified_at;
+    }
+    public String getModifie_at()
+    {
+        return modified_at;
+    }
+    public void setModified_by (String modified_by)
+    {
+        this.modified_by =modified_by;
+    }
+    public String getModified_at()
+    {
+        return modified_by ;
+    }
+    public void setCreate_AT(String  create_at)
+    {
+        this.Create_at = create_at ;
+    }
+    public void setDelete_at(String delete_at)
+    {
+        this.delete_at = delete_at;
+    }
+    
     public void setHarga(int Harga)
     {
-        this.harga = harga ; 
+        this.harga = Harga ; 
     }
     
     public int getHarga()
@@ -40,7 +98,7 @@ public class Produk {
     {
         this.jumlah = jumlah ; 
     }
-    public int getJumlah (int jumlah )
+    public int getJumlah ()
     {
         return jumlah ; 
     }
@@ -58,7 +116,7 @@ public class Produk {
         this.nama = nama ;
         
     }
-    public String setNama()
+    public String getNama()
     {
        
         return nama ;
