@@ -10,6 +10,7 @@ import Model.Layanan;
 import Model.Pegawai;
 import Model.Produk;
 import Model.Suplier;
+import Model.UkuranHewan;
 import java.util.List;
 /**
  *
@@ -87,7 +88,14 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.makeConnection(); 
         aDAO.tambahSuplier(S);
         aDAO.closeConnection(); 
-    }    
+    }
+    public void tambahUkuranHewan(UkuranHewan uh )
+    {
+        aDAO.makeConnection(); 
+        aDAO.tambahUkuranHewan(uh);
+        aDAO.closeConnection(); 
+        
+    }
      
     public Pegawai getPegawai()
     {
@@ -122,6 +130,15 @@ private final AdminDao aDAO = new AdminDao();
         sp= aDAO.searchJenisHewan(nama);
         aDAO.closeConnection();
         return sp ;
+    }
+    public UkuranHewan searchUkuran(String ukuran)
+    {
+        UkuranHewan uh = null;
+        aDAO.makeConnection(); 
+        uh = aDAO.searchUkuranHewan(ukuran);
+        aDAO.closeConnection(); 
+        return uh ;
+                
     }
     public Pegawai searchPegawai(String userName)
     {

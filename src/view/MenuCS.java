@@ -8,7 +8,7 @@ package view;
 import Controller.CSControl ;
 import static DAO.AdminDao.con;
 import DAO.CsDAO;
-import Model.CS;
+
 import Model.Pelanggan;
 import Model.Produk;
 import exception.dataKosong;
@@ -235,6 +235,7 @@ public class MenuCS extends javax.swing.JFrame {
         tampilSeluruh = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setIconImage(
             new javax.swing.ImageIcon(getClass().getResource("/icon/dogg.png")).getImage());
 
@@ -332,7 +333,7 @@ public class MenuCS extends javax.swing.JFrame {
                 .addComponent(btnPegawai)
                 .addGap(356, 356, 356)
                 .addComponent(btnLog)
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         MainPanel.setBackground(new java.awt.Color(168, 238, 244));
@@ -584,12 +585,10 @@ public class MenuCS extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(tambahPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(tambahPelangganLayout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(tambahPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         mainPanel2.add(tambahPelanggan, "card2");
@@ -729,7 +728,7 @@ public class MenuCS extends javax.swing.JFrame {
                 .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(634, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -740,7 +739,7 @@ public class MenuCS extends javax.swing.JFrame {
                     .addComponent(jComboBoxPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(275, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         mainPanel2.add(cariPegawai, "card3");
@@ -751,11 +750,11 @@ public class MenuCS extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1147, Short.MAX_VALUE)
+            .addGap(0, 1079, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         mainPanel2.add(bantuan, "card5");
@@ -766,11 +765,11 @@ public class MenuCS extends javax.swing.JFrame {
         tampilSeluruh.setLayout(tampilSeluruhLayout);
         tampilSeluruhLayout.setHorizontalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1147, Short.MAX_VALUE)
+            .addGap(0, 1079, Short.MAX_VALUE)
         );
         tampilSeluruhLayout.setVerticalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 799, Short.MAX_VALUE)
+            .addGap(0, 571, Short.MAX_VALUE)
         );
 
         mainPanel2.add(tampilSeluruh, "card4");
@@ -783,8 +782,8 @@ public class MenuCS extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dataPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(mainPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
         dataPelangganLayout.setVerticalGroup(
             dataPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -803,19 +802,16 @@ public class MenuCS extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(menuHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1179, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 1099, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(menuHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(menuHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -826,7 +822,9 @@ public class MenuCS extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -843,141 +841,49 @@ public class MenuCS extends javax.swing.JFrame {
       
     }//GEN-LAST:event_btnPegawaiActionPerformed
 
-    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+    private void btnSearchPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchPelangganMouseClicked
         // TODO add your handling code here:
-        mainPanel2.removeAll();
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-        mainPanel2.add(tambahPelanggan);
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-
-    }//GEN-LAST:event_btnTambahActionPerformed
-
-    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
-        // TODO add your handling code here:
-        mainPanel2.removeAll();
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-        mainPanel2.add(bantuan);
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-
-    }//GEN-LAST:event_btnHelpActionPerformed
-
-    private void btnTampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilActionPerformed
-        // TODO add your handling code here:
-        mainPanel2.removeAll();
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-        mainPanel2.add(tampilSeluruh);
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-        
-
-    }//GEN-LAST:event_btnTampilActionPerformed
-
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        // TODO add your handling code here:
-        mainPanel2.removeAll();
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-        mainPanel2.add(cariPegawai);
-        mainPanel2.repaint();
-        mainPanel2.revalidate();
-    }//GEN-LAST:event_btnCariActionPerformed
-
-    private void btnSimpanPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPelangganActionPerformed
-        // TODO add your handling code here:
-        
-        try
+        String cari = (String)jComboBoxPelanggan.getSelectedItem();
+        int ID= Integer.parseInt(cari);
+        P= CS.cariPelanggan(ID);
+        if(P!=null)
         {
-            inputException();
-            cekAngka();
-            cekHuruf();
-            String format = "yyyy-MM-dd";
-            SimpleDateFormat fm = new SimpleDateFormat(format);
-            String tanggal = String.valueOf(fm.format(txtTanggalLahirPelanggan.getDate()));
-        
-            P.setNama(txtNamaPelanggan.getText());
-            P.setAlamat(txtAlamatPelanggan.getText());
-            P.setTelp(txtTelpPelanggan.getText());
-            P.setTglLahir(tanggal);
-            CS.tambahPelanggan(P);
-            tampilPelanggan();
-            CA.makeConnection();
-            
-            String sql = "Select id_pelanggan from Pelanggan where aktif = 1 ";
-            Class.forName("com.mysql.jdbc.Driver"); 
-            Statement st = CA.GETcon().createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            while (rs.next()) {
-           
-                jComboBoxPelanggan.addItem(rs.getString("id_pelanggan"));
+            txtCariNamaPelanggan.setText(P.getNama());
+            txtCariAlaPelanggan.setText(P.getAlamat());
+            txtCariTelpPel.setText(P.getTelp());
+            txtCariTglLahir.setText(P.getTglLahir());
 
-            }
-            CA.closeConnection();
-
-            
-            setTextPelanggan();
-            JOptionPane.showMessageDialog(this,"Berhasil Tambah Data Pelangggan");
-          
         }
-        
-        catch(dataKosong d)
+        else
         {
-            JOptionPane.showMessageDialog(this, d.message());
-        }    
-        
-        catch(CekAngka ca)
-        {
-            JOptionPane.showMessageDialog(this, ca.dataHanyaHuruf());
+            JOptionPane.showMessageDialog(this, "Data Supplier Tida Ada..");
         }
-        catch(CekHuruf ch)
-        {
-            JOptionPane.showMessageDialog(this, ch.cekHuruf());
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-        
+    }//GEN-LAST:event_btnSearchPelangganMouseClicked
 
-    }//GEN-LAST:event_btnSimpanPelangganActionPerformed
-
-    private void txtNamaPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaPelangganActionPerformed
+    private void txtCariTglLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTglLahirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaPelangganActionPerformed
+    }//GEN-LAST:event_txtCariTglLahirActionPerformed
 
-    private void txtTelpPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelpPelangganActionPerformed
+    private void txtCariTelpPelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTelpPelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTelpPelangganActionPerformed
+    }//GEN-LAST:event_txtCariTelpPelActionPerformed
 
-    private void jComboBoxPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxPelangganMouseClicked
+    private void txtCariNamaPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariNamaPelangganActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxPelangganMouseClicked
-
-    private void jComboBoxPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPelangganActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxPelangganActionPerformed
-
-    private void btnSimpanProduk2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanProduk2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSimpanProduk2ActionPerformed
+    }//GEN-LAST:event_txtCariNamaPelangganActionPerformed
 
     private void btlHapusSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusSupActionPerformed
         // TODO add your handling code here:
         String cari = (String)jComboBoxPelanggan.getSelectedItem();
-            int id = Integer.parseInt(cari);
+        int id = Integer.parseInt(cari);
         try
         {
-            
+
             if(txtCariNamaPelanggan.getText().equalsIgnoreCase(" "))
             {
                 JOptionPane.showMessageDialog(this, "Tidak Ada Yang Di Hapus");
             }
-            
+
             else
             {
                 if (JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
@@ -986,8 +892,6 @@ public class MenuCS extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus..");
 
-
-                    
                     jComboBoxPelanggan.removeItem(jComboBoxPelanggan.getSelectedItem());
                     jComboBoxPelanggan.setSelectedIndex(0);
                     setTextPelanggan();
@@ -1003,37 +907,123 @@ public class MenuCS extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btlHapusSupActionPerformed
 
-    private void txtCariNamaPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariNamaPelangganActionPerformed
+    private void btnSimpanProduk2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanProduk2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCariNamaPelangganActionPerformed
+    }//GEN-LAST:event_btnSimpanProduk2ActionPerformed
 
-    private void txtCariTelpPelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTelpPelActionPerformed
+    private void jComboBoxPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPelangganActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCariTelpPelActionPerformed
+    }//GEN-LAST:event_jComboBoxPelangganActionPerformed
 
-    private void btnSearchPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchPelangganMouseClicked
+    private void jComboBoxPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxPelangganMouseClicked
         // TODO add your handling code here:
-        String cari = (String)jComboBoxPelanggan.getSelectedItem();
-        int ID= Integer.parseInt(cari);
-        P= CS.cariPelanggan(ID);
-        if(P!=null)
+    }//GEN-LAST:event_jComboBoxPelangganMouseClicked
+
+    private void txtTelpPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelpPelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelpPelangganActionPerformed
+
+    private void txtNamaPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaPelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaPelangganActionPerformed
+
+    private void btnSimpanPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanPelangganActionPerformed
+        // TODO add your handling code here:
+
+        try
         {
-            txtCariNamaPelanggan.setText(P.getNama());
-            txtCariAlaPelanggan.setText(P.getAlamat());
-            txtCariTelpPel.setText(P.getTelp());
-           txtCariTglLahir.setText(P.getTglLahir());
+            inputException();
+            cekAngka();
+            cekHuruf();
+            String format = "yyyy-MM-dd";
+            SimpleDateFormat fm = new SimpleDateFormat(format);
+            String tanggal = String.valueOf(fm.format(txtTanggalLahirPelanggan.getDate()));
+
+            P.setNama(txtNamaPelanggan.getText());
+            P.setAlamat(txtAlamatPelanggan.getText());
+            P.setTelp(txtTelpPelanggan.getText());
+            P.setTglLahir(tanggal);
+            CS.tambahPelanggan(P);
+            tampilPelanggan();
+            CA.makeConnection();
+
+            String sql = "Select id_pelanggan from Pelanggan where aktif = 1 ";
+            Class.forName("com.mysql.jdbc.Driver");
+            Statement st = CA.GETcon().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+
+                jComboBoxPelanggan.addItem(rs.getString("id_pelanggan"));
+
+            }
+            CA.closeConnection();
+
+            setTextPelanggan();
+            JOptionPane.showMessageDialog(this,"Berhasil Tambah Data Pelangggan");
 
         }
-        else
+
+        catch(dataKosong d)
         {
-            JOptionPane.showMessageDialog(this, "Data Supplier Tida Ada..");
+            JOptionPane.showMessageDialog(this, d.message());
         }
 
-    }//GEN-LAST:event_btnSearchPelangganMouseClicked
+        catch(CekAngka ca)
+        {
+            JOptionPane.showMessageDialog(this, ca.dataHanyaHuruf());
+        }
+        catch(CekHuruf ch)
+        {
+            JOptionPane.showMessageDialog(this, ch.cekHuruf());
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
 
-    private void txtCariTglLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTglLahirActionPerformed
+    }//GEN-LAST:event_btnSimpanPelangganActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCariTglLahirActionPerformed
+        mainPanel2.removeAll();
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+        mainPanel2.add(cariPegawai);
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnTampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampilActionPerformed
+        // TODO add your handling code here:
+        mainPanel2.removeAll();
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+        mainPanel2.add(tampilSeluruh);
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+
+    }//GEN-LAST:event_btnTampilActionPerformed
+
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
+        // TODO add your handling code here:
+        mainPanel2.removeAll();
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+        mainPanel2.add(bantuan);
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+    }//GEN-LAST:event_btnHelpActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        // TODO add your handling code here:
+        mainPanel2.removeAll();
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+        mainPanel2.add(tambahPelanggan);
+        mainPanel2.repaint();
+        mainPanel2.revalidate();
+    }//GEN-LAST:event_btnTambahActionPerformed
 
     /**
      * @param args the command line arguments

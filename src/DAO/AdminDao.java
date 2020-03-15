@@ -9,6 +9,7 @@ import Model.Layanan;
 import Model.Pegawai;
 import Model.Produk;
 import Model.Suplier;
+import Model.UkuranHewan;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
@@ -69,6 +70,23 @@ public void closeConnection()
     }
 }
 
+public void tambahUkuranHewan(UkuranHewan UH)
+{
+    String sql = "Insert into ukuran_hewan(NAMA, Created_by , Created_At)"
+            +"values('"+UH.getNama()+"','"+"ADMIN"+"','"+dtf.format(now)+"')";
+    System.out.println("Adding Ukuran Hewan");
+    try
+    {
+        Statement stm = con.createStatement() ;
+        int Rs = stm.executeUpdate(sql);
+        stm.close();
+        System.out.println(Rs);
+    }catch(Exception e)
+    {
+        System.out.println(" Gagal ");
+        System.out.println(e);
+    }
+}
 
 public void tambahJenisHewan(JenisHewan JH)
 {
@@ -323,6 +341,33 @@ public Produk searchProduk(String namaProduk)
         
     }
     return P ;
+}
+public UkuranHewan searchUkuranHewan(String ukuran)
+{
+    String sql ="SELECT ID , NAMA where AKTIF= 1 AND NAMA='"+ukuran+"'";
+    System.out.println("Mencari Ukuran ...");
+    UkuranHewan Uh = null; 
+    try
+    {
+        Statement stm = con.createStatement() ;
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+                Uh = new UkuranHewan(Integer.parseInt(rs.getString("id")),rs.getString("nama"));
+            }
+            rs.close();
+            stm.close();
+        }
+        
+        
+    }
+    catch(Exception E)
+    {
+        System.out.println(E);
+    }
+    return Uh;
 }
 public Suplier searchSupplier(String namaSupplier)
 {
