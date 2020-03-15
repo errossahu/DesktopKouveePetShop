@@ -149,6 +149,12 @@ private final AdminDao aDAO = new AdminDao();
         return pgw;
     
     }
+    public void deletUkuranHewan(String cari)
+    {
+        aDAO.makeConnection();
+        aDAO.deleteUkuranHewan(cari);
+        aDAO.closeConnection();
+    }
     public List<UkuranHewan>tampilUkuran()
     {
         aDAO.makeConnection();

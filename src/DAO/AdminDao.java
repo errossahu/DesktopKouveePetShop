@@ -289,6 +289,21 @@ public void deleteJenisHewan(String cari)
     }
         
 }
+public void deleteUkuranHewan(String cari)
+{
+    String sql="UPDATE UKURAN_HEWAN SET AKTIF=0 ,DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+cari+"'";
+     try
+     {
+         Statement stm = con.createStatement() ;
+         int Rs= stm.executeUpdate(sql);
+         System.out.println(Rs);
+     }catch(Exception e)
+     {
+         System.out.println("Gagal Menampilkan Data");
+         System.out.println(e);
+     }
+}  
+
 public void deleteSuplier(String cari )
 {
     String sql = "Update Supplier set AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+cari+"'";
@@ -355,7 +370,7 @@ public UkuranHewan searchUkuranHewan(String ukuran)
         {
             while(rs.next())
             {
-                Uh = new UkuranHewan(Integer.parseInt(rs.getString("id")),rs.getString("nama"));
+                Uh = new UkuranHewan(Integer.parseInt(rs.getString("id_ukuran_hewan")),rs.getString("nama"));
             }
             rs.close();
             stm.close();

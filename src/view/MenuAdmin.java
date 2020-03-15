@@ -48,6 +48,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     Layanan L ;
     AdminControl AC ;
     Produk Pr ;
+    UkuranHewan Uh;
     public  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MMMM/dd ");  
     public  LocalDateTime now = LocalDateTime.now();  
     int id = LoginSession.getIduser()  ;   
@@ -72,7 +73,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jComboBoxSupllier.addItem("-Pilih Nama Supplier");
         jComboBoxHewan.addItem("-Pilih Jenis Hewan");
         jComboBoxLayanan.addItem("-Pilih Nama Layanan");
-        
+        jComboBoxUkuran.addItem("-Pilih Ukuran Hewan");
         txtTanggalHariIni.setText(dtf.format(now));
       
         holder1.setCursiva(true);
@@ -83,7 +84,9 @@ public class MenuAdmin extends javax.swing.JFrame {
         tampilComboBox();
         tampilComboBoxCariLayanan();
         tampilComboBoxSupllier();
+        tampilComboBoxUkuran();
         tampilComboBoxCariHewan();
+        
         
         AC = new AdminControl();
         txtAlamat.getBorder();
@@ -186,6 +189,30 @@ public class MenuAdmin extends javax.swing.JFrame {
         }
         AD.closeConnection();
     }
+    public void tampilComboBoxUkuran()
+    {
+        AD.makeConnection();
+        try
+        {
+            String sql= "Select nama from Ukuran_Hewan where aktif =1 ";
+            Class.forName("com.mysql.jdbc.Driver"); 
+            Statement st = AD.GETcon().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+           
+                jComboBoxUkuran.addItem(rs.getString("nama"));
+
+            }
+
+        }
+        catch(Exception e)
+        {
+            System.out.println("Gagal Menampilkan");
+            System.out.println(e);
+        }
+        AD.closeConnection();
+    }
     public void tampilComboBoxCariLayanan()
     {
         AD.makeConnection();
@@ -208,6 +235,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             System.out.println("Gagal");
             System.out.println(e);
         }
+        AD.closeConnection();
     }
     public void tampilComboBoxCariHewan()
     {
@@ -713,16 +741,6 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnCariUkuran = new javax.swing.JButton();
         jLabel28 = new javax.swing.JLabel();
         mainPanel10 = new javax.swing.JPanel();
-        cariUkuranHewan = new javax.swing.JPanel();
-        btnCariLayanan1 = new javax.swing.JLabel();
-        jLabel33 = new javax.swing.JLabel();
-        jComboBoxLayanan1 = new javax.swing.JComboBox<>();
-        jPanel18 = new javax.swing.JPanel();
-        btnSimpanHewan2 = new javax.swing.JButton();
-        btlHapusHewan2 = new javax.swing.JButton();
-        txtNamaLayananCari1 = new javax.swing.JTextField();
-        jLabel86 = new javax.swing.JLabel();
-        tampilUkuranHewan = new javax.swing.JPanel();
         tambahUkuranHewan = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         btnSimpanUkuran = new javax.swing.JButton();
@@ -732,6 +750,16 @@ public class MenuAdmin extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         tabelUkuranHewan = new javax.swing.JTable();
         jLabel88 = new javax.swing.JLabel();
+        cariUkuranHewan = new javax.swing.JPanel();
+        btnCariUkuranHewan = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jComboBoxUkuran = new javax.swing.JComboBox<>();
+        jPanel18 = new javax.swing.JPanel();
+        btnSimpanHewan2 = new javax.swing.JButton();
+        btlHapusUkuranHewan = new javax.swing.JButton();
+        txtCariUkuranHewan = new javax.swing.JTextField();
+        jLabel86 = new javax.swing.JLabel();
+        tampilUkuranHewan = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/icon/dogg.png")).getImage());
@@ -3241,139 +3269,6 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         mainPanel10.setLayout(new java.awt.CardLayout());
 
-        cariUkuranHewan.setBackground(new java.awt.Color(99, 175, 241));
-
-        btnCariLayanan1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search-icon.png"))); // NOI18N
-        btnCariLayanan1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCariLayanan1MouseClicked(evt);
-            }
-        });
-
-        jLabel33.setBackground(new java.awt.Color(0, 255, 255));
-        jLabel33.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(0, 255, 255));
-        jLabel33.setText("Cari Layanan");
-
-        jComboBoxLayanan1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBoxLayanan1MouseClicked(evt);
-            }
-        });
-        jComboBoxLayanan1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxLayanan1ActionPerformed(evt);
-            }
-        });
-
-        jPanel18.setBackground(new java.awt.Color(99, 175, 241));
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
-
-        btnSimpanHewan2.setText("SIMPAN");
-        btnSimpanHewan2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSimpanHewan2ActionPerformed(evt);
-            }
-        });
-
-        btlHapusHewan2.setText("HAPUS");
-        btlHapusHewan2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btlHapusHewan2ActionPerformed(evt);
-            }
-        });
-
-        txtNamaLayananCari1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaLayananCari1ActionPerformed(evt);
-            }
-        });
-
-        jLabel86.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel86.setText("Nama Layanan");
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addComponent(btlHapusHewan2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSimpanHewan2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                        .addComponent(jLabel86)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNamaLayananCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNamaLayananCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(170, 170, 170)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btlHapusHewan2)
-                    .addComponent(btnSimpanHewan2))
-                .addContainerGap(115, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout cariUkuranHewanLayout = new javax.swing.GroupLayout(cariUkuranHewan);
-        cariUkuranHewan.setLayout(cariUkuranHewanLayout);
-        cariUkuranHewanLayout.setHorizontalGroup(
-            cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cariUkuranHewanLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(95, 919, Short.MAX_VALUE))
-            .addGroup(cariUkuranHewanLayout.createSequentialGroup()
-                .addGap(150, 150, 150)
-                .addComponent(btnCariLayanan1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBoxLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        cariUkuranHewanLayout.setVerticalGroup(
-            cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(cariUkuranHewanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(cariUkuranHewanLayout.createSequentialGroup()
-                        .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jComboBoxLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCariLayanan1))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(257, Short.MAX_VALUE))
-        );
-
-        mainPanel10.add(cariUkuranHewan, "card3");
-
-        tampilUkuranHewan.setBackground(new java.awt.Color(99, 175, 241));
-
-        javax.swing.GroupLayout tampilUkuranHewanLayout = new javax.swing.GroupLayout(tampilUkuranHewan);
-        tampilUkuranHewan.setLayout(tampilUkuranHewanLayout);
-        tampilUkuranHewanLayout.setHorizontalGroup(
-            tampilUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1149, Short.MAX_VALUE)
-        );
-        tampilUkuranHewanLayout.setVerticalGroup(
-            tampilUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 804, Short.MAX_VALUE)
-        );
-
-        mainPanel10.add(tampilUkuranHewan, "card4");
-
         tambahUkuranHewan.setBackground(new java.awt.Color(99, 175, 241));
 
         jPanel19.setBackground(new java.awt.Color(99, 175, 241));
@@ -3505,6 +3400,137 @@ public class MenuAdmin extends javax.swing.JFrame {
         );
 
         mainPanel10.add(tambahUkuranHewan, "card2");
+
+        cariUkuranHewan.setBackground(new java.awt.Color(99, 175, 241));
+
+        btnCariUkuranHewan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search-icon.png"))); // NOI18N
+        btnCariUkuranHewan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCariUkuranHewanMouseClicked(evt);
+            }
+        });
+
+        jLabel33.setBackground(new java.awt.Color(0, 255, 255));
+        jLabel33.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        jLabel33.setForeground(new java.awt.Color(0, 255, 255));
+        jLabel33.setText("Cari Layanan");
+
+        jComboBoxUkuran.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxUkuranMouseClicked(evt);
+            }
+        });
+        jComboBoxUkuran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxUkuranActionPerformed(evt);
+            }
+        });
+
+        jPanel18.setBackground(new java.awt.Color(99, 175, 241));
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
+
+        btnSimpanHewan2.setText("SIMPAN");
+        btnSimpanHewan2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanHewan2ActionPerformed(evt);
+            }
+        });
+
+        btlHapusUkuranHewan.setText("HAPUS");
+        btlHapusUkuranHewan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btlHapusUkuranHewanActionPerformed(evt);
+            }
+        });
+
+        txtCariUkuranHewan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariUkuranHewanActionPerformed(evt);
+            }
+        });
+
+        jLabel86.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel86.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel86.setText("Nama Layanan");
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(btlHapusUkuranHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSimpanHewan2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                        .addComponent(jLabel86)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtCariUkuranHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel18Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCariUkuranHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel86, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(170, 170, 170)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btlHapusUkuranHewan)
+                    .addComponent(btnSimpanHewan2))
+                .addContainerGap(115, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout cariUkuranHewanLayout = new javax.swing.GroupLayout(cariUkuranHewan);
+        cariUkuranHewan.setLayout(cariUkuranHewanLayout);
+        cariUkuranHewanLayout.setHorizontalGroup(
+            cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cariUkuranHewanLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addGroup(cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(cariUkuranHewanLayout.createSequentialGroup()
+                        .addComponent(btnCariUkuranHewan)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(644, Short.MAX_VALUE))
+        );
+        cariUkuranHewanLayout.setVerticalGroup(
+            cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cariUkuranHewanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(cariUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jComboBoxUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCariUkuranHewan))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(281, Short.MAX_VALUE))
+        );
+
+        mainPanel10.add(cariUkuranHewan, "card3");
+
+        tampilUkuranHewan.setBackground(new java.awt.Color(99, 175, 241));
+
+        javax.swing.GroupLayout tampilUkuranHewanLayout = new javax.swing.GroupLayout(tampilUkuranHewan);
+        tampilUkuranHewan.setLayout(tampilUkuranHewanLayout);
+        tampilUkuranHewanLayout.setHorizontalGroup(
+            tampilUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1149, Short.MAX_VALUE)
+        );
+        tampilUkuranHewanLayout.setVerticalGroup(
+            tampilUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 804, Short.MAX_VALUE)
+        );
+
+        mainPanel10.add(tampilUkuranHewan, "card4");
 
         javax.swing.GroupLayout dataUkuranLayout = new javax.swing.GroupLayout(dataUkuran);
         dataUkuran.setLayout(dataUkuranLayout);
@@ -4486,31 +4512,77 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnCariUkuranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariUkuranActionPerformed
         // TODO add your handling code here:
+        mainPanel10.removeAll();
+        mainPanel10.repaint();
+        mainPanel10.revalidate();
+        mainPanel10.add(cariUkuranHewan);
+        mainPanel10.repaint();
+        mainPanel10.revalidate();
     }//GEN-LAST:event_btnCariUkuranActionPerformed
 
-    private void btnCariLayanan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariLayanan1MouseClicked
+    private void btnCariUkuranHewanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariUkuranHewanMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnCariLayanan1MouseClicked
+        
+        String cari= (String)jComboBoxUkuran.getSelectedItem();
+        
+       
+        Uh = AC.searchUkuran(cari);
+        if(Uh!=null)
+        {
+            txtCariUkuranHewan.setText(Uh.getNama());
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Data Tidak Ditemukan");
+        }
+        
+    }//GEN-LAST:event_btnCariUkuranHewanMouseClicked
 
-    private void jComboBoxLayanan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxLayanan1MouseClicked
+    private void jComboBoxUkuranMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxUkuranMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxLayanan1MouseClicked
+    }//GEN-LAST:event_jComboBoxUkuranMouseClicked
 
-    private void jComboBoxLayanan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLayanan1ActionPerformed
+    private void jComboBoxUkuranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUkuranActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxLayanan1ActionPerformed
+    }//GEN-LAST:event_jComboBoxUkuranActionPerformed
 
     private void btnSimpanHewan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanHewan2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSimpanHewan2ActionPerformed
 
-    private void btlHapusHewan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusHewan2ActionPerformed
+    private void btlHapusUkuranHewanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusUkuranHewanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btlHapusHewan2ActionPerformed
+       try
+       {
+           String cari =(String)jComboBoxUkuran.getSelectedItem();
+           if(txtCariUkuranHewan.getText().equalsIgnoreCase(" "))
+           {
+               JOptionPane.showMessageDialog(this, "Tidak Ada Data Yang Dihapus");
+           }
+           else
+           {
+                if (JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+                {
+                    
+                    AC.deletUkuranHewan(cari);
+                   jComboBoxUkuran.removeItem(jComboBoxUkuran.getSelectedItem());
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus..");
+                      
+                    jComboBoxUkuran.setSelectedIndex(0);
+                    txtCariUkuranHewan.setText(" ");  
+                    tampilUkuranHewan();
+                }
+           }
+       }catch(Exception e)
+       {
+           System.out.println(e);
+       }
+                 
+    }//GEN-LAST:event_btlHapusUkuranHewanActionPerformed
 
-    private void txtNamaLayananCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaLayananCari1ActionPerformed
+    private void txtCariUkuranHewanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariUkuranHewanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaLayananCari1ActionPerformed
+    }//GEN-LAST:event_txtCariUkuranHewanActionPerformed
 
     private void btnSimpanUkuranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanUkuranActionPerformed
         // TODO add your handling code here:
@@ -4522,6 +4594,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             uh.setNama(txtUkuranHewan.getText());
                 
             AC.tambahUkuranHewan(uh);
+            jComboBoxUkuran.addItem(txtUkuranHewan.getText());
             setTextDataUkuran();
             tampilUkuranHewan();
             JOptionPane.showMessageDialog(this, "DATA UKURAN BERHASIL DISIMPAN");
@@ -4591,11 +4664,11 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel bantuan;
     private javax.swing.JButton btlHapusHewan;
     private javax.swing.JButton btlHapusHewan1;
-    private javax.swing.JButton btlHapusHewan2;
     private javax.swing.JButton btlHapusProduk;
     private javax.swing.JButton btlHapusProduk1;
     private javax.swing.JButton btlHapusProduk2;
     private javax.swing.JButton btlHapusSup;
+    private javax.swing.JButton btlHapusUkuranHewan;
     private javax.swing.JButton btlSimpan;
     private javax.swing.JButton btlSimpan1;
     private javax.swing.JButton btlSimpan2;
@@ -4603,10 +4676,10 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnCari1;
     private javax.swing.JButton btnCariJenis;
     private javax.swing.JLabel btnCariLayanan;
-    private javax.swing.JLabel btnCariLayanan1;
     private javax.swing.JButton btnCariLyn;
     private javax.swing.JButton btnCariSup;
     private javax.swing.JButton btnCariUkuran;
+    private javax.swing.JLabel btnCariUkuranHewan;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnHelp;
@@ -4668,8 +4741,8 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxCoba;
     private javax.swing.JComboBox<String> jComboBoxHewan;
     private javax.swing.JComboBox<String> jComboBoxLayanan;
-    private javax.swing.JComboBox<String> jComboBoxLayanan1;
     private javax.swing.JComboBox<String> jComboBoxSupllier;
+    private javax.swing.JComboBox<String> jComboBoxUkuran;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -4804,6 +4877,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtCariRole;
     private javax.swing.JTextField txtCariTanggalLahir;
     private javax.swing.JTextField txtCariTelpSup;
+    private javax.swing.JTextField txtCariUkuranHewan;
     private javax.swing.JTextField txtCariUserName;
     private javax.swing.JTextField txtHargaProduk;
     private javax.swing.JTextField txtHargaProdukp;
@@ -4821,7 +4895,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtNamaHewan;
     private javax.swing.JTextField txtNamaLayanan;
     private javax.swing.JTextField txtNamaLayananCari;
-    private javax.swing.JTextField txtNamaLayananCari1;
     private javax.swing.JTextField txtNamaPegawai;
     private javax.swing.JTextField txtNamaProduk;
     private javax.swing.JTextField txtNoTelp;
