@@ -47,6 +47,14 @@ public class UkuranHewan {
     {
         return nama;
     }
+    public void setID(int id)
+    {
+        this.id = id ;
+    }
+    public int getID()
+    {
+        return id;
+    }
             
     
 }

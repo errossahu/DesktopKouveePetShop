@@ -58,7 +58,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     /**
      * Creates new form MenuAdmin
      */
-    DefaultTableModel tabelModel,tabelModel1, tabelModel2,tabelModel4,tableModel5 ;
+    DefaultTableModel tabelModel,tabelModel1, tabelModel2,tabelModel4,tableModel5,tabelModel6 ;
     public MenuAdmin() {
         
         initComponents();
@@ -92,12 +92,13 @@ public class MenuAdmin extends javax.swing.JFrame {
         tabelModel2 = (DefaultTableModel) tabelLayanan.getModel();
         tabelModel4 = (DefaultTableModel) tabelHewan.getModel() ;
         tableModel5 = (DefaultTableModel) tabelProduk.getModel();
+        tabelModel6 = (DefaultTableModel) tabelUkuranHewan.getModel();
         tampliSuplier();       
         tampilPegawai();
         tampilLayanan();
         tampilJenisHewan();
         tampilProduk();
-
+        tampilUkuranHewan();
         tablePegawai.setEnabled(false);
            
     }
@@ -128,6 +129,13 @@ public class MenuAdmin extends javax.swing.JFrame {
         data.add(Pb.getHarga());
         data.add(Pb.getMin_stok());
         tableModel5.addRow(data);
+    }
+    public void addTabelUkuran(UkuranHewan Uh)
+    {
+        Vector data = new Vector();
+        data.add(Uh.getID());
+        data.add(Uh.getNama());
+        tabelModel6.addRow(data);
     }
     public void addTableHewa(JenisHewan JH)
     {
@@ -303,6 +311,23 @@ public class MenuAdmin extends javax.swing.JFrame {
              System.out.println("okk");
          }
      }
+    public void tampilUkuranHewan()
+    {
+        int  a = tabelModel6.getRowCount();
+        for (int i = 0; i <a; i++) {
+            tabelModel6.removeRow(0);
+            
+        }
+        UkuranHewan UH ;
+        List<UkuranHewan> M= AC.tampilUkuran();
+        for (int i = 0; i < M.size(); i++) {
+
+            UH= new UkuranHewan();
+            UH.setID(M.get(i).getID());
+            UH.setNama(M.get(i).getNama());
+            addTabelUkuran(UH);
+        }
+    }
     public void tampilProduk()
     {
         int a = tableModel5.getRowCount() ;
@@ -705,7 +730,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         txtUkuranHewan = new javax.swing.JTextField();
         jLabel87 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        tabelLayanan1 = new javax.swing.JTable();
+        tabelUkuranHewan = new javax.swing.JTable();
         jLabel88 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -3405,10 +3430,10 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addGap(76, 76, 76))
         );
 
-        tabelLayanan1.setBackground(new java.awt.Color(255, 255, 255));
-        tabelLayanan1.setFont(new java.awt.Font("Geometr212 BkCn BT", 1, 12)); // NOI18N
-        tabelLayanan1.setForeground(new java.awt.Color(0, 0, 0));
-        tabelLayanan1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelUkuranHewan.setBackground(new java.awt.Color(255, 255, 255));
+        tabelUkuranHewan.setFont(new java.awt.Font("Geometr212 BkCn BT", 1, 12)); // NOI18N
+        tabelUkuranHewan.setForeground(new java.awt.Color(0, 0, 0));
+        tabelUkuranHewan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -3428,7 +3453,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "ID_Layanan", "Nama Layanan"
+                "ID_Ukuran", "Ukuran Hewan"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -3439,11 +3464,11 @@ public class MenuAdmin extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelLayanan1.setGridColor(new java.awt.Color(0, 0, 0));
-        jScrollPane8.setViewportView(tabelLayanan1);
-        if (tabelLayanan1.getColumnModel().getColumnCount() > 0) {
-            tabelLayanan1.getColumnModel().getColumn(0).setResizable(false);
-            tabelLayanan1.getColumnModel().getColumn(1).setResizable(false);
+        tabelUkuranHewan.setGridColor(new java.awt.Color(0, 0, 0));
+        jScrollPane8.setViewportView(tabelUkuranHewan);
+        if (tabelUkuranHewan.getColumnModel().getColumnCount() > 0) {
+            tabelUkuranHewan.getColumnModel().getColumn(0).setResizable(false);
+            tabelUkuranHewan.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jLabel88.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
@@ -4498,6 +4523,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 
             AC.tambahUkuranHewan(uh);
             setTextDataUkuran();
+            tampilUkuranHewan();
             JOptionPane.showMessageDialog(this, "DATA UKURAN BERHASIL DISIMPAN");
         }
          catch(dataKosong dk)
@@ -4748,8 +4774,8 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdKasir;
     private javax.swing.JTable tabelHewan;
     private javax.swing.JTable tabelLayanan;
-    private javax.swing.JTable tabelLayanan1;
     private javax.swing.JTable tabelProduk;
+    private javax.swing.JTable tabelUkuranHewan;
     private javax.swing.JTable tablePegawai;
     private javax.swing.JTable tablePegawai1;
     private javax.swing.JTable tableSupTambahData;

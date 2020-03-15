@@ -149,6 +149,13 @@ private final AdminDao aDAO = new AdminDao();
         return pgw;
     
     }
+    public List<UkuranHewan>tampilUkuran()
+    {
+        aDAO.makeConnection();
+        List<UkuranHewan> uh  = aDAO.tampilUkuranHewan();
+        aDAO.closeConnection();
+        return uh;
+    }
     public List<Produk>tampilComboBoxNama()
     {
         aDAO.makeConnection();

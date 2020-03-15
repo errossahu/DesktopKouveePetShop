@@ -344,7 +344,7 @@ public Produk searchProduk(String namaProduk)
 }
 public UkuranHewan searchUkuranHewan(String ukuran)
 {
-    String sql ="SELECT ID , NAMA where AKTIF= 1 AND NAMA='"+ukuran+"'";
+    String sql ="SELECT ID_ukuran_hewan , NAMA from Ukuran_hewan where AKTIF= 1 AND NAMA='"+ukuran+"'";
     System.out.println("Mencari Ukuran ...");
     UkuranHewan Uh = null; 
     try
@@ -634,6 +634,38 @@ public List<Layanan> tampilLayanan()
         System.out.println("Gagal Menambahkan Data ...");
     }
         return list ;         
+}
+public List<UkuranHewan>tampilUkuranHewan()
+{
+    String sql = "Select id_ukuran_hewan, nama from ukuran_hewan where aktif=1";
+    System.out.println("Menampilkan ukuran hewan ...");
+    UkuranHewan uh ;
+    List<UkuranHewan>M = new  ArrayList<>();
+    try
+    {
+        Statement stm = con.createStatement() ;
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+               uh= new UkuranHewan(Integer.parseInt(rs.getString("ID_UKURAN_HEWAN")),rs.getString("NAMA") );
+            
+               M.add(uh);
+            }
+             rs.close();
+             stm.close();
+        }
+        
+    }catch(Exception e)
+    {
+        System.out.println("Gagal..");
+        System.out.println(e);
+        
+    }
+    
+    
+    return M ;
 }
 public List<Suplier> tampilSuplier()
 {
