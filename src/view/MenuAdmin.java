@@ -70,6 +70,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jComboBoxSupllier.addItem("-Pilih Nama Supplier");
         jComboBoxHewan.addItem("-Pilih Jenis Hewan");
         jComboBoxLayanan.addItem("-Pilih Nama Layanan");
+        
         txtTanggalHariIni.setText(dtf.format(now));
       
         holder1.setCursiva(true);

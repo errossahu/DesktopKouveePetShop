@@ -8,6 +8,8 @@ package Controller;
 import DAO.CsDAO;
 import Model.Pegawai;
 import Model.Pelanggan;
+import Model.Produk;
+import java.util.List;
 
 /**
  *
@@ -24,5 +26,27 @@ public class CSControl {
         csDAO.makeConnection();
         csDAO.tambahPelanggan(P);
         csDAO.closeConnection(); 
+    }
+    public void hapusPelanggan(int id)
+    {
+        csDAO.makeConnection(); 
+        csDAO.hapusPelanggan(id);
+        csDAO.closeConnection();
+    }
+    public Pelanggan cariPelanggan(int id)
+    {
+        Pelanggan p = null ;
+        csDAO.makeConnection();
+        p= csDAO.searchPelanggan(id);
+        csDAO.closeConnection();
+        return p ;
+               
+    }
+    public List<Pelanggan>tampilPelanggan()
+    {
+        csDAO.makeConnection();
+        List<Pelanggan> P= csDAO.tampilPelanggan();
+        csDAO.closeConnection();
+        return  P ;
     }
 }

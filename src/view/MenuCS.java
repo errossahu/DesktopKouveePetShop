@@ -6,13 +6,29 @@
 
 package view;
 import Controller.CSControl ;
+import static DAO.AdminDao.con;
+import DAO.CsDAO;
+import Model.CS;
 import Model.Pelanggan;
+import Model.Produk;
 import exception.dataKosong;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import Session.LoginSession;
+import com.placeholder.PlaceHolder;
+import exception.CekAngka;
+import exception.CekHuruf;
+import exception.PanjangData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 
 /**
  *
@@ -24,9 +40,12 @@ public class MenuCS extends javax.swing.JFrame {
     public  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MMMM/dd ");  
     public  LocalDateTime now = LocalDateTime.now();
     CSControl CS ;
+    public CsDAO CA = new CsDAO();
+    
     /**
      * Creates new form MenuCS
      */
+        DefaultTableModel tabelModel ;
     public MenuCS() {
         
       
@@ -35,9 +54,74 @@ public class MenuCS extends javax.swing.JFrame {
         txtUserKasir.setText(LoginSession.getNama());
         P= new Pelanggan();
         CS = new CSControl();
+        tabelModel = (DefaultTableModel) tabelPelanggan.getModel();
+        jComboBoxPelanggan.addItem("-Pilih Id Pelanggan");
+          PlaceHolder holder0 = new PlaceHolder(txtNamaPelanggan,"Masukan Nama Pelanggan");
+          PlaceHolder holder1 = new PlaceHolder(txtAlamatPelanggan, "Masukan Alamat Pelanggan");
+          PlaceHolder holder2 = new PlaceHolder(txtTelpPelanggan, "Masukan No Telphone");
+        jComboBoxidPelanggan();
+        tampilPelanggan();
         
+
     }
 
+   public void addTablePelanggan(Pelanggan P)
+   {
+       Vector data = new Vector();
+       data.add(P.getId_pelanggan());
+       data.add(P.getNama());
+       data.add(P.getTelp());
+       data.add(P.getTglLahir());
+       data.add(P.getTelp());
+       tabelModel.addRow(data);
+   }
+   public void tampilPelanggan()
+   {
+        int a = tabelModel.getRowCount() ;
+        for (int i = 0; i < a; i++) {
+        tabelModel.removeRow(0);
+        }
+        Pelanggan P ;
+        List<Pelanggan> M = CS.tampilPelanggan();
+        for (int i = 0; i <M.size(); i++) {
+            
+            P= new Pelanggan();
+            P.setId_pelanggan(M.get(i).getId_pelanggan());
+            P.setNama(M.get(i).getNama());
+            P.setAlamat(M.get(i).getAlamat());
+            P.setTglLahir(M.get(i).getTglLahir());
+            P.setTelp(M.get(i).getTelp());
+            
+            addTablePelanggan(P);
+        }
+   }
+    public void jComboBoxidPelanggan()
+    {
+        CA.makeConnection();
+       
+        try
+        {
+            String sql = "Select id_pelanggan from Pelanggan where aktif = 1 ";
+            Class.forName("com.mysql.jdbc.Driver"); 
+            Statement st = CA.GETcon().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+           
+                jComboBoxPelanggan.addItem(rs.getString("id_pelanggan"));
+
+            }
+
+            
+        }
+        catch(Exception e)
+        {
+            System.out.println("Gagal Menampilkan Pelanggan");
+            System.out.println(e);
+        }
+        CA.closeConnection();
+            
+        
+    }
     public void inputException() throws dataKosong
     {
         String tanggal = String.valueOf(txtTanggalLahirPelanggan.getDate());
@@ -46,18 +130,49 @@ public class MenuCS extends javax.swing.JFrame {
             throw new dataKosong();
         }
     }
-    public void setTextPelanggan()
+    public void cekAngka()throws CekAngka
+     {
+       if(txtTelpPelanggan.getText().matches("[0-9]*")) 
+       {
+           System.out.println("ok");
+       }
+       else
+       {
+           throw new  CekAngka();
+       }
+     }
+    public void cekHuruf()throws CekHuruf
+     {
+         if(txtNamaPelanggan.getText().matches("[0-9]*"))
+         {
+             throw new CekHuruf();
+         }
+         else
+         {
+             System.out.println("okk");
+         }
+     }
+    public void cekPanjangNoTelp() throws PanjangData
     {
-        txtAlamatPelanggan.setText(" ");
-        txtNamaPelanggan.setText(" ");
-        txtTanggalHariIni.setText(" ");
-        txtTelpPelanggan.setText(" ");
+        if(txtTelpPelanggan.getText().length()<12)
+        {
+            throw  new PanjangData();
+        }
         
     }
-    public void cekNomorTelp()
+    public void setTextPelanggan()
     {
-        
-    }        
+        txtCariNamaPelanggan.setText(" ");
+        txtCariAlaPelanggan.setText(" ");
+        txtCariTglLahir.setText(" ");
+        txtCariTelpPel.setText(" ");
+        txtAlamatPelanggan.setText(" ");
+        txtNamaPelanggan.setText(" ");
+        txtTelpPelanggan.setText(" ");
+        txtTanggalLahirPelanggan.setDate(null);
+       
+    }
+            
             
         /**
      * This method is called from within the constructor to initialize the form.
@@ -99,11 +214,23 @@ public class MenuCS extends javax.swing.JFrame {
         jLabel61 = new javax.swing.JLabel();
         txtTelpPelanggan = new javax.swing.JTextField();
         txtTanggalLahirPelanggan = new com.toedter.calendar.JDateChooser();
-        jLabel60 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelPelanggan = new javax.swing.JTable();
+        jLabel60 = new javax.swing.JLabel();
         cariPegawai = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        jComboBoxPelanggan = new javax.swing.JComboBox<>();
+        jPanel12 = new javax.swing.JPanel();
+        btnSimpanProduk2 = new javax.swing.JButton();
+        btlHapusSup = new javax.swing.JButton();
+        txtCariAlaPelanggan = new javax.swing.JTextField();
+        txtCariNamaPelanggan = new javax.swing.JTextField();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        jLabel72 = new javax.swing.JLabel();
+        txtCariTelpPel = new javax.swing.JTextField();
+        txtCariTglLahir = new javax.swing.JTextField();
+        jLabel73 = new javax.swing.JLabel();
+        btnSearchPelanggan = new javax.swing.JLabel();
         bantuan = new javax.swing.JPanel();
         tampilSeluruh = new javax.swing.JPanel();
 
@@ -150,7 +277,7 @@ public class MenuCS extends javax.swing.JFrame {
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
         jLabel24.setText("HAI");
 
-        txtUserKasir.setFont(new java.awt.Font("Dialog", 2, 12)); // NOI18N
+        txtUserKasir.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         txtUserKasir.setForeground(new java.awt.Color(0, 0, 0));
         txtUserKasir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
@@ -396,11 +523,6 @@ public class MenuCS extends javax.swing.JFrame {
                 .addGap(76, 76, 76))
         );
 
-        jLabel60.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
-        jLabel60.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Box-icon (1).png"))); // NOI18N
-        jLabel60.setText("TAMBAH PELANGGAN");
-
         tabelPelanggan.setBackground(new java.awt.Color(255, 255, 255));
         tabelPelanggan.setFont(new java.awt.Font("Geometr212 BkCn BT", 1, 12)); // NOI18N
         tabelPelanggan.setForeground(new java.awt.Color(0, 0, 0));
@@ -438,6 +560,11 @@ public class MenuCS extends javax.swing.JFrame {
         tabelPelanggan.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane4.setViewportView(tabelPelanggan);
 
+        jLabel60.setFont(new java.awt.Font("Verdana", 1, 24)); // NOI18N
+        jLabel60.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel60.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/pelanggan.png"))); // NOI18N
+        jLabel60.setText("TAMBAH PELANGGAN");
+
         javax.swing.GroupLayout tambahPelangganLayout = new javax.swing.GroupLayout(tambahPelanggan);
         tambahPelanggan.setLayout(tambahPelangganLayout);
         tambahPelangganLayout.setHorizontalGroup(
@@ -454,14 +581,14 @@ public class MenuCS extends javax.swing.JFrame {
         tambahPelangganLayout.setVerticalGroup(
             tambahPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tambahPelangganLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(tambahPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(tambahPelangganLayout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -470,36 +597,150 @@ public class MenuCS extends javax.swing.JFrame {
         cariPegawai.setBackground(new java.awt.Color(99, 175, 241));
         cariPegawai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jPanel5.setBackground(new java.awt.Color(99, 175, 241));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 18)));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Trajan Pro", 0, 18)));;
+        jComboBoxPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxPelangganMouseClicked(evt);
+            }
+        });
+        jComboBoxPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxPelangganActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 529, Short.MAX_VALUE)
+        jPanel12.setBackground(new java.awt.Color(99, 175, 241));
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
+
+        btnSimpanProduk2.setText("SIMPAN");
+        btnSimpanProduk2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanProduk2ActionPerformed(evt);
+            }
+        });
+
+        btlHapusSup.setText("HAPUS");
+        btlHapusSup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btlHapusSupActionPerformed(evt);
+            }
+        });
+
+        txtCariNamaPelanggan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariNamaPelangganActionPerformed(evt);
+            }
+        });
+
+        jLabel70.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel70.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel70.setText("Nama ");
+
+        jLabel71.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel71.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel71.setText("Alamat");
+
+        jLabel72.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel72.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel72.setText("Telephone");
+
+        txtCariTelpPel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariTelpPelActionPerformed(evt);
+            }
+        });
+
+        txtCariTglLahir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariTglLahirActionPerformed(evt);
+            }
+        });
+
+        jLabel73.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel73.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel73.setText("Tanggal Lahir");
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(btlHapusSup, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSimpanProduk2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel70, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel71, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel72, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel73, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCariAlaPelanggan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCariTelpPel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCariTglLahir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCariNamaPelanggan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35))))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 407, Short.MAX_VALUE)
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCariNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariAlaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariTelpPel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCariTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btlHapusSup)
+                    .addComponent(btnSimpanProduk2))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
+
+        btnSearchPelanggan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/search-icon.png"))); // NOI18N
+        btnSearchPelanggan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchPelangganMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout cariPegawaiLayout = new javax.swing.GroupLayout(cariPegawai);
         cariPegawai.setLayout(cariPegawaiLayout);
         cariPegawaiLayout.setHorizontalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cariPegawaiLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(btnSearchPelanggan)
+                .addGap(3, 3, 3)
+                .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(634, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cariPegawaiLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(301, Short.MAX_VALUE))
+            .addGroup(cariPegawaiLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addGroup(cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSearchPelanggan)
+                    .addComponent(jComboBoxPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(275, Short.MAX_VALUE))
         );
 
         mainPanel2.add(cariPegawai, "card3");
@@ -542,7 +783,7 @@ public class MenuCS extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dataPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(mainPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         dataPelangganLayout.setVerticalGroup(
@@ -652,22 +893,51 @@ public class MenuCS extends javax.swing.JFrame {
         try
         {
             inputException();
+            cekAngka();
+            cekHuruf();
             String format = "yyyy-MM-dd";
             SimpleDateFormat fm = new SimpleDateFormat(format);
             String tanggal = String.valueOf(fm.format(txtTanggalLahirPelanggan.getDate()));
+        
             P.setNama(txtNamaPelanggan.getText());
             P.setAlamat(txtAlamatPelanggan.getText());
             P.setTelp(txtTelpPelanggan.getText());
             P.setTglLahir(tanggal);
             CS.tambahPelanggan(P);
+            tampilPelanggan();
+            CA.makeConnection();
+            
+            String sql = "Select id_pelanggan from Pelanggan where aktif = 1 ";
+            Class.forName("com.mysql.jdbc.Driver"); 
+            Statement st = CA.GETcon().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while (rs.next()) {
+           
+                jComboBoxPelanggan.addItem(rs.getString("id_pelanggan"));
+
+            }
+            CA.closeConnection();
+
+            
             setTextPelanggan();
             JOptionPane.showMessageDialog(this,"Berhasil Tambah Data Pelangggan");
-        
+          
         }
+        
         catch(dataKosong d)
         {
             JOptionPane.showMessageDialog(this, d.message());
         }    
+        
+        catch(CekAngka ca)
+        {
+            JOptionPane.showMessageDialog(this, ca.dataHanyaHuruf());
+        }
+        catch(CekHuruf ch)
+        {
+            JOptionPane.showMessageDialog(this, ch.cekHuruf());
+        }
         catch(Exception e)
         {
             System.out.println(e);
@@ -683,6 +953,87 @@ public class MenuCS extends javax.swing.JFrame {
     private void txtTelpPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelpPelangganActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelpPelangganActionPerformed
+
+    private void jComboBoxPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxPelangganMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxPelangganMouseClicked
+
+    private void jComboBoxPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxPelangganActionPerformed
+
+    private void btnSimpanProduk2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanProduk2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSimpanProduk2ActionPerformed
+
+    private void btlHapusSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusSupActionPerformed
+        // TODO add your handling code here:
+        String cari = (String)jComboBoxPelanggan.getSelectedItem();
+            int id = Integer.parseInt(cari);
+        try
+        {
+            
+            if(txtCariNamaPelanggan.getText().equalsIgnoreCase(" "))
+            {
+                JOptionPane.showMessageDialog(this, "Tidak Ada Yang Di Hapus");
+            }
+            
+            else
+            {
+                if (JOptionPane.showConfirmDialog(null, "Yakin Hapus?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+                {
+                    CS.hapusPelanggan(id);
+
+                    JOptionPane.showMessageDialog(this, "Data Berhasil Dihapus..");
+
+
+                    
+                    jComboBoxPelanggan.removeItem(jComboBoxPelanggan.getSelectedItem());
+                    jComboBoxPelanggan.setSelectedIndex(0);
+                    setTextPelanggan();
+                    tampilPelanggan();
+                }
+            }
+
+        }
+        catch(Exception e)
+        {
+            System.out.println("Gagal Hapus");
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_btlHapusSupActionPerformed
+
+    private void txtCariNamaPelangganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariNamaPelangganActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariNamaPelangganActionPerformed
+
+    private void txtCariTelpPelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTelpPelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariTelpPelActionPerformed
+
+    private void btnSearchPelangganMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchPelangganMouseClicked
+        // TODO add your handling code here:
+        String cari = (String)jComboBoxPelanggan.getSelectedItem();
+        int ID= Integer.parseInt(cari);
+        P= CS.cariPelanggan(ID);
+        if(P!=null)
+        {
+            txtCariNamaPelanggan.setText(P.getNama());
+            txtCariAlaPelanggan.setText(P.getAlamat());
+            txtCariTelpPel.setText(P.getTelp());
+           txtCariTglLahir.setText(P.getTglLahir());
+
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Data Supplier Tida Ada..");
+        }
+
+    }//GEN-LAST:event_btnSearchPelangganMouseClicked
+
+    private void txtCariTglLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTglLahirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariTglLahirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -723,16 +1074,20 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel MainPanel;
     private javax.swing.JPanel background;
     private javax.swing.JPanel bantuan;
+    private javax.swing.JButton btlHapusSup;
     private javax.swing.JButton btlSimpan;
     private javax.swing.JButton btnCari;
     private javax.swing.JButton btnHelp;
     private javax.swing.JLabel btnLog;
     private javax.swing.JButton btnPegawai;
+    private javax.swing.JLabel btnSearchPelanggan;
     private javax.swing.JButton btnSimpanPelanggan;
+    private javax.swing.JButton btnSimpanProduk2;
     private javax.swing.JButton btnTambah;
     private javax.swing.JButton btnTampil;
     private javax.swing.JPanel cariPegawai;
     private javax.swing.JPanel dataPelanggan;
+    private javax.swing.JComboBox<String> jComboBoxPelanggan;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel23;
@@ -742,8 +1097,12 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel judul;
@@ -753,6 +1112,10 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel tambahPelanggan;
     private javax.swing.JPanel tampilSeluruh;
     private javax.swing.JTextField txtAlamatPelanggan;
+    private javax.swing.JTextField txtCariAlaPelanggan;
+    private javax.swing.JTextField txtCariNamaPelanggan;
+    private javax.swing.JTextField txtCariTelpPel;
+    private javax.swing.JTextField txtCariTglLahir;
     private javax.swing.JTextField txtNamaPelanggan;
     private javax.swing.JLabel txtTanggalHariIni;
     private com.toedter.calendar.JDateChooser txtTanggalLahirPelanggan;
