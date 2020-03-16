@@ -13,6 +13,6 @@ public class PanjangData extends  Exception{
  
     public String message()
     {
-        return "No telp Kurang Dari 12";
+        return "No telp Kurang Dari 12 Atau Lebih Dari 12 ";
     }
 }

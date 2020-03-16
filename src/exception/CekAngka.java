@@ -15,6 +15,10 @@ public class CekAngka extends Exception{
   {
       return "No TELP Hanya Angka" ;
   }
+  public String harga()
+  {
+      return "Harga , Minstok dan Jumlah Stok Hanya Berupa Angka";
+  }
 
   
 }

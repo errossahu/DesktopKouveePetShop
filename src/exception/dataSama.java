@@ -13,7 +13,7 @@ public class dataSama extends Exception{
 
     public String dataSama()
     {
-       
+      
         return "User Name Sudah Terdaftar" ;
     }
     public String layananSama()
