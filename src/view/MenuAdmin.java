@@ -1194,7 +1194,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnSimpanPegawai.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnSimpanPegawai.setForeground(new java.awt.Color(0, 0, 0));
         btnSimpanPegawai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/save.png"))); // NOI18N
-        btnSimpanPegawai.setText("Tambah ");
+        btnSimpanPegawai.setText("SIMPAN");
         btnSimpanPegawai.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         btnSimpanPegawai.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
         btnSimpanPegawai.setMargin(new java.awt.Insets(0, 0, 0, 0));
@@ -1345,7 +1345,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 525, Short.MAX_VALUE)
+            .addGap(0, 1148, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1603,7 +1603,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tampilSeluruhLayout.setVerticalGroup(
@@ -1722,7 +1722,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel10.setBackground(new java.awt.Color(99, 175, 241));
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
 
+        btnSimpanLyn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save-icon.png"))); // NOI18N
         btnSimpanLyn.setText("SIMPAN");
+        btnSimpanLyn.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSimpanLyn.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpanLyn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanLynActionPerformed(evt);
@@ -1751,7 +1754,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel69)
@@ -1760,8 +1763,8 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addGap(35, 35, 35))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(btlSimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSimpanLyn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnSimpanLyn)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel10Layout.setVerticalGroup(
@@ -1773,7 +1776,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel69, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btlSimpan1)
+                    .addComponent(btlSimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpanLyn))
                 .addGap(76, 76, 76))
         );
@@ -1849,7 +1852,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addGroup(tambahLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(249, Short.MAX_VALUE))
         );
 
         mainPanel3.add(tambahLayanan, "card2");
@@ -2099,7 +2102,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel9.setBackground(new java.awt.Color(99, 175, 241));
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
 
+        btnSimpanProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save-icon.png"))); // NOI18N
         btnSimpanProduk.setText("SIMPAN");
+        btnSimpanProduk.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSimpanProduk.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpanProduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanProdukActionPerformed(evt);
@@ -2184,7 +2190,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                             .addGroup(jPanel9Layout.createSequentialGroup()
                                 .addComponent(btlSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSimpanProduk, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSimpanProduk)
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel62, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2217,7 +2223,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(txtMinStok, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btlSimpan)
+                    .addComponent(btlSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpanProduk))
                 .addGap(76, 76, 76))
         );
@@ -2691,7 +2697,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(99, 175, 241));
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
 
+        btnSimpanSuplier.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save-icon.png"))); // NOI18N
         btnSimpanSuplier.setText("SIMPAN");
+        btnSimpanSuplier.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSimpanSuplier.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpanSuplier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanSuplierActionPerformed(evt);
@@ -2734,7 +2743,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSimpanSuplier, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSimpanSuplier)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -2769,7 +2778,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpanSuplier))
                 .addGap(76, 76, 76))
         );
@@ -3092,7 +3101,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel7.setBackground(new java.awt.Color(99, 175, 241));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
-        btnSimpan.setText("Simpan");
+        btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save-icon.png"))); // NOI18N
+        btnSimpan.setText("SIMPAN");
+        btnSimpan.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSimpan.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
@@ -3114,25 +3126,27 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSimpan)
                     .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel38)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNamaHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                        .addComponent(txtNamaHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(btnSimpan)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNamaHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
+                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                 .addComponent(btnSimpan)
-                .addGap(77, 77, 77))
+                .addGap(73, 73, 73))
         );
 
         tabelHewan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
@@ -3160,8 +3174,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         tambahHewanLayout.setHorizontalGroup(
             tambahHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tambahHewanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(tambahHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(71, 71, 71)
+                .addGroup(tambahHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel68, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
@@ -3171,13 +3185,13 @@ public class MenuAdmin extends javax.swing.JFrame {
         tambahHewanLayout.setVerticalGroup(
             tambahHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tambahHewanLayout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel68, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(33, 33, 33)
                 .addGroup(tambahHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addContainerGap(287, Short.MAX_VALUE))
         );
 
         mainPanel8.add(tambahHewan, "card2");
@@ -3420,7 +3434,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel19.setBackground(new java.awt.Color(99, 175, 241));
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
 
+        btnSimpanUkuran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save-icon.png"))); // NOI18N
         btnSimpanUkuran.setText("SIMPAN");
+        btnSimpanUkuran.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        btnSimpanUkuran.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnSimpanUkuran.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanUkuranActionPerformed(evt);
@@ -3449,7 +3466,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel19Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                         .addComponent(jLabel87)
@@ -3458,8 +3475,8 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addGap(26, 26, 26))
                     .addGroup(jPanel19Layout.createSequentialGroup()
                         .addComponent(btlSimpan2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnSimpanUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSimpanUkuran)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel19Layout.setVerticalGroup(
@@ -3471,7 +3488,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel87, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btlSimpan2)
+                    .addComponent(btlSimpan2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpanUkuran))
                 .addGap(76, 76, 76))
         );
@@ -3547,7 +3564,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addGroup(tambahUkuranHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(262, Short.MAX_VALUE))
         );
 
         mainPanel10.add(tambahUkuranHewan, "card2");
