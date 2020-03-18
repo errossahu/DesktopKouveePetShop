@@ -276,7 +276,7 @@ public class MenuCS extends javax.swing.JFrame {
 
         jLabel24.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jLabel24.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel24.setText("HAI");
+        jLabel24.setText("HAI      :");
 
         txtUserKasir.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         txtUserKasir.setForeground(new java.awt.Color(0, 0, 0));

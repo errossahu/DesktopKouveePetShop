@@ -398,9 +398,7 @@ public Suplier searchSupplier(String namaSupplier)
         {
             while(result.next())
             {
-//                  public Suplier(String nama , String alamat , String telp , String create_by,String create_at ,String Modified_by , 
-//            String Modifie_at , String delete_by , String delete_at)
-                
+
                 sp = new Suplier(result.getString("NAmA"),result.getString("ALAMAT"),result.getString("TELP"),
                 result.getString("CREATED_BY"),result.getString("CREATED_AT"),result.getString("MODIFIED_BY"),
                 result.getString("MODIFIED_AT"),result.getString("DELETE_BY"),result.getString("DELETE_AT"),Integer.parseInt(result.getString("ID_SUPPLIER")));
@@ -756,7 +754,93 @@ public List<Suplier> tampilSuplier()
 
 
 ////////////////////////////////EDIT /////////////////
-    public void editPegawai(Pegawai P,String userName)
+ 
+   
+public void editJenisHewan(JenisHewan Jh , String jenis)
+{
+    String sql = "UPDATE JENIS_HEWAN set modifed_by='ADMIN',MODIFIED_AT='"+dtf.format(now)+"',"
+            +"NAMA='"+Jh.getnNama()+"'"
+            +"where nama ='"+jenis+"'";
+    System.out.println("Edit Jenis Hewan");
+    try
+    {
+        Statement stm = con.createStatement();
+        int Result = stm.executeUpdate(sql);
+        System.out.println("Edit Ukuran");
+        System.out.println(Result);
+    
+    }
+    catch(Exception e)
+    {
+        System.out.println("Edit Ukuran");
+        System.out.println(e);
+    }
+}
+
+public void editSuplier(Suplier s , String nama )
+{
+    String sql = "UPDATE SUPPLIER SET MODIFIED_BY ='ADMIN ',MODIFIED_at='"+dtf.format(now)+"',"
+            +"nama='"+s.getNama()+"',"
+            +"telp='"+s.getTelp()+"',"
+            +"ALAMAT='"+s.getAlamat()+"'"
+            +"where nama = '"+nama+"'";
+    
+    System.out.println("Edit Supplier ....");
+    try {
+        
+        Statement stm = con.createStatement();
+        int Result = stm.executeUpdate(sql);
+        System.out.println(Result);
+    } catch (Exception e) {
+        System.out.println("Gagal Edit  Supplier ");
+        System.out.println(e);
+    }
+    
+}
+
+
+public void editLayanan(Layanan l , String nama )
+{
+    String sql = "UPDATE LAYANAN SET modified_by='ADMIN',MODIFIED_aT='"+dtf.format(now)+"',"
+            +"NAMA="+l.getNamaLayanan()+"'"
+            +"where nama = '"+nama+"'";
+    System.out.println("Edit Layanan");
+    try {
+        Statement stm = con.createStatement();
+        int rs = stm.executeUpdate(sql);
+        System.out.println("");
+        
+    } catch (Exception e) {
+        System.out.println("Gagal Edit Layanan");
+        System.out.println(e);
+    }
+    
+}
+public void editUkuran(UkuranHewan UH , String ukuran)
+{
+    String sql = "Update Ukuran_Hewan set modified_by='ADMIN', Modified_At='"+dtf.format(now)+"',"
+            +"NAMA='"+UH.getNama()+"'"
+            +" WHERE nama='"+ukuran+"'";
+    System.out.println("Edit Ukuran ");
+//     String sql = "UPDATE Motor SET nomorKendaraan = '"+M.getNomorKendaraan()+"',"
+//                    +" Merek= '"+M.getMerek()+"',"
+//                    +" tahunPembuatan ='"+M.gettahunPembuatan()+"'"
+//                    +" where  nomorKendaraan= '"+nomor+"'";
+    
+    try
+    {
+        Statement stm= con.createStatement() ;
+        int rs = stm.executeUpdate(sql);
+        System.out.println(rs);
+    }
+    catch(Exception e)
+    {
+        System.out.println("Gagal edit");
+        System.out.println(e);
+    }
+    
+}
+   public void editPegawai(Pegawai P,String userName)
 {
 
         String sql = "UPDATE Pegawai set MODIFIED_BY='ADMIN',"
@@ -782,12 +866,5 @@ public List<Suplier> tampilSuplier()
             System.out.println(e);
         }
 }
-    public void editLayanan(Layanan L , String namaLayanan)
-    {
-//                      String sql ="UPDATE Layanan set MODIFIED_BY='ADMIN',"
-//                              + ",Nama = '"+L.getNamaLayanan()
-//                              +",Modified_at='"
-                      
-    }
 
 }

@@ -11,6 +11,18 @@ package exception;
  */
 public class dataSama extends Exception{
 
+    public String dataUkuran()
+    {
+        return "Ukuran Sudah Terdaftar";
+    }
+    public String jenisHewan()
+    {
+        return "Jenis Hewan Sudah Terdaftar";
+    }
+    public String suplierSudahTerdaftar()
+    {
+        return  "Supllier Sudah Terdaftar";
+    }
     public String dataSama()
     {
       
@@ -19,6 +31,10 @@ public class dataSama extends Exception{
     public String layananSama()
     {
         return "Layanan Sudah Ada";
+    }
+    public String namaProduk()
+    {
+        return "Nama Produk Sudah Terdaftar";
     }
     
 }

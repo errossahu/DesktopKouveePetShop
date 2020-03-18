@@ -19,6 +19,18 @@ import java.util.List;
 public class AdminControl {
 private final AdminDao aDAO = new AdminDao();
   
+    public void editLayanan(Layanan l , String nama )
+    {
+        aDAO.makeConnection(); 
+        aDAO.editLayanan(l, nama);
+        aDAO.closeConnection();
+    }
+    public void editSupplier(Suplier s, String nama )
+    {
+        aDAO.makeConnection();
+        aDAO.editSuplier(s, nama);
+        aDAO.closeConnection();
+    }
     public void tambahProduk(Produk P )
     {
         aDAO.makeConnection(); 
@@ -148,6 +160,18 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         return pgw;
     
+    }
+    public void editJenisHewan(JenisHewan jh ,String cari)
+    {
+        aDAO.makeConnection();
+        aDAO.editJenisHewan(jh, cari);
+        aDAO.closeConnection();
+    }
+    public void editUkuranHewan(UkuranHewan UH ,String cari)
+    {
+        aDAO.makeConnection(); 
+        aDAO.editUkuran(UH, cari);
+        aDAO.closeConnection();
     }
     public void deletUkuranHewan(String cari)
     {
