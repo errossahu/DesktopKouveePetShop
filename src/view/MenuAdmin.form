@@ -140,8 +140,8 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnUkuran" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="35" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="btnLog" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -318,7 +318,18 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Serif" size="12" style="1"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icon/Cash-icon.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Harga Layanan"/>
+                <Property name="horizontalAlignment" type="int" value="2"/>
+                <Property name="horizontalTextPosition" type="int" value="2"/>
+                <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
+                  <Insets value="[0, 0, 0, 0]"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -907,7 +918,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="525" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1103" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -1300,7 +1311,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" pref="501" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" pref="1079" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -4687,7 +4698,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="mainPanel7" alignment="1" max="32767" attributes="0"/>
+                      <Component id="mainPanel7" alignment="1" pref="1127" max="32767" attributes="0"/>
                       <Component id="jPanel14" alignment="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
@@ -4715,7 +4726,8 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
                                       <Component id="btnTambahLyn1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="btnCariLyn1" min="-2" pref="121" max="-2" attributes="0"/>
@@ -4724,7 +4736,6 @@
                                       <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
                                       <Component id="btnHelp4" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel34" alignment="0" min="-2" pref="389" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -4815,7 +4826,7 @@
                         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="0" green="0" red="0" type="rgb"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="MENGELOLA LAYANAN KOEVEE PET SHOP"/>
+                        <Property name="text" type="java.lang.String" value="MENGELOLA HARGA LAYANAN KOEVEE PET SHOP"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -4982,9 +4993,9 @@
                                   <Color blue="0" green="0" red="0" type="rgb"/>
                                 </Property>
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                                  <Image iconType="3" name="/icon/menuTambahHewan.png"/>
+                                  <Image iconType="3" name="/icon/uang1.png"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="TAMBAH LAYANAN"/>
+                                <Property name="text" type="java.lang.String" value="MENGELOLA HARGA"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="jComboBoxNamaLayanan">
@@ -5060,7 +5071,8 @@
                                   <Color blue="0" green="0" red="0" type="rgb"/>
                                 </Property>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="3" rowCount="16">
+                                  <Table columnCount="4" rowCount="16">
+                                    <Column editable="true" title="ID" type="java.lang.Object"/>
                                     <Column editable="false" title="Nama Layanan" type="java.lang.Object"/>
                                     <Column editable="true" title="Ukuran" type="java.lang.Object"/>
                                     <Column editable="true" title="Harga" type="java.lang.Object"/>
@@ -5068,6 +5080,11 @@
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
+                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                      <Title/>
+                                      <Editor/>
+                                      <Renderer/>
+                                    </Column>
                                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                                       <Title/>
                                       <Editor/>
