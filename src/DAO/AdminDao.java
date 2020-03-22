@@ -4,6 +4,7 @@
 * and open the template in the editor.
 */
 package DAO;
+import Model.Harga_Layanan;
 import Model.JenisHewan;
 import Model.Layanan;
 import Model.Pegawai;
@@ -14,6 +15,7 @@ import java.sql.Connection;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -87,7 +89,25 @@ public void tambahUkuranHewan(UkuranHewan UH)
         System.out.println(e);
     }
 }
-
+public void tambahHargaLayanan(Harga_Layanan H)
+{
+    String sql= "Insert Into Harga_Layanan (Id_Layanan, Id_Ukuran_Hewan,Harga, Created_At , Created_by)"
+            +"Values('"+H.getIdLayanan()+"','"+H.getIdUkuran()+"','"+H.getHarga()+"','"+dtf.format(now)+"','"+"Admin"+"')";
+    System.out.println(sql);
+    try
+    {
+        Statement stm = con.createStatement();
+        int Result = stm.executeUpdate(sql);
+        System.out.println(Result);
+        stm.close();
+    }
+    catch(Exception e)
+    {
+        System.out.println("Gagal ");
+        System.out.println(e);
+    }
+    
+}
 public void tambahJenisHewan(JenisHewan JH)
 {
     String sql = "Insert Into jenis_hewan(Nama, Created_by ,Created_at)"
@@ -512,6 +532,63 @@ public Pegawai searchPegawai (String userName){
 
 
 ///////////////////////LIST PEGAWAI///////////////////////
+
+public List<Harga_Layanan> tampilHargaLayanan() 
+{
+        String sql ="Select A.nama as Nama, b.nama as Ukuran,C.Harga as Harga from harga_layanan as C inner join layanan as A on C.id_layanan=A.id_Layanan inner join ukuran_hewan b on C.id_ukuran_hewan =b.id_ukuran_hewan where C.aktif=1"; 
+    System.out.println("Tampil Harga Layanan");
+     
+    List<Harga_Layanan> list = new ArrayList<Harga_Layanan>();
+    
+    try
+    {
+        
+        Statement stm= con.createStatement();
+       ResultSet rs= stm.executeQuery(sql);
+   
+        
+        if (rs!=null) {
+            
+            while(rs.next())
+            {
+                
+                
+                      List<Layanan> l=new ArrayList<>();
+                      Layanan lh = new Layanan();
+                       lh.setNamaLayanan(rs.getString("Nama"));
+                       UkuranHewan Uh= new UkuranHewan();
+                       Uh.setNama(rs.getString("Ukuran"));
+                       Harga_Layanan  hl = new Harga_Layanan(Integer.parseInt(rs.getString("Harga")));
+                       hl.setLayanan(l);
+//                      
+                       l.add(lh);
+                       list.add(hl);
+                            
+                    
+         
+                            
+            }
+            rs.close();
+            stm.close();
+        }
+
+    }
+    catch(SQLException e)
+    {
+        System.out.println(e);
+        
+    }
+    catch(Exception e)
+    {
+        System.out.println("Gagal ");
+        System.out.println(e);
+    }
+    
+    
+    
+    return list ;
+            
+}
 public List<Produk> tampilComboNamaProduk()
 {
     String sql = "Select NAMA FROM PRODUK WHERE AKTIF=1 ";

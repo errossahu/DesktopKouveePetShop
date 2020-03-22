@@ -5,6 +5,9 @@
  */
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author ACER
@@ -19,9 +22,14 @@ public class Layanan {
    public String delete_at ; 
    public String modified_by ;
    public String modified_at ;
-   
-   
-   public Layanan(){}
+    
+  
+    public Layanan(String namaLay )
+    {
+        this.namaLayanan = namaLay;
+    }
+    public Layanan(){}
+
    
    
    public Layanan(String namaLayanan ,int Id_Layanan , String create_by , String delete_by, 

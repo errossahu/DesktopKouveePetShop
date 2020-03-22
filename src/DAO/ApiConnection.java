@@ -24,7 +24,7 @@ public class ApiConnection {
         try
         {
             
-               URL url = new URL("https://jsonplaceholder.typicode.com/albums");
+               URL url = new URL("https://jsonplaceholder.typicode.com/produk");
                con= (HttpURLConnection) url.openConnection();
                con.setRequestMethod("GET");
             
@@ -35,7 +35,7 @@ public class ApiConnection {
     catch(Exception MalformedURLException)
         {
             System.out.println(MalformedURLException);
-
+           
         }
      
     }

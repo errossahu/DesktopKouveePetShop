@@ -5,6 +5,9 @@
  */
 package Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author ACER
@@ -19,9 +22,23 @@ public class UkuranHewan {
     public String modified_by ;
     public String delete_At ;
     public String delete_By ;
+    List<Harga_Layanan> harga=new ArrayList<>();
     
+    
+     public List<Harga_Layanan> getLayanan() {
+        return harga;
+    }
+ 
+    public void setDaftarHarga(List<Harga_Layanan> harga) {
+        this.harga = harga;
+    } 
+  
     
     public UkuranHewan(){}
+    public UkuranHewan(String nama )
+    {
+        this.nama = nama;
+    }
     public UkuranHewan(int id,String nama )
     {
         this.id = id  ;

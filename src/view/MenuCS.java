@@ -750,7 +750,7 @@ public class MenuCS extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1079, Short.MAX_VALUE)
+            .addGap(0, 1088, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -765,7 +765,7 @@ public class MenuCS extends javax.swing.JFrame {
         tampilSeluruh.setLayout(tampilSeluruhLayout);
         tampilSeluruhLayout.setHorizontalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1079, Short.MAX_VALUE)
+            .addGap(0, 1088, Short.MAX_VALUE)
         );
         tampilSeluruhLayout.setVerticalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -779,10 +779,10 @@ public class MenuCS extends javax.swing.JFrame {
         dataPelangganLayout.setHorizontalGroup(
             dataPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dataPelangganLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(3, 3, 3)
                 .addGroup(dataPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, Short.MAX_VALUE))
+                    .addComponent(mainPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1088, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         dataPelangganLayout.setVerticalGroup(

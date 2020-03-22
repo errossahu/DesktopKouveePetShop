@@ -5,6 +5,7 @@
  */
 package Controller;
 import DAO.AdminDao ;
+import Model.Harga_Layanan;
 import Model.JenisHewan;
 import Model.Layanan;
 import Model.Pegawai;
@@ -19,6 +20,12 @@ import java.util.List;
 public class AdminControl {
 private final AdminDao aDAO = new AdminDao();
   
+    public void tambahHargaLayanan(Harga_Layanan H)
+    {
+        aDAO.makeConnection();
+        aDAO.tambahHargaLayanan(H);
+        aDAO.closeConnection();
+    }
     public void editLayanan(Layanan l , String nama )
     {
         aDAO.makeConnection(); 
@@ -178,6 +185,13 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.makeConnection();
         aDAO.deleteUkuranHewan(cari);
         aDAO.closeConnection();
+    }
+    public List<Harga_Layanan> tampilHargaLayanan()
+    {
+        aDAO.makeConnection();
+        List<Harga_Layanan> HL = aDAO.tampilHargaLayanan();
+        aDAO.closeConnection();
+        return HL;
     }
     public List<UkuranHewan>tampilUkuran()
     {
