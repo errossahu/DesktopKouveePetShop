@@ -59,8 +59,9 @@ public class MenuAdmin extends javax.swing.JFrame {
     public  LocalDateTime now = LocalDateTime.now();  
     int id = LoginSession.getIduser()  ;   
     public String idSesion = String.valueOf(id);
-      
+    
     public AdminDao AD  = new AdminDao();
+    
     public int temp = 0 ;
     /**
      * Creates new form MenuAdmin
