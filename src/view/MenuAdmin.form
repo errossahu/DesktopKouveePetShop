@@ -3937,8 +3937,8 @@
                                           <Component id="btnSearchJenisHewan" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jPanel15" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jComboBoxHewan" alignment="0" min="-2" pref="427" max="-2" attributes="0"/>
+                                              <Component id="jPanel15" max="32767" attributes="0"/>
+                                              <Component id="jComboBoxHewan" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="jLabel37" min="-2" pref="202" max="-2" attributes="0"/>
@@ -4007,7 +4007,7 @@
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="27" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="btlHapusHewan" min="-2" pref="91" max="-2" attributes="0"/>
@@ -4017,7 +4017,7 @@
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
                                               <Component id="jLabel84" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace pref="27" max="32767" attributes="0"/>
                                               <Component id="txtCariNamaHwn" min="-2" pref="221" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                           </Group>
@@ -5135,14 +5135,14 @@
                                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
                                           <Component id="btnCariLayanan1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="jPanel21" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="jComboBoxLayanan1" alignment="0" min="-2" pref="427" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jComboBoxLayanan1" min="-2" pref="217" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="jLabel35" alignment="0" min="-2" pref="202" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="645" max="32767" attributes="0"/>
+                                  <EmptySpace pref="620" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -5158,7 +5158,7 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jPanel21" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="318" max="32767" attributes="0"/>
+                                  <EmptySpace pref="113" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -5219,19 +5219,27 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace pref="29" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
                                               <Component id="btlHapusHewan2" min="-2" pref="91" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="btnSimpanHewan3" min="-2" pref="98" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel89" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="txtNamaLayananCari1" min="-2" pref="221" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Component id="jLabel90" max="32767" attributes="0"/>
+                                                  <Component id="jLabel89" max="32767" attributes="0"/>
+                                                  <Component id="jLabel91" alignment="1" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace pref="28" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="txtNamaLayananHarga" alignment="1" min="-2" pref="221" max="-2" attributes="0"/>
+                                                  <Component id="txtNamaLayanaUkuran" alignment="1" min="-2" pref="221" max="-2" attributes="0"/>
+                                                  <Component id="txtNamaLayananHarga2" alignment="1" min="-2" pref="221" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -5243,10 +5251,20 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="txtNamaLayananCari1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="txtNamaLayananHarga" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                           <Component id="jLabel89" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="170" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="txtNamaLayanaUkuran" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="jLabel90" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel91" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="txtNamaLayananHarga2" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="btlHapusHewan2" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="btnSimpanHewan3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -5273,9 +5291,9 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btlHapusHewan2ActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="txtNamaLayananCari1">
+                            <Component class="javax.swing.JTextField" name="txtNamaLayananHarga">
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNamaLayananCari1ActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNamaLayananHargaActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel89">
@@ -5288,6 +5306,38 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Nama Layanan"/>
                               </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="txtNamaLayanaUkuran">
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNamaLayanaUkuranActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel90">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Clarendon BT" size="18" style="0"/>
+                                </Property>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="0" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Ukuran"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel91">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Clarendon BT" size="18" style="0"/>
+                                </Property>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="0" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Harga"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="txtNamaLayananHarga2">
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNamaLayananHarga2ActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>

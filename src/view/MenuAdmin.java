@@ -83,6 +83,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jComboBoxUkuran.addItem("-Pilih Ukuran Hewan");
         jComboBoxNamaLayanan.addItem(("-Pilih Nama Layanan"));
         jComboBoxUkuranHewan.addItem("-Pilih Ukuran Hewan");
+        jComboBoxLayanan1.addItem("-Pilih ID Harga Layanan");
         txtTanggalHariIni.setText(dtf.format(now));
       
         holder1.setCursiva(true);
@@ -97,6 +98,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         tampilComboBoxCariHewan();
         tambahHargaLayanan();
         tambahHargaUkuran();
+        tampilComboBoxHargaLayanan();
         
         AC = new AdminControl();
         txtAlamat.getBorder();
@@ -374,6 +376,26 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
        AD.closeConnection();
     }
+    public void tampilComboBoxHargaLayanan()
+    {
+        try {
+            AD.makeConnection();
+            String sql = "SELECT A.ID_HARGA_LAYANAN FROM harga_layanan AS A " +
+                        "INNER JOIN layanan AS B ON A.ID_LAYANAN = B.ID_LAYANAN\n" +
+                        "WHERE B.AKTIF = 1 ";
+              Class.forName("com.mysql.jdbc.Driver"); 
+            Statement st = AD.GETcon().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                jComboBoxLayanan1.addItem(rs.getString(1));
+            }
+        } catch (Exception e) {
+            System.out.println("gagal");
+            System.out.println(e);
+        }
+          AD.closeConnection();
+    }
     public void tampilComboBox()
     {
         
@@ -614,6 +636,46 @@ public class MenuAdmin extends javax.swing.JFrame {
             L.setNamaLayanan(M.get(i).getNamaLayanan());
             addTableLayanan(L);
         }
+    }
+    public Harga_Layanan cariHargaLayanan(String id)
+    {
+         Harga_Layanan hl = null ;
+
+        try {
+                
+            AD.makeConnection();
+            String sql ="Select A.nama as Nama, b.nama as Ukuran,C.Harga as Harga,C.ID_Harga_Layanan from harga_layanan as C inner join layanan as A on C.id_layanan=A.id_Layanan inner join ukuran_hewan b on C.id_ukuran_hewan =b.id_ukuran_hewan where C.aktif=1 AND A.aktif=1 And C.id_harga_layanan= '"+id+"'"; 
+            System.out.println("Tampil Harga Layanan");
+           
+            Statement stm = con.createStatement() ;
+            ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+
+              
+                hl = new  Harga_Layanan();
+                txtNamaLayananHarga.setText(rs.getString("Nama"));
+               txtNamaLayanaUkuran.setText(rs.getString("Ukuran"));
+               txtNamaLayananHarga2.setText(rs.getString("Harga"));
+               
+            }
+        }
+        rs.close();
+        stm.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println(e);
+            System.out.println(" Gagal ");
+        }
+    return hl;
+            
+      
+            
+       
+
     }
     public void tampilHargaLayanan()
     {
@@ -1068,8 +1130,12 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel21 = new javax.swing.JPanel();
         btnSimpanHewan3 = new javax.swing.JButton();
         btlHapusHewan2 = new javax.swing.JButton();
-        txtNamaLayananCari1 = new javax.swing.JTextField();
+        txtNamaLayananHarga = new javax.swing.JTextField();
         jLabel89 = new javax.swing.JLabel();
+        txtNamaLayanaUkuran = new javax.swing.JTextField();
+        jLabel90 = new javax.swing.JLabel();
+        jLabel91 = new javax.swing.JLabel();
+        txtNamaLayananHarga2 = new javax.swing.JTextField();
         tampilLayanan1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -3375,7 +3441,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(27, Short.MAX_VALUE)
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(btlHapusHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -3384,7 +3450,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel84)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                         .addComponent(txtCariNamaHwn, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35))))
         );
@@ -3425,7 +3491,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(CariHewanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jComboBoxHewan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(651, Short.MAX_VALUE))
         );
@@ -4138,9 +4204,9 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
-        txtNamaLayananCari1.addActionListener(new java.awt.event.ActionListener() {
+        txtNamaLayananHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNamaLayananCari1ActionPerformed(evt);
+                txtNamaLayananHargaActionPerformed(evt);
             }
         });
 
@@ -4148,22 +4214,48 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel89.setForeground(new java.awt.Color(0, 0, 0));
         jLabel89.setText("Nama Layanan");
 
+        txtNamaLayanaUkuran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamaLayanaUkuranActionPerformed(evt);
+            }
+        });
+
+        jLabel90.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel90.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel90.setText("Ukuran");
+
+        jLabel91.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
+        jLabel91.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel91.setText("Harga");
+
+        txtNamaLayananHarga2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNamaLayananHarga2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel21Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addComponent(btlHapusHewan2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSimpanHewan3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                        .addComponent(jLabel89)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtNamaLayananCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel21Layout.createSequentialGroup()
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel90, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel89, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel91, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNamaLayananHarga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNamaLayanaUkuran, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNamaLayananHarga2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel21Layout.setVerticalGroup(
@@ -4171,9 +4263,17 @@ public class MenuAdmin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNamaLayananCari1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaLayananHarga, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(170, 170, 170)
+                .addGap(27, 27, 27)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNamaLayanaUkuran, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel90, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel91, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNamaLayananHarga2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btlHapusHewan2)
                     .addComponent(btnSimpanHewan3))
@@ -4191,11 +4291,11 @@ public class MenuAdmin extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(btnCariLayanan1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(cariLayanan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(cariLayanan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(645, Short.MAX_VALUE))
+                .addContainerGap(620, Short.MAX_VALUE))
         );
         cariLayanan1Layout.setVerticalGroup(
             cariLayanan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -4208,7 +4308,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(btnCariLayanan1))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
         mainPanel7.add(cariLayanan1, "card3");
@@ -4395,12 +4495,12 @@ public class MenuAdmin extends javax.swing.JFrame {
             UkuranHewan uh = new UkuranHewan();
 
             uh.setNama(txtUkuranHewan.getText());
-
             AC.tambahUkuranHewan(uh);
             jComboBoxUkuran.addItem(txtUkuranHewan.getText());
             jComboBoxUkuranHewan.addItem(txtUkuranHewan.getText());
             setTextDataUkuran();
             tampilUkuranHewan();
+            
             
             JOptionPane.showMessageDialog(this, "DATA UKURAN BERHASIL DISIMPAN");
         }
@@ -5498,6 +5598,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnTambahLyn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahLyn1ActionPerformed
         // TODO add your handling code here:
+        mainPanel7.removeAll();
+        mainPanel7.repaint();
+        mainPanel7.revalidate();
+        mainPanel7.add(tambahLayanan2);
+        mainPanel7.repaint();
+        mainPanel7.revalidate();
+        setText();
     }//GEN-LAST:event_btnTambahLyn1ActionPerformed
 
     private void btnHelp4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp4ActionPerformed
@@ -5510,6 +5617,13 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnCariLyn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariLyn1ActionPerformed
         // TODO add your handling code here:
+        mainPanel7.removeAll();
+        mainPanel7.repaint();
+        mainPanel7.revalidate();
+        mainPanel7.add(cariLayanan1);
+        mainPanel7.repaint();
+        mainPanel7.revalidate();
+        setText();
     }//GEN-LAST:event_btnCariLyn1ActionPerformed
 
     private void btnSimpanLyn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanLyn2ActionPerformed
@@ -5550,6 +5664,10 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnCariLayanan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCariLayanan1MouseClicked
         // TODO add your handling code here:
+        
+    String cari = (String)jComboBoxLayanan1.getSelectedItem();
+    cariHargaLayanan(cari);
+   
     }//GEN-LAST:event_btnCariLayanan1MouseClicked
 
     private void jComboBoxLayanan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxLayanan1MouseClicked
@@ -5562,15 +5680,16 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnSimpanHewan3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanHewan3ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnSimpanHewan3ActionPerformed
 
     private void btlHapusHewan2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusHewan2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btlHapusHewan2ActionPerformed
 
-    private void txtNamaLayananCari1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaLayananCari1ActionPerformed
+    private void txtNamaLayananHargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaLayananHargaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNamaLayananCari1ActionPerformed
+    }//GEN-LAST:event_txtNamaLayananHargaActionPerformed
 
     private void jComboBoxNamaLayananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxNamaLayananMouseClicked
         // TODO add your handling code here:
@@ -5597,6 +5716,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         MainPanel.repaint();
         MainPanel.revalidate();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtNamaLayanaUkuranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaLayanaUkuranActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaLayanaUkuranActionPerformed
+
+    private void txtNamaLayananHarga2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNamaLayananHarga2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaLayananHarga2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -5798,6 +5925,8 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel90;
+    private javax.swing.JLabel jLabel91;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -5881,9 +6010,11 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtMinStokP;
     private javax.swing.JTextField txtNamSup;
     private javax.swing.JTextField txtNamaHewan;
+    private javax.swing.JTextField txtNamaLayanaUkuran;
     private javax.swing.JTextField txtNamaLayanan;
     private javax.swing.JTextField txtNamaLayananCari;
-    private javax.swing.JTextField txtNamaLayananCari1;
+    private javax.swing.JTextField txtNamaLayananHarga;
+    private javax.swing.JTextField txtNamaLayananHarga2;
     private javax.swing.JTextField txtNamaPegawai;
     private javax.swing.JTextField txtNamaProduk;
     private javax.swing.JTextField txtNoTelp;
