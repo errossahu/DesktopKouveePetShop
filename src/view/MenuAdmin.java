@@ -1543,7 +1543,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1103, Short.MAX_VALUE)
+            .addGap(0, 1128, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1801,7 +1801,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1079, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1104, Short.MAX_VALUE)
                 .addContainerGap())
         );
         tampilSeluruhLayout.setVerticalGroup(
@@ -4042,29 +4042,29 @@ public class MenuAdmin extends javax.swing.JFrame {
         tabelHargaLayanan.setForeground(new java.awt.Color(0, 0, 0));
         tabelHargaLayanan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "ID", "Nama Layanan", "Ukuran", "Harga"
+                "Nama Layanan", "Ukuran", "Harga"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, true, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -4074,7 +4074,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         tabelHargaLayanan.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane9.setViewportView(tabelHargaLayanan);
         if (tabelHargaLayanan.getColumnModel().getColumnCount() > 0) {
-            tabelHargaLayanan.getColumnModel().getColumn(1).setResizable(false);
+            tabelHargaLayanan.getColumnModel().getColumn(0).setResizable(false);
         }
 
         javax.swing.GroupLayout tambahLayanan2Layout = new javax.swing.GroupLayout(tambahLayanan2);
@@ -4232,7 +4232,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         tambahHargaLayanan.setLayout(tambahHargaLayananLayout);
         tambahHargaLayananLayout.setHorizontalGroup(
             tambahHargaLayananLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1127, Short.MAX_VALUE)
+            .addComponent(mainPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         tambahHargaLayananLayout.setVerticalGroup(
