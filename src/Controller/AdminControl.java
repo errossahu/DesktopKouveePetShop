@@ -26,6 +26,12 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.tambahHargaLayanan(H);
         aDAO.closeConnection();
     }
+    public void editProduk(Produk P , String nama)
+    {
+        aDAO.makeConnection(); 
+        aDAO.editProduk(P, nama);
+        aDAO.closeConnection();
+    }
     public void editLayanan(Layanan l , String nama )
     {
         aDAO.makeConnection(); 
@@ -81,6 +87,12 @@ private final AdminDao aDAO = new AdminDao();
     {
         aDAO.makeConnection(); 
         aDAO.deleteLayanan(cari);
+        aDAO.closeConnection();
+    }
+    public void deleteHargaLayanan(String cari)
+    {
+        aDAO.makeConnection(); 
+        aDAO.deleteHargaLayanan(cari);
         aDAO.closeConnection();
     }
     public void deleteJenisHewan(String cari)

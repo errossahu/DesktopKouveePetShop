@@ -15,7 +15,7 @@ public class Produk {
     public int jumlah  ; 
     public int harga ; 
     public int min_stok ;
-    
+    public String  gambar ;    
     public String Create_at ;
     public String Create_by ;
     public String delete_by ;
@@ -28,8 +28,9 @@ public class Produk {
     public Produk(){}
     
     public Produk(String nama , String satuan, int jumlah, int harga , int min_stok,String Create_by ,String Create_At , 
-            String modified_by , String modified_at , String delete_at , String delete_by ,int Id)
+            String modified_by , String modified_at , String delete_at , String delete_by ,int Id, String  gambar )
     {
+        this.gambar= gambar;
         this.Create_at = Create_At ;
         this.Create_by= Create_by ;
         this.delete_at = delete_at;
@@ -43,6 +44,14 @@ public class Produk {
         this.nama = nama  ; 
         this.satuan = satuan ; 
         this.id= Id ;
+    }
+    public void setGambar(String gambar )
+    {
+        this.gambar = gambar ;
+    }
+    public String  getGambar()
+    {
+        return gambar ;
     }
     public void setId(int idProduk)
     {
@@ -75,6 +84,10 @@ public class Produk {
     public String getModified_at()
     {
         return modified_by ;
+    }
+    public String getcREATE_aT()
+    {
+        return  Create_at ;
     }
     public void setCreate_AT(String  create_at)
     {

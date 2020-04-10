@@ -4,6 +4,7 @@
 * and open the template in the editor.
 */
 package DAO;
+import view.MenuAdmin;
 import Model.Harga_Layanan;
 import Model.JenisHewan;
 import Model.Layanan;
@@ -11,6 +12,7 @@ import Model.Pegawai;
 import Model.Produk;
 import Model.Suplier;
 import Model.UkuranHewan;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;
@@ -20,8 +22,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import static sun.misc.MessageUtils.where;
@@ -129,8 +133,8 @@ public void tambahJenisHewan(JenisHewan JH)
 }
 public void tambahProduk(Produk Pr)
 {
-    String sql = "INSERT INTO PRODUK(NAMA,SATUAN,JUMLAH_STOK,HARGA,MIN_STOK,CREATED_AT,CREATED_BY)"
-            +"VALUES('"+Pr.getNama()+"','"+Pr.getSatuan()+"','"+Pr.getJumlah()+"','"+Pr.getHarga()+"','"+Pr.getMin_stok()+"','"+dtf.format(now)+"','"+"ADMIN"+"')";
+    String sql = "INSERT INTO PRODUK(NAMA,SATUAN,JUMLAH_STOK,HARGA,MIN_STOK,CREATED_AT,CREATED_BY,Gambar)"
+            +"VALUES('"+Pr.getNama()+"','"+Pr.getSatuan()+"','"+Pr.getJumlah()+"','"+Pr.getHarga()+"','"+Pr.getMin_stok()+"','"+dtf.format(now)+"','"+"ADMIN"+"','"+Pr.getGambar()+"')";
             
             System.out.println("TAMBAH PRODUK");
             try
@@ -294,6 +298,21 @@ public void deleteLayanan(String Cari)
         System.out.println(e);
     }
 }
+
+public void deleteHargaLayanan(String id)
+{
+    String sql = "Update Harga_layanan set AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  id_harga_layanan='"+id+"'";
+    try
+    {
+        Statement stm = con.createStatement();
+        int result =stm.executeUpdate(sql);
+        System.out.println("DELETE SUP "+result);
+    }catch(Exception e)
+    {
+        System.out.println("Gagal Hapus");
+        System.out.println(e);
+    }
+}
 public void deleteJenisHewan(String cari)
 {
     String sql = "Update Jenis_Hewan set AKTIF=0 , DELETE_BY='ADMIN',DELETE_AT='"+dtf.format(now)+"' WHERE  NAMA='"+cari+"'";
@@ -347,6 +366,7 @@ public Produk searchProduk(String namaProduk)
 {
     String sql = "Select * from Produk where AKTIF=1 and nama='"+namaProduk+"'";
     System.out.println("Mencari Nama Produk");
+    System.out.println(sql);
     Produk P = null ;
     try 
     {
@@ -360,7 +380,10 @@ public Produk searchProduk(String namaProduk)
 //               String modified_by , String modified_at , String delete_at , String delete_by )
                 P = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
                 Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
-                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),Integer.parseInt(result.getString("ID_PRODUK")));
+                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),Integer.parseInt(result.getString("ID_PRODUK")),result.getString("GAMBAR"));
+                System.out.println(P.getGambar());
+                Blob pic;
+                            pic=(Blob) result.getBlob("gambar");
             }
             result.close();
             stm.close();
@@ -605,7 +628,7 @@ public List<Produk> tampilComboNamaProduk()
             {
                 Pr = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
                 Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
-                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),Integer.parseInt(result.getString("ID_PRODUK")));
+                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),Integer.parseInt(result.getString("ID_PRODUK")),result.getString("gambar"));
                 list.add(Pr);
             }
             
@@ -641,7 +664,8 @@ public List<Produk> tampilProduk()
                 Pr = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
                 Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
                 result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),
-                        Integer.parseInt(result.getString("ID_PRODUK")));
+                        Integer.parseInt(result.getString("ID_PRODUK")),result.getString("gambar"));
+                
                 list.add(Pr);
             }
         }
@@ -835,7 +859,7 @@ public List<Suplier> tampilSuplier()
    
 public void editJenisHewan(JenisHewan Jh , String jenis)
 {
-    String sql = "UPDATE JENIS_HEWAN set modifed_by='ADMIN',MODIFIED_AT='"+dtf.format(now)+"',"
+    String sql = "UPDATE JENIS_HEWAN set modified_by='ADMIN',MODIFIED_AT='"+dtf.format(now)+"',"
             +"NAMA='"+Jh.getnNama()+"'"
             +"where nama ='"+jenis+"'";
     System.out.println("Edit Jenis Hewan");
@@ -879,19 +903,41 @@ public void editSuplier(Suplier s , String nama )
 public void editLayanan(Layanan l , String nama )
 {
     String sql = "UPDATE LAYANAN SET modified_by='ADMIN',MODIFIED_aT='"+dtf.format(now)+"',"
-            +"NAMA="+l.getNamaLayanan()+"'"
+            +"NAMA= '"+l.getNamaLayanan()+"'"
             +"where nama = '"+nama+"'";
     System.out.println("Edit Layanan");
     try {
         Statement stm = con.createStatement();
         int rs = stm.executeUpdate(sql);
-        System.out.println("");
+        System.out.println(rs);
         
     } catch (Exception e) {
         System.out.println("Gagal Edit Layanan");
         System.out.println(e);
     }
     
+}
+
+//////Edit Produk ////////
+public void editProduk(Produk P , String nama)
+{
+   String sql ="UPDATE Produk set modified_by='ADMIN',modified_at ='"+dtf.format(now)+"' ,"
+          +"nama ='"+P.getNama()+"',"
+           +"satuan='"+P.getSatuan()+"',"
+           +"jumlah_stok='"+P.getJumlah()+"',"
+           +"harga='"+P.getHarga()+"',"
+           +"min_stok='"+P.getMin_stok()+"'"
+           +"where nama='"+nama+"'";
+    System.out.println("Edit Produk");
+    try {
+        Statement stm = con.createStatement();
+        int rs = stm.executeUpdate(sql);
+        System.out.println(rs);
+        
+    } catch (Exception e) {
+        System.out.println("gagal Edit Produk");
+        System.out.println(e);
+    }
 }
 public void editUkuran(UkuranHewan UH , String ukuran)
 {
