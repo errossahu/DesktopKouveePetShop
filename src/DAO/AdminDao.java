@@ -28,7 +28,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.omg.CORBA.PUBLIC_MEMBER;
-import static sun.misc.MessageUtils.where;
+
 
 /**
 *
@@ -751,7 +751,7 @@ public List<Layanan> tampilLayanan()
 }
 public List<UkuranHewan>tampilUkuranHewan()
 {
-    String sql = "Select id_ukuran_hewan, nama from ukuran_hewan where aktif=1";
+    String sql = "Select id_ukuran_hewan, nama, created_by , created_at from ukuran_hewan where aktif=1";
     System.out.println("Menampilkan ukuran hewan ...");
     UkuranHewan uh ;
     List<UkuranHewan>M = new  ArrayList<>();
@@ -763,7 +763,7 @@ public List<UkuranHewan>tampilUkuranHewan()
         {
             while(rs.next())
             {
-               uh= new UkuranHewan(Integer.parseInt(rs.getString("ID_UKURAN_HEWAN")),rs.getString("NAMA") );
+               uh= new UkuranHewan(Integer.parseInt(rs.getString("ID_UKURAN_HEWAN")),rs.getString("NAMA"),rs.getString("Created_by"),rs.getString("Created_at") );
             
                M.add(uh);
             }
@@ -966,14 +966,15 @@ public void editUkuran(UkuranHewan UH , String ukuran)
    public void editPegawai(Pegawai P,String userName)
 {
 
-        String sql = "UPDATE Pegawai set MODIFIED_BY='ADMIN',"
-                +"',Alamat = '"+P.getAlamat()
-                +"',Tanggal_Lahir = '"+P.getTglLahir()
-                +"',TELP = '"+P.getNoHp()
-                +"',USERNAME='"+P.getUserName()
-                +"',ROLE ='"+P.getRole()
-                +"'NAMA = '"+P.getNamaPegawai()
-                +"',MODIFIED_AT='"+dtf.format(now)+"'where userName = '"+userName+"'";
+
+        String sql = "UPDATE Pegawai set MODIFIED_BY='ADMIN',modified_at = '"+dtf.format(now)+"',"
+                +"Alamat = '"+P.getAlamat()+"',"
+                +"Tanggal_Lahir = '"+P.getTglLahir()+"',"
+                +"TELP = '"+P.getNoHp()+"',"
+                +"USERNAME='"+P.getUserName()+"',"
+                +"ROLE ='"+P.getRole()+"',"
+                +"NAMA = '"+P.getNamaPegawai()+"'"
+                +"where userName = '"+userName+"'";
 
 
 

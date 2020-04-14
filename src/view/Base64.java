@@ -1,4 +1,4 @@
-// Copyright (C) 2011 - Will Glozer.  All rights reserved.
+ // Copyright (C) 2011 - Will Glozer.  All rights reserved.
 
 package view;
 

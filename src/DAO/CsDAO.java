@@ -7,8 +7,10 @@ package DAO;
 
 import static DAO.AdminDao.con;
 import Model.JenisHewan;
+import Model.Layanan;
 import Model.Pelanggan;
 import Model.Produk;
+import Model.dataHewan;
 import Session.LoginSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -84,11 +86,28 @@ public void tambahPelanggan(Pelanggan P)
     }
 
 }
+public void tambahHewan(dataHewan dh )
+{
+    String sql ="Insert into Hewan (ID_PELANGGAN , ID_JENIS_HEWAN , NAMA , TANGGAL_Lahir , created_AT , created_by)"
+            +"values('"+dh.getIdPelanggan()+"','"+dh.getIDjENIShewan()+"','"+dh.getNamaHewan()+"','"
+            +dh.getTgl()+"','"+dtf.format(now)+"','"+LoginSession.getNama()+"')";
+    System.out.println("Tambah HEWAN ");
+    try {
+        Statement stm = con.createStatement() ;
+        int Rs = stm.executeUpdate(sql);
+        stm.close();
+        System.out.println(Rs);
+        
+    } catch (Exception e) {
+        System.out.println(e);
+        System.out.println("Gagal Menambahkan hewan ");
+    }
+}
 //////////////////////HAPUS////////////////////////
-public void hapusPelanggan(int cari)
+public void hapusPelanggan(String  cari)
 {
     String sql = "update pelanggan set aktif= 0,Delete_by ='"+LoginSession.getNama()
-            +"',Delete_AT = '"+dtf.format(now) +"'where id_pelanggan = '"+cari+"'";
+            +"',Delete_AT = '"+dtf.format(now) +"'where nama = '"+cari+"'";
     System.out.println("Mencari id");
     try
     {
@@ -103,9 +122,61 @@ public void hapusPelanggan(int cari)
     }
 }
 ///////////////CARI DATA ////////////////
-public Pelanggan searchPelanggan(int id)
+public Pelanggan searchPelangganPakaiNama(String nama)
 {
-    String sql = "Select nama, alamat, tanggal_lahir,telp from pelanggan where AKTIF=1 and id_pelanggan= '"+id+"'";
+String sql = "Select ID_PELANGGAN from Pelanggan where AKTIF=1 and nama= '"+nama+"'";
+    System.out.println("Mencari Nama Pelanggan .. ");
+    Pelanggan p = null ;
+    try
+    {
+        Statement stm = con.createStatement() ;
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+
+                p = new Pelanggan(Integer.parseInt(rs.getString("ID_PELANGGAN")));
+            }
+            
+        }
+        
+        rs.close();
+        stm.close();
+
+    }
+    catch (Exception e)
+    {
+        System.out.println(e);
+        System.out.println(" Gagal ");
+    }
+    return p ;
+}
+///////////////////Edit Pelanggan..............
+public void editPelangggan(Pelanggan P , String nama)
+{
+   String sql ="UPDATE Pelanggan set modified_by='"+LoginSession.getNama()+"',"
+           +"modified_at ='"+dtf.format(now)+"' ,"
+           +"nama ='"+P.getNama()+"',"
+           +"Alamat ='"+P.getAlamat()+"',"
+           +"Tanggal_Lahir='"+P.getTglLahir()+"',"
+           +"telp='"+P.getTelp()+"'"
+           +"where nama='"+nama+"'";
+    System.out.println("Edit Produk");
+    try {
+        Statement stm = con.createStatement();
+        int rs = stm.executeUpdate(sql);
+        System.out.println(rs);
+        
+    } catch (Exception e) {
+        
+        System.out.println("gagal Edit Produk");
+        System.out.println(e);
+    }
+}
+public Pelanggan searchPelanggan(String nama)
+{
+    String sql = "Select nama, alamat, tanggal_lahir,telp from pelanggan where AKTIF=1 and nama= '"+nama+"'";
     System.out.println("Mencari Nama Jenis Hewan .. ");
     Pelanggan p = null ;
     try
@@ -136,7 +207,7 @@ public Pelanggan searchPelanggan(int id)
 
 public List<Pelanggan> tampilPelanggan()
 {
-    String sql = "Select id_pelanggan, NAMA,Alamat, Tanggal_lahir, Telp  FROM Pelanggan WHERE AKTIF=1 ";
+    String sql = "Select id_pelanggan, NAMA,Alamat, Tanggal_lahir, Telp,CREATED_aT , CREATED_BY  FROM Pelanggan WHERE AKTIF=1 ";
             List<Pelanggan> list = new ArrayList<>();
 
     try
@@ -148,7 +219,7 @@ public List<Pelanggan> tampilPelanggan()
         {
             while(rs.next())
             {
-                Pr = new Pelanggan(Integer.parseInt(rs.getString("id_pelanggan")),rs.getString("nama"), rs.getString("alamat"), rs.getString("tanggal_lahir"), rs.getString("telp"));
+                Pr = new Pelanggan(Integer.parseInt(rs.getString("id_pelanggan")),rs.getString("nama"), rs.getString("Alamat"), rs.getString("tanggal_lahir"), rs.getString("telp"),rs.getString("created_at"),rs.getString("CREATED_bY"));
                 list.add(Pr);
             }
             

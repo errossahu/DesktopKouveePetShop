@@ -44,6 +44,13 @@ public class UkuranHewan {
         this.id = id  ;
         this.nama = nama;
     }
+    public UkuranHewan(int id,String nama ,String created_By , String created_At)
+    {
+        this.Created_by = created_By ;
+        this.created_at = created_At;
+        this.id = id  ;
+        this.nama = nama;
+    }
     public UkuranHewan(int id , String nama , String create_at, String created_by, String modified_by , String modifed_at , String delete_AT , String delete_by )
     {
         this.id = id ;
@@ -55,6 +62,22 @@ public class UkuranHewan {
         this.delete_At = delete_AT ;
         this.delete_By = delete_by ;
         
+    }
+    public String getCreateBy()
+    {
+        return Created_by ;
+    }
+    public void setCreateBy(String create)
+    {
+        this.Created_by =  create;
+    }
+    public void setCreateAt(String create)
+    {
+        this.created_at = create;
+    }
+    public String getCreateAt()
+    {
+        return created_at;
     }
     public void setNama(String nama )
     {

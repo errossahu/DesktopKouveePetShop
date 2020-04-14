@@ -65,10 +65,7 @@ public class Layanan {
    {
        this.delete_by= delete_by ;
    }
-   public String getCreateBy ()
-   {
-       return delete_by ;
-   }
+   
    public void setCreate_at(String create_at)
    {
        this.Create_at= create_at;

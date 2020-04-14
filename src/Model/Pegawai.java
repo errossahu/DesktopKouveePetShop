@@ -54,6 +54,22 @@ public class Pegawai {
       this.userName = userName ; 
       
     }
+    public void setCreated_by (String creteBy)
+    {
+        this.Created_by =creteBy;
+    }
+    public String getCreateBy()
+    {
+        return Created_by;
+    }
+    public void setCreateAt(String createAt)
+    {
+        this.Created_at =createAt ;
+    }
+    public String GetCreateAt()
+    {
+        return Created_at ;
+    }
     public void setDelelted_by(String delete_by)
     {
         this.deleted_by = delete_by ;
@@ -95,6 +111,7 @@ public class Pegawai {
     {
         return alamat ; 
     }
+    
     public void setNama(String namaPegawai )
     {
         this.namaPegawai= namaPegawai ;

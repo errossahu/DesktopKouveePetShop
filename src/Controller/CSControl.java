@@ -9,6 +9,7 @@ import DAO.CsDAO;
 import Model.Pegawai;
 import Model.Pelanggan;
 import Model.Produk;
+import Model.dataHewan;
 import java.util.List;
 
 /**
@@ -27,20 +28,40 @@ public class CSControl {
         csDAO.tambahPelanggan(P);
         csDAO.closeConnection(); 
     }
-    public void hapusPelanggan(int id)
+    public void tambahHewan(dataHewan dh)
     {
         csDAO.makeConnection(); 
-        csDAO.hapusPelanggan(id);
+        csDAO.tambahHewan(dh);
+        csDAO.closeConnection(); 
+    }
+    public void editPelanggan(Pelanggan P , String nama)
+    {
+        csDAO.makeConnection();
+        csDAO.editPelangggan(P, nama);
         csDAO.closeConnection();
     }
-    public Pelanggan cariPelanggan(int id)
+    public void hapusPelanggan(String nama)
+    {
+        csDAO.makeConnection(); 
+        csDAO.hapusPelanggan(nama );
+        csDAO.closeConnection();
+    }
+    public Pelanggan cariPelanggan(String nama)
     {
         Pelanggan p = null ;
         csDAO.makeConnection();
-        p= csDAO.searchPelanggan(id);
+        p= csDAO.searchPelanggan(nama);
         csDAO.closeConnection();
         return p ;
                
+    }
+    public Pelanggan cariPakaiNama(String nama)
+    {
+        Pelanggan p = null ;
+        csDAO.makeConnection(); 
+        p= csDAO.searchPelangganPakaiNama(nama);
+        csDAO.closeConnection();
+        return p ;
     }
     public List<Pelanggan>tampilPelanggan()
     {

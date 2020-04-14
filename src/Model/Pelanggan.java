@@ -26,8 +26,23 @@ public class Pelanggan {
     
     
     public Pelanggan(){}
+    public Pelanggan(int id )
+    {
+        this.Id_pelanggan = id ;
+    }
      public Pelanggan(int id,String nama , String alamat , String tglLahir, String telp)
     {
+        this.Id_pelanggan = id ;
+        this.nama = nama ;
+        this.alamat = alamat ;
+        this.tglLahir  =tglLahir ;
+        this.telp = telp;
+        
+    }
+     public Pelanggan(int id,String nama , String alamat , String tglLahir, String telp,String createat, String createby)
+    {
+        this.Create_at = createat ;
+        this.Create_by = createby ;
         this.Id_pelanggan = id ;
         this.nama = nama ;
         this.alamat = alamat ;
