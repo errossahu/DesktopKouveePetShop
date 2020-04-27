@@ -207,7 +207,7 @@ public Pelanggan searchPelanggan(String nama)
 
 public List<Pelanggan> tampilPelanggan()
 {
-    String sql = "Select id_pelanggan, NAMA,Alamat, Tanggal_lahir, Telp,CREATED_aT , CREATED_BY  FROM Pelanggan WHERE AKTIF=1 ";
+    String sql = "Select * FROM Pelanggan WHERE AKTIF=1 ";
             List<Pelanggan> list = new ArrayList<>();
 
     try
@@ -219,7 +219,7 @@ public List<Pelanggan> tampilPelanggan()
         {
             while(rs.next())
             {
-                Pr = new Pelanggan(Integer.parseInt(rs.getString("id_pelanggan")),rs.getString("nama"), rs.getString("Alamat"), rs.getString("tanggal_lahir"), rs.getString("telp"),rs.getString("created_at"),rs.getString("CREATED_bY"));
+                Pr = new Pelanggan(Integer.parseInt(rs.getString("id_pelanggan")),rs.getString("nama"), rs.getString("Alamat"), rs.getString("tanggal_lahir"), rs.getString("telp"),rs.getString("created_at"),rs.getString("CREATED_bY"),rs.getString("modified_by"),rs.getString("modified_At"));
                 list.add(Pr);
             }
             

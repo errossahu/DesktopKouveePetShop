@@ -81,7 +81,7 @@ public class Produk {
     {
         this.modified_by =modified_by;
     }
-    public String getModified_at()
+    public String getModified_by()
     {
         return modified_by ;
     }

@@ -93,6 +93,29 @@ public void tambahUkuranHewan(UkuranHewan UH)
         System.out.println(e);
     }
 }
+public void editHargaLayanan(Harga_Layanan H, int id)
+{
+    
+    String sql= "UPDATE Harga_Layanan SET MODIFIED_BY = 'ADMIN', MODIFIED_AT='"+dtf.format(now)+"',"
+                +"ID_layanan ='"+H.getIdLayanan()+"',"
+                +"ID_UKURAN_HEWAN ='"+H.getIdUkuran()+"',"
+                +"HARGA ='"+H.getHarga()+"'"
+                +"WHERE ID_HARGA_LAYANAN='"+id+"'";
+    
+    try
+    {
+        Statement stm = con.createStatement();
+        int Result = stm.executeUpdate(sql);
+        System.out.println("Edit Harga Layanan");
+        System.out.println(Result);
+    
+    }
+    catch(Exception e)
+    {
+        System.out.println("Edit Harga Layanan");
+        System.out.println(e);
+    }
+}
 public void tambahHargaLayanan(Harga_Layanan H)
 {
     String sql= "Insert Into Harga_Layanan (Id_Layanan, Id_Ukuran_Hewan,Harga, Created_At , Created_by)"
@@ -751,7 +774,7 @@ public List<Layanan> tampilLayanan()
 }
 public List<UkuranHewan>tampilUkuranHewan()
 {
-    String sql = "Select id_ukuran_hewan, nama, created_by , created_at from ukuran_hewan where aktif=1";
+    String sql = "Select * from ukuran_hewan where aktif=1";
     System.out.println("Menampilkan ukuran hewan ...");
     UkuranHewan uh ;
     List<UkuranHewan>M = new  ArrayList<>();
@@ -763,7 +786,7 @@ public List<UkuranHewan>tampilUkuranHewan()
         {
             while(rs.next())
             {
-               uh= new UkuranHewan(Integer.parseInt(rs.getString("ID_UKURAN_HEWAN")),rs.getString("NAMA"),rs.getString("Created_by"),rs.getString("Created_at") );
+               uh= new UkuranHewan(Integer.parseInt(rs.getString("ID_UKURAN_HEWAN")),rs.getString("NAMA"),rs.getString("Created_by"),rs.getString("Created_at"),rs.getString("Modified_by"),rs.getString("Modified_at") );
             
                M.add(uh);
             }
@@ -926,6 +949,7 @@ public void editProduk(Produk P , String nama)
            +"satuan='"+P.getSatuan()+"',"
            +"jumlah_stok='"+P.getJumlah()+"',"
            +"harga='"+P.getHarga()+"',"
+           +"gambar='"+P.getGambar()+"',"
            +"min_stok='"+P.getMin_stok()+"'"
            +"where nama='"+nama+"'";
     System.out.println("Edit Produk");
@@ -965,6 +989,13 @@ public void editUkuran(UkuranHewan UH , String ukuran)
 }
    public void editPegawai(Pegawai P,String userName)
 {
+//       String sql ="UPDATE Produk set modified_by='ADMIN',modified_at ='"+dtf.format(now)+"' ,"
+//          +"nama ='"+P.getNama()+"',"
+//           +"satuan='"+P.getSatuan()+"',"
+//           +"jumlah_stok='"+P.getJumlah()+"',"
+//           +"harga='"+P.getHarga()+"',"
+//           +"min_stok='"+P.getMin_stok()+"'"
+//           +"where nama='"+nama+"'";
 
 
         String sql = "UPDATE Pegawai set MODIFIED_BY='ADMIN',modified_at = '"+dtf.format(now)+"',"

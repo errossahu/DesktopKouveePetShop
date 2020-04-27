@@ -26,6 +26,7 @@ public class Pelanggan {
     
     
     public Pelanggan(){}
+//    
     public Pelanggan(int id )
     {
         this.Id_pelanggan = id ;
@@ -39,8 +40,10 @@ public class Pelanggan {
         this.telp = telp;
         
     }
-     public Pelanggan(int id,String nama , String alamat , String tglLahir, String telp,String createat, String createby)
+     public Pelanggan(int id,String nama , String alamat , String tglLahir, String telp,String createat, String createby,String modif_by , String modif_At)
     {
+        this.modified_at = modif_At;
+        this.modified_by = modif_by;
         this.Create_at = createat ;
         this.Create_by = createby ;
         this.Id_pelanggan = id ;
@@ -75,6 +78,23 @@ public class Pelanggan {
         this.telp= telp ;
         this.tglLahir = tgllahir ;
     }
+    public void setModif_by(String modif)
+    {
+        this.modified_by = modif ;
+    }
+    public String getModif_By()
+    {
+        return modified_by;
+    }
+    public void setmodified_at(String modif)
+    {
+        this.modified_at= modif ;
+    }
+    public String getModif_at()
+    {
+        return modified_at;
+    }
+            
     public void setTelp(String telp)
     {
         this.telp = telp ;

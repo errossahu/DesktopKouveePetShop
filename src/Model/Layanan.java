@@ -92,7 +92,7 @@ public class Layanan {
    }
    public void setModified_at(String modified_by)
    {
-       this.modified_at = modified_at ;
+       this.modified_at = modified_by ;
    }
    public String getModified_at()
    {

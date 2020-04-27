@@ -26,6 +26,12 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.tambahHargaLayanan(H);
         aDAO.closeConnection();
     }
+    public void editHargaLayanan(Harga_Layanan H , int id )
+    {
+        aDAO.makeConnection();
+        aDAO.editHargaLayanan(H, id);
+        aDAO.closeConnection();
+    }
     public void editProduk(Produk P , String nama)
     {
         aDAO.makeConnection(); 

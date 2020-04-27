@@ -54,6 +54,14 @@ public class Pegawai {
       this.userName = userName ; 
       
     }
+    public void setModified_By(String modifiedBy)
+    {
+        this.Modified_by = modifiedBy;
+    }
+    public String getModified_by ()
+    {
+        return Modified_by;
+    }
     public void setCreated_by (String creteBy)
     {
         this.Created_by =creteBy;
@@ -157,7 +165,7 @@ public class Pegawai {
     {
         this.userName = userName  ;
     }
-    public String getUserName ()
+     public String getUserName ()
     {
         return userName ; 
     }

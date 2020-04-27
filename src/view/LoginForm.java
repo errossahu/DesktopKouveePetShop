@@ -175,7 +175,7 @@ public class LoginForm extends javax.swing.JFrame {
                 {
                     JOptionPane.showMessageDialog(this, "HAI : "+txtUserName.getText());
                     LoginSession.setIdUser(P.getId());
-                    LoginSession.setNama(P.getNamaPegawai());
+                    LoginSession.setNama(P.getUserName());
                     MenuCS MS = new MenuCS();
                     this.setVisible(false);
                     MS.setVisible(true);

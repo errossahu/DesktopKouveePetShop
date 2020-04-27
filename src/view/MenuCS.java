@@ -24,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import Session.LoginSession;
 import com.placeholder.PlaceHolder;
+import com.toedter.calendar.JDateChooser;
 import exception.CekAngka;
 import exception.CekHuruf;
 import exception.PanjangData;
@@ -32,11 +33,19 @@ import java.awt.event.KeyEvent;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table. DefaultTableModel;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
 /**
@@ -54,9 +63,9 @@ public class MenuCS extends javax.swing.JFrame {
     public AdminControl AC = new AdminControl();
     public CsDAO CA = new CsDAO();
     public AdminDao AD = new AdminDao();
-    
     public  JenisHewan jh ;
     public dataHewan Dh ;
+
     /**
      * Creates new form MenuCS
      */
@@ -79,6 +88,13 @@ public class MenuCS extends javax.swing.JFrame {
         PlaceHolder holder1 = new PlaceHolder(txtAlamatPelanggan, "Masukan Alamat Pelanggan");
         PlaceHolder holder2 = new PlaceHolder(txtTelpPelanggan, "Masukan No Telphone");
         PlaceHolder holder4 = new PlaceHolder(cariNamaHewan,"Masukan Nama Hewan");
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jComboBoxJenisHewan.addItem("-Pilih Jenis Hewan");
+        jComboBoxNamaPelanggan.addItem("-Pilih Nama Pelanggan");
+        
+        AutoCompleteDecorator.decorate(jComboBoxJenisHewan);
+        AutoCompleteDecorator.decorate(jComboBoxNamaPelanggan);
         jComboBoxidPelanggan();
         tampilNamaPelanggan();
         tampilJenisHewan();
@@ -86,7 +102,27 @@ public class MenuCS extends javax.swing.JFrame {
         tampilHewan();
         tampilTextNamaPelanggan();
         tampilTextNamaHewan();
+        atur(tabelPelanggan, new int []{100,300,300,150,150,150,150} );
+        atur(tabelHewan, new int[]{100,300,300,300,300,150,150,150,150});
+    
     }
+    private void atur(JTable lihat,  int lebar[]){
+    try
+    {
+        
+        lihat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        int banyak = lihat.getColumnCount();
+        for (int i = 0; i < banyak; i++) {
+           TableColumn kolom = lihat.getColumnModel().getColumn(i);
+           kolom.setPreferredWidth(lebar[i]);
+           lihat.setRowHeight(20);
+        }
+    } catch (Exception e) {
+       
+    }
+    }
+
+
     public void tampilTextNamaHewan()
     {
         AD.makeConnection();
@@ -190,12 +226,12 @@ public class MenuCS extends javax.swing.JFrame {
        data.add(P.getId_pelanggan());
        data.add(P.getNama());
        data.add(P.getAlamat());
-              data.add(P.getTglLahir());
-
-
+        data.add(P.getTglLahir());
        data.add(P.getTelp());
        data.add(P.getCreated_by());
        data.add(P.getCreated_At());
+       data.add(P.getModif_By());
+       data.add(P.getModif_at());
        tabelModel.addRow(data);
    }
    public void tampilHewan()
@@ -209,7 +245,7 @@ public class MenuCS extends javax.swing.JFrame {
         {
         CA.makeConnection();
         AD.makeConnection();
-            String sql ="Select A.nama as jenis_hewan , b.nama as nama_Pelanggan, C.id_Hewan as id,C.CREATED_BY ,C.created_At,C.nama as namaHewan, C.tanggal_lahir AS tgl_lahir from hewan as C INNER JOIN jenis_hewan AS A on C.ID_JENIS_HEWAN = A.ID_JENIS_HEWAN INNER JOIN pelanggan as B on B.ID_PELANGGAN = C.ID_PELANGGAN WHERE C.AKTIF = 1";
+            String sql ="Select A.nama as jenis_hewan , b.nama as nama_Pelanggan, C.id_Hewan as id,C.CREATED_BY ,C.created_At,C.nama as namaHewan, C.tanggal_lahir AS tgl_lahir from hewan as C INNER JOIN jenis_hewan AS A on C.ID_JENIS_HEWAN = A.ID_JENIS_HEWAN INNER JOIN pelanggan as B on B.ID_PELANGGAN = C.ID_PELANGGAN WHERE C.AKTIF = 1 && A.Aktif=1 && B.aktif=1";
 
             Statement stm= con.createStatement();
             ResultSet rs= stm.executeQuery(sql);
@@ -267,6 +303,8 @@ public class MenuCS extends javax.swing.JFrame {
             P.setTelp(M.get(i).getTelp());
             P.setCreated_by(M.get(i).getCreated_by());
             P.setCreated_At(M.get(i).getCreated_At());
+            P.setModif_by(M.get(i).getModif_By());
+            P.setmodified_at(M.get(i).getModif_at());
             addTablePelanggan(P);
         }
    }
@@ -432,7 +470,7 @@ public class MenuCS extends javax.swing.JFrame {
     {
         txtCariNamaPelanggan.setText(" ");
         txtCariAlaPelanggan.setText(" ");
-        txtCariTglLahir.setText(" ");
+        tgl.setDate(null);
         txtCariTelpPel.setText(" ");
         txtAlamatPelanggan.setText(" ");
         txtNamaPelanggan.setText(" ");
@@ -484,7 +522,7 @@ public class MenuCS extends javax.swing.JFrame {
         txtTelpPelanggan = new javax.swing.JTextField();
         txtTanggalLahirPelanggan = new com.toedter.calendar.JDateChooser();
         jLabel60 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tabelPelanggan = new javax.swing.JTable();
         cariPegawai = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -496,10 +534,10 @@ public class MenuCS extends javax.swing.JFrame {
         jLabel71 = new javax.swing.JLabel();
         jLabel72 = new javax.swing.JLabel();
         txtCariTelpPel = new javax.swing.JTextField();
-        txtCariTglLahir = new javax.swing.JTextField();
         jLabel73 = new javax.swing.JLabel();
         cariPelanggan = new javax.swing.JTextField();
         btnSearchPelanggan = new javax.swing.JLabel();
+        tgl = new com.toedter.calendar.JDateChooser();
         bantuan = new javax.swing.JPanel();
         tampilSeluruh = new javax.swing.JPanel();
         dataHewan = new javax.swing.JPanel();
@@ -824,38 +862,38 @@ public class MenuCS extends javax.swing.JFrame {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(jLabel60, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(btlSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSimpanPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel60, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel9Layout.createSequentialGroup()
-                                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel57, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel58, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel59, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtNamaPelanggan)
-                                        .addComponent(txtAlamatPelanggan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-                                        .addComponent(txtTelpPelanggan, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtTanggalLahirPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addGap(35, 35, 35))))
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel57, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel58, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel59))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNamaPelanggan)
+                                    .addComponent(txtAlamatPelanggan, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtTelpPelanggan, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtTanggalLahirPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel9Layout.createSequentialGroup()
+                                .addComponent(btlSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSimpanPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel60)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -871,53 +909,28 @@ public class MenuCS extends javax.swing.JFrame {
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel61, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTelpPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                .addGap(154, 154, 154)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpanPelanggan)
                     .addComponent(btlSimpan))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
-        tabelPelanggan.setBackground(new java.awt.Color(255, 255, 255));
-        tabelPelanggan.setFont(new java.awt.Font("Geometr212 BkCn BT", 1, 12)); // NOI18N
-        tabelPelanggan.setForeground(new java.awt.Color(0, 0, 0));
         tabelPelanggan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID_Pelanggan", "Nama ", "Alamat", "Tanggal Lahir", "Telp", "Create By", "Create At"
+                "ID", "Nama", "Alamat", "Tgl Lahir", "No Telp", "Create_By", "Create_At ", "Modified_By", "Modified_at"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tabelPelanggan.setGridColor(new java.awt.Color(0, 0, 0));
-        jScrollPane4.setViewportView(tabelPelanggan);
+        ));
+        jScrollPane1.setViewportView(tabelPelanggan);
         if (tabelPelanggan.getColumnModel().getColumnCount() > 0) {
-            tabelPelanggan.getColumnModel().getColumn(5).setHeaderValue("Create By");
-            tabelPelanggan.getColumnModel().getColumn(6).setResizable(false);
-            tabelPelanggan.getColumnModel().getColumn(6).setHeaderValue("Create At");
+            tabelPelanggan.getColumnModel().getColumn(0).setResizable(false);
+            tabelPelanggan.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
 
         javax.swing.GroupLayout tambahPelangganLayout = new javax.swing.GroupLayout(tambahPelanggan);
@@ -926,13 +939,15 @@ public class MenuCS extends javax.swing.JFrame {
             tambahPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tambahPelangganLayout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 819, Short.MAX_VALUE))
         );
         tambahPelangganLayout.setVerticalGroup(
             tambahPelangganLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+            .addGroup(tambahPelangganLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 555, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 85, Short.MAX_VALUE))
         );
 
         mainPanel2.add(tambahPelanggan, "card2");
@@ -980,12 +995,6 @@ public class MenuCS extends javax.swing.JFrame {
             }
         });
 
-        txtCariTglLahir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCariTglLahirActionPerformed(evt);
-            }
-        });
-
         jLabel73.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
         jLabel73.setForeground(new java.awt.Color(0, 0, 0));
         jLabel73.setText("Tanggal Lahir");
@@ -1007,6 +1016,14 @@ public class MenuCS extends javax.swing.JFrame {
                 btnSearchPelangganMouseClicked(evt);
             }
         });
+        btnSearchPelanggan.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSearchPelangganKeyPressed(evt);
+            }
+        });
+
+        tgl.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tgl.setDateFormatString("yyyy-MMMMMM-d");
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -1034,8 +1051,8 @@ public class MenuCS extends javax.swing.JFrame {
                                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCariAlaPelanggan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtCariTelpPel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCariTglLahir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCariNamaPelanggan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtCariNamaPelanggan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tgl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(cariPelanggan))
                         .addGap(35, 35, 35))))
         );
@@ -1043,32 +1060,29 @@ public class MenuCS extends javax.swing.JFrame {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cariPelanggan)
+                    .addComponent(btnSearchPelanggan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCariNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariAlaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCariTelpPel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(btnSearchPelanggan)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addComponent(cariPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCariNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel70, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel71, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCariAlaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel72, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCariTelpPel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCariTglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
-                        .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btlHapusSup, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSimpanProduk2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tgl, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btlHapusSup, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSimpanProduk2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1079,14 +1093,14 @@ public class MenuCS extends javax.swing.JFrame {
             .addGroup(cariPegawaiLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(664, Short.MAX_VALUE))
+                .addContainerGap(772, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cariPegawaiLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel2.add(cariPegawai, "card3");
@@ -1097,11 +1111,11 @@ public class MenuCS extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1144, Short.MAX_VALUE)
+            .addGap(0, 1252, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
 
         mainPanel2.add(bantuan, "card5");
@@ -1112,11 +1126,11 @@ public class MenuCS extends javax.swing.JFrame {
         tampilSeluruh.setLayout(tampilSeluruhLayout);
         tampilSeluruhLayout.setHorizontalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1144, Short.MAX_VALUE)
+            .addGap(0, 1252, Short.MAX_VALUE)
         );
         tampilSeluruhLayout.setVerticalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
 
         mainPanel2.add(tampilSeluruh, "card4");
@@ -1330,7 +1344,7 @@ public class MenuCS extends javax.swing.JFrame {
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpanPelanggan1)
                     .addComponent(btlSimpan1))
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         tabelHewan.setBackground(new java.awt.Color(255, 255, 255));
@@ -1338,29 +1352,29 @@ public class MenuCS extends javax.swing.JFrame {
         tabelHewan.setForeground(new java.awt.Color(0, 0, 0));
         tabelHewan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Jenis Hewan", "Nama Pelanggan", "Nama", "Tgl_Lahir", "Created_By", "Created_at"
+                "ID", "Jenis Hewan", "Nama Pelanggan", "Nama", "Tgl_Lahir", "Created_By", "Created_at", "Modified_By", "Modified_At"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1377,7 +1391,7 @@ public class MenuCS extends javax.swing.JFrame {
             .addGroup(tambahPelanggan1Layout.createSequentialGroup()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE))
         );
         tambahPelanggan1Layout.setVerticalGroup(
             tambahPelanggan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1524,14 +1538,14 @@ public class MenuCS extends javax.swing.JFrame {
             .addGroup(cariPegawai1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(664, Short.MAX_VALUE))
+                .addContainerGap(772, Short.MAX_VALUE))
         );
         cariPegawai1Layout.setVerticalGroup(
             cariPegawai1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cariPegawai1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         mainPanel3.add(cariPegawai1, "card3");
@@ -1542,11 +1556,11 @@ public class MenuCS extends javax.swing.JFrame {
         bantuan1.setLayout(bantuan1Layout);
         bantuan1Layout.setHorizontalGroup(
             bantuan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1147, Short.MAX_VALUE)
+            .addGap(0, 1255, Short.MAX_VALUE)
         );
         bantuan1Layout.setVerticalGroup(
             bantuan1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
 
         mainPanel3.add(bantuan1, "card5");
@@ -1557,11 +1571,11 @@ public class MenuCS extends javax.swing.JFrame {
         tampilSeluruh1.setLayout(tampilSeluruh1Layout);
         tampilSeluruh1Layout.setHorizontalGroup(
             tampilSeluruh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1147, Short.MAX_VALUE)
+            .addGap(0, 1255, Short.MAX_VALUE)
         );
         tampilSeluruh1Layout.setVerticalGroup(
             tampilSeluruh1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 499, Short.MAX_VALUE)
         );
 
         mainPanel3.add(tampilSeluruh1, "card4");
@@ -1599,7 +1613,7 @@ public class MenuCS extends javax.swing.JFrame {
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(menuHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+            .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1637,7 +1651,17 @@ public class MenuCS extends javax.swing.JFrame {
                 txtCariNamaPelanggan.setText(P.getNama());
                 txtCariAlaPelanggan.setText(P.getAlamat());
                 txtCariTelpPel.setText(P.getTelp());
-                txtCariTglLahir.setText(P.getTglLahir());
+
+                
+                String tgll = P.getTglLahir();
+                Date tanggal=null;
+              try {
+                     tanggal = new SimpleDateFormat("yyyy-MM-dd").parse(tgll);
+
+                      tgl.setDate(tanggal);
+              } catch (ParseException ex) {
+                  Logger.getLogger(MenuCS.class.getName()).log(Level.SEVERE, null, ex);
+              }
 
             }
         else
@@ -1647,10 +1671,6 @@ public class MenuCS extends javax.swing.JFrame {
            
         
     }//GEN-LAST:event_btnSearchPelangganMouseClicked
-
-    private void txtCariTglLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTglLahirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCariTglLahirActionPerformed
 
     private void txtCariTelpPelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariTelpPelActionPerformed
         // TODO add your handling code here:
@@ -1700,7 +1720,7 @@ public class MenuCS extends javax.swing.JFrame {
         Pelanggan P = new  Pelanggan();
         try
         {
-                 
+                
             if(txtCariNamaPelanggan.getText().length()<1)
             {
                 JOptionPane.showMessageDialog(this, "Tidak Ada Data Yang Diedit");
@@ -1708,11 +1728,14 @@ public class MenuCS extends javax.swing.JFrame {
             else
                 
             {
-                                 P.setNama(txtCariNamaPelanggan.getText());
+                P.setNama(txtCariNamaPelanggan.getText());
                  P.setAlamat(txtCariAlaPelanggan.getText());
                  P.setTelp(txtCariTelpPel.getText());
-                 P.setTglLahir(txtCariTglLahir.getText());
-                 
+                
+                    String format = "yyyy-MM-dd";
+                    SimpleDateFormat fm = new SimpleDateFormat(format);
+                    String tanggal = String.valueOf(fm.format(tgl.getDate()));
+                 P.setTglLahir(tanggal);
                  
                  CS.editPelanggan(P, cariPelanggan.getText());
                  JOptionPane.showMessageDialog(this,"Data Berhasil Diedit");
@@ -1920,6 +1943,7 @@ public class MenuCS extends javax.swing.JFrame {
 
     private void btnSimpanProduk3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanProduk3ActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnSimpanProduk3ActionPerformed
 
     private void btlHapusSup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusSup1ActionPerformed
@@ -1968,7 +1992,16 @@ public class MenuCS extends javax.swing.JFrame {
                 txtCariNamaPelanggan.setText(P.getNama());
                 txtCariAlaPelanggan.setText(P.getAlamat());
                 txtCariTelpPel.setText(P.getTelp());
-                txtCariTglLahir.setText(P.getTglLahir());
+
+                String tgll = P.getTglLahir();
+                Date tanggal=null;
+              try {
+                     tanggal = new SimpleDateFormat("yyyy-MM-dd").parse(tgll);
+
+                      tgl.setDate(tanggal);
+              } catch (ParseException ex) {
+                  Logger.getLogger(MenuCS.class.getName()).log(Level.SEVERE, null, ex);
+              }
 
             }
         else
@@ -2053,6 +2086,10 @@ public class MenuCS extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_cariNamaHewanKeyPressed
+
+    private void btnSearchPelangganKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSearchPelangganKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchPelangganKeyPressed
 
     /**
      * @param args the command line arguments
@@ -2152,7 +2189,7 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTextField jenisHewan;
     private javax.swing.JLabel judul;
@@ -2167,12 +2204,12 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel tambahPelanggan1;
     private javax.swing.JPanel tampilSeluruh;
     private javax.swing.JPanel tampilSeluruh1;
+    private com.toedter.calendar.JDateChooser tgl;
     private javax.swing.JTextField tglLahir;
     private javax.swing.JTextField txtAlamatPelanggan;
     private javax.swing.JTextField txtCariAlaPelanggan;
     private javax.swing.JTextField txtCariNamaPelanggan;
     private javax.swing.JTextField txtCariTelpPel;
-    private javax.swing.JTextField txtCariTglLahir;
     private javax.swing.JTextField txtNamaHewan;
     private javax.swing.JTextField txtNamaPelanggan;
     private javax.swing.JLabel txtTanggalHariIni;
