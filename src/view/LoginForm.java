@@ -60,7 +60,6 @@ public class LoginForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanelMasuk.setBackground(new java.awt.Color(51, 51, 51));
         PanelMasuk.setPreferredSize(new java.awt.Dimension(700, 500));
@@ -124,11 +123,23 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGap(142, 142, 142))
         );
 
-        getContentPane().add(PanelMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 0, 360, 508));
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/cute.jpeg"))); // NOI18N
         jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 463, 508));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(455, 455, 455)
+                .addComponent(PanelMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PanelMasuk, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -165,9 +176,10 @@ public class LoginForm extends javax.swing.JFrame {
                 System.out.println(jumlah);
                 if(P.getRole().equalsIgnoreCase("Kasir"))
                 {
-                    JOptionPane.showMessageDialog(this, "Kamu Kasir ");
+                    JOptionPane.showMessageDialog(this, "WELCOME ");
                     LoginSession.setIdUser(P.getId());
-                    MenuAdmin n = new MenuAdmin();
+                    LoginSession.setNama(P.getUserName());
+                    MenuKasirTransaksiLayanan n = new MenuKasirTransaksiLayanan();
                     this.setVisible(false);
                     n.setVisible(true);
                 }

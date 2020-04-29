@@ -270,7 +270,14 @@ private final AdminDao aDAO = new AdminDao();
         aDAO.closeConnection();
         return lyn ;
     }
-    
+    public Harga_Layanan searchHargaLayanan(int id_layanan ,int id_ukuran)
+    {
+        Harga_Layanan hl = null ;
+        aDAO.makeConnection(); 
+        hl = aDAO.searchHargaLayanan(id_layanan, id_ukuran);
+        aDAO.closeConnection(); 
+        return  hl;
+    }
    
         
 }

@@ -48,7 +48,11 @@ public class Harga_Layanan {
 
      
        public Harga_Layanan(){}
-
+    public Harga_Layanan (int harga , int id)
+    {
+        this.hargaLayanan = harga ;
+        this.id_hargaLayanan = id ;
+    }
     public Harga_Layanan(int harga)
     {
         this.hargaLayanan= harga;

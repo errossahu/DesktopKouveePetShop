@@ -11,6 +11,7 @@ import Model.Layanan;
 import Model.Pegawai;
 import Model.Produk;
 import Model.Suplier;
+import Model.TransaksiLayanan;
 import Model.UkuranHewan;
 import java.sql.Blob;
 import java.sql.Connection;
@@ -510,6 +511,32 @@ public JenisHewan searchJenisHewan(String namaJenis)
     }
     return js ;
 }
+public Harga_Layanan searchHargaLayanan(int idLayanan , int idUkuran)
+{
+    String sql = "Select harga,id_harga_layanan from harga_layanan where id_layanan ='"+idLayanan+"'"
+            +"AND ID_UKURAN_HEWAN= '"+idUkuran+"'";
+    Harga_Layanan HL = null ;
+    try {
+        
+        Statement stm = con.createStatement() ;
+        ResultSet rs = stm.executeQuery(sql);
+        if(rs!=null)
+        {
+            while(rs.next())
+            {
+
+                HL = new Harga_Layanan(Integer.parseInt(rs.getString("harga")),Integer.parseInt(rs.getString("id_harga_layanan")));
+                
+            }
+        }
+        rs.close();
+        stm.close();
+    } catch (Exception e) {
+        System.out.println(e);
+        System.out.println("gagal Mencari ..!!");
+    }
+    return HL ;
+}
 public Layanan searchLayanan(String namaLayanan)
 {
     String sql = "Select * from Layanan WHERE AKTIF=1 AND  nama = '"+namaLayanan+"'";
@@ -804,6 +831,7 @@ public List<UkuranHewan>tampilUkuranHewan()
     
     return M ;
 }
+
 public List<Suplier> tampilSuplier()
 {
     String sql = "Select * from SUPPLIER WHERE AKTIF=1";

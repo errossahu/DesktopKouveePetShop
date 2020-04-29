@@ -14,7 +14,17 @@ public class LoginSession {
     public static String nama ;
     public static int idUser ;
     public static String role;
+    public static String idTransaksi; 
     
+    
+    public static void setIdTransaksi(String a)
+    {
+        LoginSession.idTransaksi= a ;
+    }
+    public static String getIdTransaksi()
+    {
+        return idTransaksi ;
+    }
     public static void setRole(String role)
     {
         LoginSession.role= role;

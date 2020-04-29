@@ -1747,6 +1747,11 @@ public class MenuAdmin extends javax.swing.JFrame {
                 txtNamaPegawaiActionPerformed(evt);
             }
         });
+        txtNamaPegawai.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNamaPegawaiKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Felix Titling", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -1948,7 +1953,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         bantuan.setLayout(bantuanLayout);
         bantuanLayout.setHorizontalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 525, Short.MAX_VALUE)
         );
         bantuanLayout.setVerticalGroup(
             bantuanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2188,7 +2193,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(cariPegawaiLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         cariPegawaiLayout.setVerticalGroup(
             cariPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2230,7 +2235,7 @@ public class MenuAdmin extends javax.swing.JFrame {
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 788, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
         );
         tampilSeluruhLayout.setVerticalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2250,7 +2255,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dataPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(mainPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         dataPegawaiLayout.setVerticalGroup(
@@ -6793,6 +6798,10 @@ public class MenuAdmin extends javax.swing.JFrame {
             file=new File(jfc.getSelectedFile().getPath()); // file untuk dikopi
         }
     }//GEN-LAST:event_btnPilihActionPerformed
+
+    private void txtNamaPegawaiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNamaPegawaiKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNamaPegawaiKeyPressed
 
     /**
      * @param args the command line arguments

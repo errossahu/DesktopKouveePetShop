@@ -7,6 +7,9 @@ package Controller;
 
 import DAO.AdminDao;
 import DAO.KasirDAO;
+import Model.TransaksiLayanan;
+import Model.TransaksiProduk;
+import Model.detailTransaksiLayanan;
 import Model.detailTransaksiProduk;
 
 /**
@@ -17,6 +20,12 @@ public class KasirControl {
 
  
  private final KasirDAO ksDAO = new KasirDAO();
+    public void deleteLayanan(String id)
+    {
+        ksDAO.makeConnection(); 
+        ksDAO.deleteLayanan(id);
+        ksDAO.closeConnection();
+    }
     public void deleteProduk(String id )
     {
         ksDAO.makeConnection();
@@ -24,6 +33,13 @@ public class KasirControl {
         ksDAO.closeConnection();
 
     }
+    public void tambahLayanan(detailTransaksiLayanan tp )
+    {
+        ksDAO.makeConnection();
+        ksDAO.tambahLayanan(tp);
+        ksDAO.closeConnection();
+    }
+    
     public void tambahProduk(detailTransaksiProduk th)
     {
         ksDAO.makeConnection(); 
@@ -37,5 +53,27 @@ public class KasirControl {
         ksDAO.closeConnection();
                 
     }
+    public void updateTransaksi(TransaksiProduk tp,String id)
+    {
+        ksDAO.makeConnection(); 
+        ksDAO.updateTrasaksi(tp, id);
+        ksDAO.closeConnection();
+        
+        
+    }
+    public void updatePembayaranTransaksi(TransaksiLayanan tl ,String id)
+    {
+        ksDAO.makeConnection(); 
+        ksDAO.updatePembayaranLayanan(tl, id);
+        ksDAO.closeConnection();  
+        
+    }
+    public void updateLayanan(detailTransaksiLayanan tp  ,String id)
+    {
+        ksDAO.makeConnection(); 
+        ksDAO.updateLayanan(tp, id);
+        ksDAO.closeConnection();
+    }
+
     
 }
