@@ -179,7 +179,7 @@ public class LoginForm extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "WELCOME ");
                     LoginSession.setIdUser(P.getId());
                     LoginSession.setNama(P.getUserName());
-                    MenuKasirTransaksiLayanan n = new MenuKasirTransaksiLayanan();
+                    MenuKasir n = new MenuKasir();
                     this.setVisible(false);
                     n.setVisible(true);
                 }
