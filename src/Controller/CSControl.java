@@ -21,7 +21,18 @@ public class CSControl {
     
     CsDAO csDAO= new  CsDAO();
     
-    
+    public void hapusHewan(String cari )
+    {
+        csDAO.makeConnection();
+        csDAO.hapusHewan(cari);
+        csDAO.closeConnection();
+    }
+    public void editHewan(dataHewan dh ,String nama )
+    {
+        csDAO.makeConnection(); 
+        csDAO.editHewan(dh, nama);
+        csDAO.closeConnection();
+    }
     public void tambahPelanggan(Pelanggan P)
     {
         csDAO.makeConnection();

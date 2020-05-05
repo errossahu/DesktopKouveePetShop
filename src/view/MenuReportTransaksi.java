@@ -62,7 +62,7 @@ import javax.swing.text.Segment;
  *
  * @author ACER
  */
-public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
+public class MenuReportTransaksi extends javax.swing.JFrame {
 
     public Pelanggan P ;
     public TransaksiProduk tp ;
@@ -94,22 +94,72 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
      * Creates new form MenuCS
      */
         DefaultTableModel tabelModel , tabelModel2 ;
-    public MenuKasirTampilTransaksiLayanan() {
+    public MenuReportTransaksi() {
             
         initComponents();
 
         tabelModel = (DefaultTableModel) tableTransaksiLayanan.getModel();
+        tabelModel2 = (DefaultTableModel) tableProduk.getModel();
         
-          atur(tableTransaksiLayanan, new int []{100,200,100,150,150,150,200,150,200,150,150,150,150,150} );
+        atur(tableTransaksiLayanan, new int []{100,200,100,150,150,150,200,150,200,150,150,150,150} );
+        atur(tableProduk, new int []{100,200,100,150,150,150,200,150,200,150,150,150,150} );
     
           tampilTransaksi();
-        
+          tampilTransaksiProduk();
 }
+   public final void tampilTransaksiProduk()
+ {
+     AD.makeConnection();
+
+     String sql ="SELECT A.ID_TRANSAKSI_produk,A.created_At, A.created_by, A.modified_by, A.modified_At ,A.subtotal,A.diskon,A.TOTAL,A.STATUS, b.NAMA , C.NAMA  , f.NAMA FROM transaksi_produk as A LEFT OUTER JOIN pegawai AS b on a.ID_CUSTOMER_SERVICE = b.ID_PEGAWAI LEFT OUTER join hewan c USING(ID_HEWAN) LEFT OUTER join pelanggan f USING (id_pelanggan) where a.status like 'Lunas'";
+    try
+    {
+        
+       Statement stm= con.createStatement();
+       ResultSet rs= stm.executeQuery(sql);
+   
+        
+        if (rs!=null) {
+            
+            while(rs.next())
+            {
+         
+                String idTransaksiLayanan=rs.getString("A.ID_TRANSAKSI_produk");
+                String createdAt= rs.getString("A.created_At");
+                String created_by= rs.getString("A.created_by");
+                String modified_by= rs.getString("A.MODIFIED_bY");
+                String modified_At= rs.getString("Modified_AT");
+                String subtotal = String.valueOf(rs.getString("A.SUBtOTAL"));
+                String diskon = String.valueOf(rs.getString("A.diskon"));
+                String total = String.valueOf(rs.getString("A.total"));
+                String Status= rs.getString("A.status");
+                String namaPegawai= rs.getString("b.nama");
+                String namaKaka= rs.getString("c.Nama");
+                String namaPelanggan =rs.getString("f.nama");
+
+                
+                String[] dataField={idTransaksiLayanan,namaPegawai,namaKaka,namaPelanggan,subtotal,diskon,total,Status,created_by,createdAt,modified_by,modified_At};
+                tabelModel2.addRow(dataField);
+                
+            }
+            rs.close();
+            stm.close();
+        }
+    } 
+        
+        catch(Exception e)
+        {
+                System.out.println(e);
+        }
+
+ }
+  
+    
  public void tampilTransaksi()
  {
      AD.makeConnection();
 
-     String sql ="SELECT A.progress, A.ID_TRANSAKSI_LAYANAN,A.created_At, A.created_by, A.modified_by, A.modified_At ,A.subtotal,A.diskon,A.TOTAL,A.STATUS, b.NAMA , C.NAMA  , f.NAMA FROM transaksi_layanan as A LEFT OUTER JOIN pegawai AS b on a.ID_CUSTOMER_SERVICE = b.ID_PEGAWAI LEFT OUTER join hewan c USING(ID_HEWAN) LEFT OUTER join pelanggan f USING (id_pelanggan) where a.status='Menunggu Pembayaran'";
+     String sql ="SELECT A.progress, A.ID_TRANSAKSI_LAYANAN,A.created_At, A.created_by, A.modified_by, A.modified_At ,A.subtotal,A.diskon,A.TOTAL,A.STATUS, b.NAMA , C.NAMA  , f.NAMA FROM transaksi_layanan as A LEFT OUTER JOIN pegawai AS b on a.ID_CUSTOMER_SERVICE = b.ID_PEGAWAI LEFT OUTER join hewan c USING(ID_HEWAN) LEFT OUTER join pelanggan f USING (id_pelanggan) where a.status='Lunas'";
     try
     {
         
@@ -187,7 +237,10 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableProduk = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -237,7 +290,7 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Elephant", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("TRASAKSI BELUM DIBAYAR");
+        jLabel18.setText("REPORT TRANSAKSI LUNAS");
 
         jLabel19.setBackground(new java.awt.Color(0, 0, 0));
         jLabel19.setFont(new java.awt.Font("Elephant", 0, 14)); // NOI18N
@@ -281,8 +334,36 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
                 .addComponent(jLabel19))
         );
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("CAUTION : Pilih Transaksi Yang Ingin Dibayar !! ");
+        jLabel20.setFont(new java.awt.Font("Elephant", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel20.setText("REPORT  TRANSAKSI LAYANAN");
+
+        jLabel21.setFont(new java.awt.Font("Elephant", 1, 14)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel21.setText("REPORT  TRANSAKSI PRODUK");
+
+        tableProduk.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID_Transaksi", "Nama CS", "Nama Hewan", "Nama Pelanggan", "SubTotal", "Diskon", "Total", "Status", "Created_By", "Creted_At ", "Modified_BY", "Modified_AT"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableProduk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableProdukMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tableProduk);
 
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
@@ -290,23 +371,32 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mainPaneLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3)
                     .addGroup(mainPaneLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(244, 244, 244)
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(mainPaneLayout.createSequentialGroup()
+                .addGap(243, 243, 243)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPaneLayout.setVerticalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPaneLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                .addGap(160, 160, 160))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -349,6 +439,21 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
         m.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jLabel2MouseClicked
 
+    private void tableProdukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableProdukMouseClicked
+        // TODO add your handling code here:
+        int index= tableTransaksiLayanan.getSelectedRow();
+        String ID       = (String) tableTransaksiLayanan.getValueAt(index, 0);
+        LoginSession.setIdTransaksi(ID);
+        System.out.println(ID);
+        if (JOptionPane.showConfirmDialog(null, "Lanjut Pembayaran?", "Yakin?",JOptionPane.YES_NO_OPTION)==JOptionPane.YES_NO_OPTION)
+        {
+            MenuKasirTransaksiProduk mn = new  MenuKasirTransaksiProduk();
+            this.setVisible(false);
+            mn.setVisible(true);
+            mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        }
+    }//GEN-LAST:event_tableProdukMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -366,14 +471,46 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuKasirTampilTransaksiLayanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuReportTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuKasirTampilTransaksiLayanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuReportTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuKasirTampilTransaksiLayanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuReportTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuKasirTampilTransaksiLayanan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuReportTransaksi.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -410,20 +547,23 @@ public class MenuKasirTampilTransaksiLayanan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuKasirTampilTransaksiLayanan().setVisible(true);
+                new MenuReportTransaksi().setVisible(true);
           
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel mainPane;
+    private javax.swing.JTable tableProduk;
     private javax.swing.JTable tableTransaksiLayanan;
     // End of variables declaration//GEN-END:variables
 }

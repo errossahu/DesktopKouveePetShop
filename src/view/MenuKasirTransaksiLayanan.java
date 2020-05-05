@@ -25,17 +25,28 @@ import Model.dataHewan;
 import Model.detailTransaksiLayanan;
 import Model.detailTransaksiProduk;
 import exception.dataKosong;
+
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import Session.LoginSession;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.placeholder.PlaceHolder;
 import exception.CekAngka;
 import exception.CekHuruf;
 import exception.PanjangData;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,6 +54,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditListener;
@@ -51,7 +63,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
+
 import javax.swing.text.Element;
 import javax.swing.text.Position;
 import javax.swing.text.Segment;
@@ -132,9 +144,136 @@ public class MenuKasirTransaksiLayanan extends javax.swing.JFrame {
         }
 
     }
-  private void cetakData()
+   private void cetakData(String id)
   {
+
+      AD.makeConnection();
       
+      String nama= LoginSession.getNama() ;
+      
+      try
+      {
+        String file ="F:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf";
+        Document document = new Document();
+        PdfWriter writer= PdfWriter.getInstance(document, new FileOutputStream(file));
+        document.open();
+            Font font1 = new Font(Font.FontFamily.HELVETICA  , 25, Font.BOLD);
+            Font font2 = new Font(Font.FontFamily.HELVETICA  , 12);
+            
+            PdfPTable table = new PdfPTable(5);
+            Chunk c4 = new Chunk("NOTA TRANSAKSI LAYANAN ", font1);
+            Paragraph p6 = new Paragraph();
+            p6.setSpacingAfter(20);
+            p6.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            p6.add(c4);
+            
+            
+            Chunk c5 = new Chunk("Nama CS: "+txtNamaCs.getText(),font2);
+            Paragraph p7 = new Paragraph();
+            p7.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            p7.add(c5);
+            
+            Chunk c6 = new Chunk("Nama Kasir : "+nama, font2);
+            Paragraph p8 = new Paragraph();
+            p8.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            p8.add(c6); 
+            p8.setSpacingAfter(20);
+            
+            Chunk c7 = new Chunk("MEMBER : "+txtNamaPelanggan.getText()+"/"+txtNamaHewan.getText());
+            Paragraph p9 = new Paragraph();
+            
+            p9.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+            p9.add(c7);
+            
+            
+            Chunk c8= new Chunk("ID TRANSAKSI : "+(String)jComboBoxIdTransaksi.getSelectedItem());
+            Paragraph p10 = new Paragraph();
+            
+            p10.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+            p10.add(c8);
+
+            
+            Chunk c9 = new Chunk("Tanggal : "+dtf.format(now));
+            Paragraph p11 = new Paragraph();
+            
+            p11.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            p11.add(c9);
+                        p11.setSpacingAfter(20);
+            
+            document.add(p6);
+            document.add(p7);
+            document.add(p8);
+            document.add(p9);
+            document.add(p10);
+            document.add(p11);
+            table.addCell("Nama Layanan");
+            table.addCell("Ukuran ");
+            table.addCell("Harga");
+            table.addCell("Jumlah");
+            table.addCell("Total Harga");
+ 
+              for (int i = 0; i <tabelTransaksiProduk.getRowCount(); i++) {
+              String namaProduk = (String) tabelTransaksiProduk.getValueAt(i, 1);
+              String harga= (String) tabelTransaksiProduk.getValueAt(i,2);
+              String jum = (String) tabelTransaksiProduk.getValueAt(i,3);
+              String totalHarga = (String) tabelTransaksiProduk.getValueAt(i,4);
+              String ukuran = (String)  tabelTransaksiProduk.getValueAt(i,5);
+              table.addCell(namaProduk );
+              table.addCell(harga);
+              table.addCell(jum);
+              table.addCell(totalHarga);
+              table.addCell(ukuran);
+              }
+              
+              Chunk c1= new Chunk("Sub Total : "+txtSubTotal.getText());
+              Paragraph p1 = new Paragraph();
+              p1.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+      
+                    
+              Chunk c2 = new Chunk("Diskon : "+txtDiskon.getText());
+              Paragraph p2 = new Paragraph();
+              
+              p2.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+              
+                    
+              Chunk c3= new Chunk("Total Harga : "+txtTotalSeluruh.getText());
+              Paragraph p3 = new Paragraph();
+              
+              p3.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+                               
+                    
+              p1.add(c1);
+              p2.add(c2);
+              p3.add(c3);
+             
+              
+                document.add(table);
+            
+                document.add(p1);
+                document.add(p2);
+                document.add(p3);
+                          document.close();
+            writer.close();
+            
+            
+            
+//            float[] colWithd = {2f};
+//            PdfPTable table = new  PdfPTable(1);
+//            table.setWidths(colWithd);
+//            PdfPCell c1= new PdfPCell(new Paragraph("Nama Barang"));
+//            PdfPCell c2 = new PdfPCell(new Paragraph(p1));
+//            table.addCell(c1);
+//            table.addCell(c2);
+            File myFile = new File("F:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf");
+            Desktop.getDesktop().open(myFile);
+           
+            
+      }
+      catch(Exception e)
+      {
+          System.out.println(e);
+      }
+       AD.closeConnection();
   }
   private void atur(JTable lihat,  int lebar[]){
     try
@@ -1157,7 +1296,23 @@ public void autoTextCompletUkuranHewan(String nama)
             tl.setTotal(Integer.parseInt(txtTotalSeluruh.getText()));
             String id = (String) jComboBoxIdTransaksi.getSelectedItem();
             KC.updatePembayaranTransaksi(tl, id);
+          
+            cetakData(LoginSession.getIdTransaksi());
+            jComboBoxIdTransaksi.removeItem(LoginSession.getIduser());
+            txtNamaPelanggan.setText("");
+            txtNamaHewan.setText("");
+            txtNomor.setText("");
+            txtNamaCs.setText("");
+            txtUkuran.setText("");
+            txtSubTotal.setText("");
+            txtTotalSeluruh.setText("");
+            txtJenisHewan.setText("");
 
+            int a = tabelModel.getRowCount() ;
+            for (int i = 0; i < a; i++) {
+                tabelModel.removeRow(0);
+            }
+            setTextInput();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1573,6 +1728,7 @@ public void autoTextCompletUkuranHewan(String nama)
         MenuKasirTampilTransaksiLayanan m = new MenuKasirTampilTransaksiLayanan();
         this.setVisible(false );
         m.setVisible(true);
+        m.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**

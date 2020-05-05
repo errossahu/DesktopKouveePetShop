@@ -86,6 +86,35 @@ public void tambahPelanggan(Pelanggan P)
     }
 
 }
+public void editHewan(dataHewan dh  , String nama)
+{
+//    
+//   String sql ="UPDATE Pelanggan set modified_by='"+LoginSession.getNama()+"',"
+//           +"modified_at ='"+dtf.format(now)+"' ,"
+//           +"nama ='"+P.getNama()+"',"
+//           +"Alamat ='"+P.getAlamat()+"',"
+//           +"Tanggal_Lahir='"+P.getTglLahir()+"',"
+//           +"telp='"+P.getTelp()+"'"
+//           +"where nama='"+nama+"'";
+    String sql = "update hewan set modified_by = '"+LoginSession.getNama()+"',"
+            +"modified_At='"+dtf.format(now)+"',"
+            +"id_pelanggan  = '"+dh.getIdPelanggan()+"',"
+            +"id_jenis_hewan ='"+dh.getIDjENIShewan()+"',"
+            +"nama = '"+dh.getNamaHewan()+"'"
+            +"where nama= '"+nama+"'";
+            System.out.println("edit Hewan");
+            
+            try {
+                Statement stm = con.createStatement();
+                int rs = stm.executeUpdate(sql);
+                System.out.println(rs);
+
+            } catch (Exception e) {
+
+                System.out.println("gagal Edit Produk");
+                System.out.println(e);
+            }
+}
 public void tambahHewan(dataHewan dh )
 {
     String sql ="Insert into Hewan (ID_PELANGGAN , ID_JENIS_HEWAN , NAMA , TANGGAL_Lahir , created_AT , created_by)"
@@ -104,6 +133,23 @@ public void tambahHewan(dataHewan dh )
     }
 }
 //////////////////////HAPUS////////////////////////
+public void hapusHewan(String cari )
+{
+    String sql = "Update Hewan set AKTIF=0,Delete_by ='"+LoginSession.getNama()+"',"
+                  +"Delete_at = '"+dtf.format(now)+"'"
+                  +"where nama ='"+cari+"'";
+    try
+    {
+        Statement stm = con.createStatement() ;
+        int Result = stm.executeUpdate(sql);
+        System.out.println(Result);
+    }
+    catch(Exception e)
+    {
+        System.out.println("Gagal Menghapus");
+        System.out.println(e);
+    }                 
+}
 public void hapusPelanggan(String  cari)
 {
     String sql = "update pelanggan set aktif= 0,Delete_by ='"+LoginSession.getNama()

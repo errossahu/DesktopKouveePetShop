@@ -43,6 +43,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.UndoableEditListener;
@@ -99,16 +100,16 @@ public class MenuKasirTampilProduk extends javax.swing.JFrame {
 
         tabelModel = (DefaultTableModel) tableTransaksiLayanan.getModel();
         
-          atur(tableTransaksiLayanan, new int []{100,200,100,150,150,150,200,150,200} );
+          atur(tableTransaksiLayanan, new int []{100,200,100,150,150,150,200,150,200,150,150,150,150} );
     
           tampilTransaksi();
         
 }
- public void tampilTransaksi()
+ public final void tampilTransaksi()
  {
      AD.makeConnection();
 
-     String sql ="SELECT A.ID_TRANSAKSI_produk,A.created_At, A.created_by, A.modified_by, A.modified_At ,A.subtotal,A.diskon,A.TOTAL,A.STATUS, b.NAMA , C.NAMA  , f.NAMA FROM transaksi_produk as A LEFT OUTER JOIN pegawai AS b on a.ID_CUSTOMER_SERVICE = b.ID_PEGAWAI LEFT OUTER join hewan c USING(ID_HEWAN) LEFT OUTER join pelanggan f USING (id_pelanggan) where a.status='Menunggu Pembayaran'";
+     String sql ="SELECT A.ID_TRANSAKSI_produk,A.created_At, A.created_by, A.modified_by, A.modified_At ,A.subtotal,A.diskon,A.TOTAL,A.STATUS, b.NAMA , C.NAMA  , f.NAMA FROM transaksi_produk as A LEFT OUTER JOIN pegawai AS b on a.ID_CUSTOMER_SERVICE = b.ID_PEGAWAI LEFT OUTER join hewan c USING(ID_HEWAN) LEFT OUTER join pelanggan f USING (id_pelanggan) where a.status like 'Menunggu Pembayaran'";
     try
     {
         
@@ -332,6 +333,7 @@ public class MenuKasirTampilProduk extends javax.swing.JFrame {
                MenuKasirTransaksiProduk mn = new  MenuKasirTransaksiProduk();
                this.setVisible(false);
                mn.setVisible(true);
+               mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
            }
     }//GEN-LAST:event_tableTransaksiLayananMouseClicked
 

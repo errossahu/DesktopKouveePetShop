@@ -11,6 +11,8 @@ import Controller.KasirControl;
 import DAO.AdminDao;
 import static DAO.AdminDao.con;
 import DAO.CsDAO;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import Model.Harga_Layanan;
 import Model.JenisHewan;
 import Model.dataHewan;
@@ -26,28 +28,46 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import Session.LoginSession;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.placeholder.PlaceHolder;
 import exception.CekAngka;
 import exception.CekHuruf;
 import exception.PanjangData;
+import java.awt.Desktop;
 import java.awt.EventQueue;
+
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.event.DocumentListener;
+
 import javax.swing.event.UndoableEditListener;
 import javax.swing.table. DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
+
 import javax.swing.text.Element;
 import javax.swing.text.Position;
 import javax.swing.text.Segment;
@@ -57,7 +77,7 @@ import javax.swing.text.Segment;
  *
  * @author ACER
  */
-public class MenuKasirTransaksiProduk extends javax.swing.JFrame {
+public final class MenuKasirTransaksiProduk extends javax.swing.JFrame {
 
     public Pelanggan P ;
     public TransaksiProduk tp ;
@@ -83,6 +103,7 @@ public class MenuKasirTransaksiProduk extends javax.swing.JFrame {
     public MenuKasirTransaksiProduk() {
             
         initComponents();
+        txtTotalSeluruh.setEnabled(false);
         tampilComboBoxSupllier();
         tabelModel = (DefaultTableModel) tabelTransaksiProduk.getModel();
         tampilNamaProduk();
@@ -90,10 +111,10 @@ public class MenuKasirTransaksiProduk extends javax.swing.JFrame {
         txtSubTotal.setEnabled(false);
         txtDiskon.setText("0");
         txtJumlah.setText("0");
-          atur(tabelTransaksiProduk, new int []{100,300,300,150,150,150,200,150,200} );
-    txtHarga.setText("0");
-    txtTotal.setText("0");
-    tampilHargaLayanan(LoginSession.getIdTransaksi());
+        atur(tabelTransaksiProduk, new int []{100,300,300,150,150,150,200,150,200} );
+        txtHarga.setText("0");
+        txtTotal.setText("0");
+        tampilHargaLayanan(LoginSession.getIdTransaksi());
         searchNamaHewan(LoginSession.getIdTransaksi());
         searchNamaPegawai(LoginSession.getIdTransaksi());
         jComboBoxIdTransaksi.setSelectedItem(LoginSession.getIdTransaksi());
@@ -116,10 +137,7 @@ public class MenuKasirTransaksiProduk extends javax.swing.JFrame {
 
         
     }
-  private void cetakData()
-  {
-      
-  }
+  
   private void atur(JTable lihat,  int lebar[]){
     try
     {
@@ -244,6 +262,134 @@ public void autoCompletNamaProduk(String nama)
            totalSeluruh= total-diskon;
            txtTotalSeluruh.setText(String.valueOf(totalSeluruh));
    }
+    private void cetakData(String id)
+  {
+String namax= LoginSession.getNama();
+      AD.makeConnection();
+      
+      try
+      {
+        String file ="F:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf";
+        Document document = new Document();
+        PdfWriter writer= PdfWriter.getInstance(document, new FileOutputStream(file));
+        document.open();
+        
+            Font font1 = new Font(Font.FontFamily.HELVETICA  , 25, Font.BOLD);
+                       Font font2 = new Font(Font.FontFamily.HELVETICA  , 12);
+                       Font font3 = new Font(Font.FontFamily.HELVETICA  , 20);
+                       
+                       Image img = Image.getInstance("nota.jpg");
+                        img.setAbsolutePosition(0f,0f);
+              
+                Paragraph p0 = new Paragraph();
+                p0.add(img);
+                document.add(p0);
+            Chunk c1 = new Chunk("NOTA LUNAS",font1);
+            Chunk c2 = new Chunk("Nama Cs :  "+txtNamaCs.getText(),font2);
+            Chunk c3 = new Chunk("Nama Kasir : "+namax);
+           
+            Chunk c4 = new Chunk("Member :"+txtNamaPelanggan.getText()+"/"+txtNamaHewan.getText(),font2);
+            Chunk c5 = new Chunk("ID Transaksi: "+(String)jComboBoxIdTransaksi.getSelectedItem());
+            Chunk c6 = new Chunk("Tanggal :  "+dtf.format(now));
+            Chunk c7 = new Chunk("Pembelian Produk", font3);
+            Paragraph p1 = new Paragraph();
+            Paragraph p2 = new Paragraph();
+            Paragraph p3 = new Paragraph();
+            Paragraph p4 = new Paragraph();
+            Paragraph p5 = new Paragraph();
+            Paragraph p6 = new Paragraph();
+            Paragraph p7 = new Paragraph();
+            
+            
+            p4.setSpacingAfter(20);
+            p4.add(c4); 
+                
+            
+            p1.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            p1.add(c1);
+            p2.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            p2.setSpacingAfter(60);
+            p2.add(c2);
+            p3.add(c3);
+            p5.add(c5);
+            p6.add(c6);
+            p6.setSpacingAfter(20);
+            p7.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+           
+            p7.add(c7);
+            p7.setSpacingAfter(60);
+                       
+                        document.add(p1);
+                        document.add(p2);
+                        document.add(p3);
+                        document.add(p4);
+                        document.add(p5);
+                        document.add(p6);
+                        document.add(p7);
+
+            PdfPTable table = new PdfPTable(4);
+            table.addCell("Nama Prdouk");
+            table.addCell("Harga");
+            table.addCell("Jumlah");
+            table.addCell("Total");
+ 
+              for (int i = 0; i <tabelTransaksiProduk.getRowCount(); i++) {
+              String namaProduk = (String) tabelTransaksiProduk.getValueAt(i, 1);
+              String harga= (String) tabelTransaksiProduk.getValueAt(i,2);
+              String jum = (String) tabelTransaksiProduk.getValueAt(i,3);
+              String totalHarga = (String) tabelTransaksiProduk.getValueAt(i,4);
+              table.addCell(namaProduk );
+              table.addCell(harga);
+              table.addCell(jum);
+              table.addCell(totalHarga);
+          }
+    
+                          document.add(table);
+             
+             Paragraph p8 = new Paragraph();
+             
+             document.add(p8);
+             Chunk c8 = new Chunk("Sub Total : "+txtSubTotal.getText());
+             
+             p8.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+             p8.add(c8);
+             document.add(p8);
+            
+             Chunk c9 = new Chunk("Diskon   : "+txtDiskon.getText());
+             Paragraph p9= new Paragraph();
+             p9.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+             p9.add(c9);
+             document.add(p9);
+             Paragraph p10= new Paragraph();
+             p10.add("Total Harga : "+txtTotalSeluruh.getText());
+             p10.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+
+            document.add(p10);
+
+
+            document.close();
+            writer.close();
+            
+            
+            
+//            float[] colWithd = {2f};
+//            PdfPTable table = new  PdfPTable(1);
+//            table.setWidths(colWithd);
+//            PdfPCell c1= new PdfPCell(new Paragraph("Nama Barang"));
+//            PdfPCell c2 = new PdfPCell(new Paragraph(p1));
+//            table.addCell(c1);
+//            table.addCell(c2);
+            File myFile = new File("F:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf");
+            Desktop.getDesktop().open(myFile);
+           
+            
+      }
+      catch(Exception e)
+      {
+          System.out.println(e);
+      }
+       AD.closeConnection();
+  }
    public void searchNamaPegawai(String id)
    {
        AD.makeConnection(); 
@@ -329,7 +475,7 @@ public void autoCompletNamaProduk(String nama)
             tabelModel.removeRow(0);
         }
         AD.makeConnection();
-        String sql = "SELECT a.nama as produk,b.created_by,b.created_at,b.modified_by, b.modified_At,b.id_detail_transaksi_produk id ,a.HARGA, b.jumlah,C.subtotal ,b.TOTAL_HARGA  FROM detail_transaksi_produk as b INNER JOIN produk AS a on a.ID_PRODUK = b.ID_PRODUK INNER JOIN TRANSAKSI_PRODUK AS C ON B.ID_TRANSAKSI_PRODUK = C.ID_TRANSAKSI_PRODUK where C.ID_TRANSAKSI_PRODUK='"+id+"'";
+        String sql = "SELECT C.diskon,C.total ,  a.nama as produk,b.created_by,b.created_at,b.modified_by, b.modified_At,b.id_detail_transaksi_produk id ,a.HARGA, b.jumlah,C.subtotal ,b.TOTAL_HARGA  FROM detail_transaksi_produk as b INNER JOIN produk AS a on a.ID_PRODUK = b.ID_PRODUK INNER JOIN TRANSAKSI_PRODUK AS C ON B.ID_TRANSAKSI_PRODUK = C.ID_TRANSAKSI_PRODUK where C.ID_TRANSAKSI_PRODUK='"+id+"'";
    
     try
     {
@@ -357,13 +503,14 @@ public void autoCompletNamaProduk(String nama)
 //                tabelModel7.addRow(dataField);
             String idx = String.valueOf(i);
             int c = 0 ;
-
-
+            
+//            String diskon = rs.getString("C.diskon");
             String[] dataField= {idDetail,produk,harga,jumlah,total,crated_by,created_at,modifid_by,modfied_at};
             tabelModel.addRow(dataField);
- 
+            txtDiskon.setText(rs.getString("C.diskon"));
+                        hitungTotalHarga();
             }
-                               hitungTotalHarga();
+
             rs.close();
             stm.close();
         }
@@ -537,6 +684,12 @@ public void autoCompletNamaProduk(String nama)
             }
         });
 
+        txtSubTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSubTotalActionPerformed(evt);
+            }
+        });
+
         jLabel10.setBackground(new java.awt.Color(0, 0, 0));
         jLabel10.setFont(new java.awt.Font("Bell MT", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
@@ -685,52 +838,31 @@ public void autoCompletNamaProduk(String nama)
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 627, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(493, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addContainerGap())))
+                .addGap(726, 726, 726)
+                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(493, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(25, 25, 25))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel5)))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel18))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout editTransaksiProdukLayout = new javax.swing.GroupLayout(editTransaksiProduk);
         editTransaksiProduk.setLayout(editTransaksiProdukLayout);
         editTransaksiProdukLayout.setHorizontalGroup(
             editTransaksiProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(editTransaksiProdukLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(368, 368, 368)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(txtNomor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(editTransaksiProdukLayout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(392, 392, 392)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(editTransaksiProdukLayout.createSequentialGroup()
                 .addGap(1000, 1000, 1000)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -800,6 +932,27 @@ public void autoCompletNamaProduk(String nama)
                         .addGroup(editTransaksiProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtNamaCs, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+            .addGroup(editTransaksiProdukLayout.createSequentialGroup()
+                .addGroup(editTransaksiProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editTransaksiProdukLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(txtNamaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(368, 368, 368)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editTransaksiProdukLayout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(392, 392, 392)))
+                .addGroup(editTransaksiProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(editTransaksiProdukLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editTransaksiProdukLayout.createSequentialGroup()
+                        .addComponent(txtNomor, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         editTransaksiProdukLayout.setVerticalGroup(
             editTransaksiProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -898,7 +1051,7 @@ public void autoCompletNamaProduk(String nama)
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(editTransaksiProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 86, Short.MAX_VALUE))
+                .addGap(0, 78, Short.MAX_VALUE))
         );
 
         pack();
@@ -906,9 +1059,10 @@ public void autoCompletNamaProduk(String nama)
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        MenuKasirTampilTransaksiLayanan m = new MenuKasirTampilTransaksiLayanan();
+        MenuKasirTampilProduk m = new MenuKasirTampilProduk();
         this.setVisible(false );
         m.setVisible(true);
+        m.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -933,7 +1087,22 @@ public void autoCompletNamaProduk(String nama)
             tp.setTotal(Integer.parseInt(txtTotalSeluruh.getText()));
             String id = (String) jComboBoxIdTransaksi.getSelectedItem();
             KC.updateTransaksi(tp, id);
-
+            cetakData(LoginSession.getIdTransaksi());
+            
+            jComboBoxIdTransaksi.removeItem(LoginSession.getIdTransaksi());
+            jComboBoxIdTransaksi.setSelectedIndex(0);
+            setTextInput();
+            int a = tabelModel.getRowCount() ;
+            for (int i = 0; i < a; i++) {
+                tabelModel.removeRow(0);
+            }
+            txtNamaPelanggan.setText("");
+            txtNamaHewan.setText("");
+            txtNamaCs.setText("");
+            txtNomor.setText("");
+            txtSubTotal.setText("");
+            txtDiskon.setText("");
+            txtTotalSeluruh.setText("");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -1185,6 +1354,10 @@ public void autoCompletNamaProduk(String nama)
         tampilHargaLayanan(id);
         setTextInput();
     }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void txtSubTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSubTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSubTotalActionPerformed
 
     /**
      * @param args the command line arguments

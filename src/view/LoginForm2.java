@@ -7,16 +7,16 @@ package view;
 
 import Controller.AdminControl;
 import Model.Pegawai;
-import Model.Pegawai;
 import Session.LoginSession;
 import com.placeholder.PlaceHolder;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author ACER
  */
-public class LoginForm extends javax.swing.JFrame {
+public class LoginForm2 extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginForm
@@ -24,7 +24,7 @@ public class LoginForm extends javax.swing.JFrame {
      AdminControl AC ;
       Pegawai PGW;
     Pegawai P ;
-    public LoginForm() {
+    public LoginForm2() {
         initComponents();
             setResizable(false);
             AC = new AdminControl();
@@ -153,6 +153,7 @@ public class LoginForm extends javax.swing.JFrame {
                    MenuAdmin MA = new MenuAdmin();
                     this.setVisible(false);
                     MA.setVisible(true);
+                    MA.setExtendedState(JFrame.MAXIMIZED_BOTH);
         }
         if(P!=null)
 
@@ -183,6 +184,7 @@ public class LoginForm extends javax.swing.JFrame {
                     MenuKasir n = new MenuKasir();
                     this.setVisible(false);
                     n.setVisible(true);
+                    n.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 }
                 else if(P.getRole().equalsIgnoreCase("Customer Service"))
                 {
@@ -192,6 +194,7 @@ public class LoginForm extends javax.swing.JFrame {
                     MenuCS MS = new MenuCS();
                     this.setVisible(false);
                     MS.setVisible(true);
+                    MS.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 }
 
             }
@@ -229,21 +232,23 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginForm().setVisible(true);
+                new LoginForm2().setVisible(true);
             }
         });
     }

@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table. DefaultTableModel;
@@ -92,7 +93,8 @@ public class MenuCS extends javax.swing.JFrame {
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jComboBoxJenisHewan.addItem("-Pilih Jenis Hewan");
         jComboBoxNamaPelanggan.addItem("-Pilih Nama Pelanggan");
-        
+        jComboBoxJenisHewanCari.addItem("");
+        jComboBoxNamaPelangganCari.addItem("");
         AutoCompleteDecorator.decorate(jComboBoxJenisHewan);
         AutoCompleteDecorator.decorate(jComboBoxNamaPelanggan);
         jComboBoxidPelanggan();
@@ -102,8 +104,8 @@ public class MenuCS extends javax.swing.JFrame {
         tampilHewan();
         tampilTextNamaPelanggan();
         tampilTextNamaHewan();
-        atur(tabelPelanggan, new int []{100,300,300,150,150,150,150} );
-        atur(tabelHewan, new int[]{100,300,300,300,300,150,150,150,150});
+        atur(tabelPelanggan, new int []{100,300,300,150,150,150,150,150,150} );
+        atur(tabelHewan, new int[]{100,200,200,200,200,150,150,150,150});
     
     }
     private void atur(JTable lihat,  int lebar[]){
@@ -130,7 +132,7 @@ public class MenuCS extends javax.swing.JFrame {
         
         try 
         {
-            String sql="Select nama from Hewan where aktif =1";
+            String sql="Select nama from Hewan where aktif =1 order by id_hewan asc   ";
             Class.forName("com.mysql.jdbc.Driver");
             Statement stm = AD.GETcon().createStatement();
             ResultSet rs= stm.executeQuery(sql);
@@ -245,7 +247,7 @@ public class MenuCS extends javax.swing.JFrame {
         {
         CA.makeConnection();
         AD.makeConnection();
-            String sql ="Select A.nama as jenis_hewan , b.nama as nama_Pelanggan, C.id_Hewan as id,C.CREATED_BY ,C.created_At,C.nama as namaHewan, C.tanggal_lahir AS tgl_lahir from hewan as C INNER JOIN jenis_hewan AS A on C.ID_JENIS_HEWAN = A.ID_JENIS_HEWAN INNER JOIN pelanggan as B on B.ID_PELANGGAN = C.ID_PELANGGAN WHERE C.AKTIF = 1 && A.Aktif=1 && B.aktif=1";
+            String sql ="Select C.modified_by , C.modified_at, A.nama as jenis_hewan , b.nama as nama_Pelanggan, C.id_Hewan as id,C.CREATED_BY ,C.created_At,C.nama as namaHewan, C.tanggal_lahir AS tgl_lahir from hewan as C INNER JOIN jenis_hewan AS A on C.ID_JENIS_HEWAN = A.ID_JENIS_HEWAN INNER JOIN pelanggan as B on B.ID_PELANGGAN = C.ID_PELANGGAN WHERE C.AKTIF = 1  order by C.id_hewan asc";
 
             Statement stm= con.createStatement();
             ResultSet rs= stm.executeQuery(sql);
@@ -255,7 +257,8 @@ public class MenuCS extends javax.swing.JFrame {
             
             while(rs.next())
             {
-         
+                String modified_by = rs.getString("C.modified_by");
+                String modified_At= rs.getString("C.modified_at");
                 String id = rs.getString("id");
                 String jenisHewan = rs.getString("jenis_hewan");
                 String namaPelanggan = rs.getString("nama_pelanggan");
@@ -264,7 +267,7 @@ public class MenuCS extends javax.swing.JFrame {
                 String createBy = rs.getString("C.CREATED_BY");
                 String created_At = rs.getString("C.created_at");
                 String idx = String.valueOf(id);
-                String[] dataField={id,jenisHewan,namaPelanggan,namaH,tgl_lahir,createBy, created_At};
+                String[] dataField={id,jenisHewan,namaPelanggan,namaH,tgl_lahir,createBy, created_At,modified_by, modified_At};
                 tabelModel2.addRow(dataField);
                             
             }
@@ -323,6 +326,7 @@ public class MenuCS extends javax.swing.JFrame {
            while (rs.next())
            {
                jComboBoxJenisHewan.addItem(rs.getString("nama"));
+               jComboBoxJenisHewanCari.addItem(rs.getString("nama"));
            }
         
        }
@@ -335,6 +339,7 @@ public class MenuCS extends javax.swing.JFrame {
        }
        CA.closeConnection();
    }
+   
    public void tampilNamaPelanggan()
    {
        CA.makeConnection(); 
@@ -347,6 +352,7 @@ public class MenuCS extends javax.swing.JFrame {
          while(rs.next())
          {
              jComboBoxNamaPelanggan.addItem(rs.getString("nama"));
+             jComboBoxNamaPelangganCari.addItem(rs.getString("nama"));
          }
     
          
@@ -403,11 +409,20 @@ public class MenuCS extends javax.swing.JFrame {
 
               
                dh = new dataHewan();
-               jenisHewan.setText(rs.getString("jenis_hewan"));
-               namaPelanggan.setText(rs.getString("Nama_Pelanggan"));
+               jComboBoxJenisHewanCari.setSelectedItem(rs.getString("jenis_hewan"));
+               jComboBoxNamaPelangganCari.setSelectedItem(rs.getString("Nama_Pelanggan"));
                namaHewan1.setText(rs.getString("NAMA"));
-               tglLahir.setText(rs.getString("tgl_Lahir"));
+                String tgll = rs.getString("TGL_LAHIR");
+                Date tanggal=null;
+              try {
+                     tanggal = new SimpleDateFormat("yyyy-MM-dd").parse(tgll);
+
+                      tglLahir.setDate(tanggal);
+              } catch (ParseException ex) {
+                  Logger.getLogger(MenuCS.class.getName()).log(Level.SEVERE, null, ex);
+              }
             }
+            
         }
         else
         {
@@ -567,16 +582,16 @@ public class MenuCS extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         btnSimpanProduk3 = new javax.swing.JButton();
         btlHapusSup1 = new javax.swing.JButton();
-        namaPelanggan = new javax.swing.JTextField();
-        jenisHewan = new javax.swing.JTextField();
         jLabel74 = new javax.swing.JLabel();
         jLabel75 = new javax.swing.JLabel();
         jLabel76 = new javax.swing.JLabel();
-        tglLahir = new javax.swing.JTextField();
         jLabel77 = new javax.swing.JLabel();
         cariNamaHewan = new javax.swing.JTextField();
         btnSearchPelanggan1 = new javax.swing.JLabel();
         namaHewan1 = new javax.swing.JTextField();
+        jComboBoxJenisHewanCari = new javax.swing.JComboBox<>();
+        jComboBoxNamaPelangganCari = new javax.swing.JComboBox<>();
+        tglLahir = new com.toedter.calendar.JDateChooser();
         bantuan1 = new javax.swing.JPanel();
         tampilSeluruh1 = new javax.swing.JPanel();
 
@@ -1420,12 +1435,6 @@ public class MenuCS extends javax.swing.JFrame {
             }
         });
 
-        jenisHewan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jenisHewanActionPerformed(evt);
-            }
-        });
-
         jLabel74.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
         jLabel74.setForeground(new java.awt.Color(0, 0, 0));
         jLabel74.setText("Jenis Hewan");
@@ -1437,12 +1446,6 @@ public class MenuCS extends javax.swing.JFrame {
         jLabel76.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
         jLabel76.setForeground(new java.awt.Color(0, 0, 0));
         jLabel76.setText("Nama Hewan");
-
-        tglLahir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tglLahirActionPerformed(evt);
-            }
-        });
 
         jLabel77.setFont(new java.awt.Font("Clarendon BT", 0, 18)); // NOI18N
         jLabel77.setForeground(new java.awt.Color(0, 0, 0));
@@ -1471,6 +1474,15 @@ public class MenuCS extends javax.swing.JFrame {
             }
         });
 
+        namaHewan1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                namaHewan1ActionPerformed(evt);
+            }
+        });
+
+        tglLahir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tglLahir.setDateFormatString("yyyy-MMMMMM-d");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
@@ -1487,10 +1499,10 @@ public class MenuCS extends javax.swing.JFrame {
                             .addComponent(jLabel77, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jenisHewan)
-                            .addComponent(namaPelanggan)
-                            .addComponent(tglLahir)
-                            .addComponent(namaHewan1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)))
+                            .addComponent(namaHewan1, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                            .addComponent(jComboBoxNamaPelangganCari, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxJenisHewanCari, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tglLahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(cariNamaHewan, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addComponent(btlHapusSup1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1506,14 +1518,14 @@ public class MenuCS extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnSearchPelanggan1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                     .addComponent(cariNamaHewan))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jenisHewan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxJenisHewanCari, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                     .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(namaPelanggan, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxNamaPelangganCari, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel75, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel76, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1521,10 +1533,10 @@ public class MenuCS extends javax.swing.JFrame {
                         .addGap(5, 5, 5)
                         .addComponent(namaHewan1, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel77, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tglLahir, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btlHapusSup1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpanProduk3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1545,7 +1557,7 @@ public class MenuCS extends javax.swing.JFrame {
             .addGroup(cariPegawai1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         mainPanel3.add(cariPegawai1, "card3");
@@ -1944,19 +1956,49 @@ public class MenuCS extends javax.swing.JFrame {
     private void btnSimpanProduk3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanProduk3ActionPerformed
         // TODO add your handling code here:
         
+        String jenisHewan = (String)jComboBoxJenisHewanCari.getSelectedItem();
+        String nama= (String) jComboBoxNamaPelangganCari.getSelectedItem();
+        String format = "yyyy-MM-dd";
+        SimpleDateFormat fm = new SimpleDateFormat(format);
+         String tanggal = String.valueOf(fm.format(tglLahir.getDate()));
+
+           P= CS.cariPakaiNama(nama);
+           jh= AC.searchJenisHewan(jenisHewan);
+       if(P!=null && jh!=null )
+       {
+        dataHewan Dh = new dataHewan();
+            int idJenisHewan = jh.getId();
+           int idPelanggan = P.getId_pelanggan();
+           
+           Dh.setIdPelanggan(idPelanggan);
+           Dh.setIDJenisHewan(idJenisHewan);
+           Dh.setTanggaLahir(tanggal);
+           Dh.setNamaHewan(namaHewan1.getText());
+           CS.editHewan(Dh, cariNamaHewan.getText());
+           tampilHewan();
+           JOptionPane.showMessageDialog(this,"Edit Hewan Berhasil");
+           jComboBoxJenisHewanCari.setSelectedIndex(0);
+           jComboBoxNamaPelangganCari.setSelectedIndex(0);
+           namaHewan1.setText("");
+           tglLahir.setDate(null);
+           cariNamaHewan.setText("");
+       }
+        tampilTextNamaHewan();
+
     }//GEN-LAST:event_btnSimpanProduk3ActionPerformed
 
     private void btlHapusSup1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlHapusSup1ActionPerformed
         // TODO add your handling code here:
+        
+        CS.hapusHewan(cariNamaHewan.getText());
+        tampilHewan();
+        jComboBoxJenisHewanCari.setSelectedIndex(0);
+        jComboBoxNamaPelangganCari.setSelectedIndex(0);
+        namaHewan1.setText("");
+        tglLahir.setDate(null);
+        
+        
     }//GEN-LAST:event_btlHapusSup1ActionPerformed
-
-    private void jenisHewanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jenisHewanActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jenisHewanActionPerformed
-
-    private void tglLahirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglLahirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tglLahirActionPerformed
 
     private void btnSearchPelanggan1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchPelanggan1MouseClicked
         // TODO add your handling code here:
@@ -2050,7 +2092,7 @@ public class MenuCS extends javax.swing.JFrame {
             case KeyEvent.VK_BACK_SPACE:
                 if (evt.getKeyCode()==KeyEvent.VK_BACK_SPACE) {
                     
-            
+                    cariNamaHewan.setText("");
                 }
                   
                 break ;
@@ -2091,6 +2133,10 @@ public class MenuCS extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchPelangganKeyPressed
 
+    private void namaHewan1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaHewan1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_namaHewan1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -2121,7 +2167,10 @@ public class MenuCS extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuCS().setVisible(true);
+               MenuCS mn = new MenuCS();
+                       mn.setVisible(true);
+                       mn.setExtendedState(JFrame.MAXIMIZED_BOTH);
+               
             }
         });
     }
@@ -2159,7 +2208,9 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel dataHewan;
     private javax.swing.JPanel dataPelanggan;
     private javax.swing.JComboBox<String> jComboBoxJenisHewan;
+    private javax.swing.JComboBox<String> jComboBoxJenisHewanCari;
     private javax.swing.JComboBox<String> jComboBoxNamaPelanggan;
+    private javax.swing.JComboBox<String> jComboBoxNamaPelangganCari;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -2191,13 +2242,11 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField jenisHewan;
     private javax.swing.JLabel judul;
     private javax.swing.JPanel mainPanel2;
     private javax.swing.JPanel mainPanel3;
     private javax.swing.JPanel menuHome;
     private javax.swing.JTextField namaHewan1;
-    private javax.swing.JTextField namaPelanggan;
     private javax.swing.JTable tabelHewan;
     private javax.swing.JTable tabelPelanggan;
     private javax.swing.JPanel tambahPelanggan;
@@ -2205,7 +2254,7 @@ public class MenuCS extends javax.swing.JFrame {
     private javax.swing.JPanel tampilSeluruh;
     private javax.swing.JPanel tampilSeluruh1;
     private com.toedter.calendar.JDateChooser tgl;
-    private javax.swing.JTextField tglLahir;
+    private com.toedter.calendar.JDateChooser tglLahir;
     private javax.swing.JTextField txtAlamatPelanggan;
     private javax.swing.JTextField txtCariAlaPelanggan;
     private javax.swing.JTextField txtCariNamaPelanggan;

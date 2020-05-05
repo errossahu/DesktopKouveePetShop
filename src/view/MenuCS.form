@@ -1579,7 +1579,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jPanel13" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                                  <EmptySpace pref="184" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1615,10 +1615,10 @@
                                               </Group>
                                               <EmptySpace max="32767" attributes="0"/>
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="jenisHewan" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="namaPelanggan" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="tglLahir" alignment="0" max="32767" attributes="0"/>
                                                   <Component id="namaHewan1" alignment="0" pref="244" max="32767" attributes="0"/>
+                                                  <Component id="jComboBoxNamaPelangganCari" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="jComboBoxJenisHewanCari" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="tglLahir" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="cariNamaHewan" alignment="1" max="32767" attributes="0"/>
@@ -1641,15 +1641,15 @@
                                           <Component id="btnSearchPelanggan1" pref="37" max="32767" attributes="0"/>
                                           <Component id="cariNamaHewan" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jenisHewan" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxJenisHewanCari" alignment="3" pref="44" max="32767" attributes="0"/>
                                           <Component id="jLabel74" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jComboBoxNamaPelangganCari" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                                           <Component id="jLabel75" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                          <Component id="namaPelanggan" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1660,11 +1660,11 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="tglLahir" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                                          <Component id="jLabel77" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel77" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="tglLahir" min="-2" pref="31" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="158" max="32767" attributes="0"/>
+                                      <EmptySpace pref="152" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="btlHapusSup1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                                           <Component id="btnSimpanProduk3" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
@@ -1689,13 +1689,6 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btlHapusSup1ActionPerformed"/>
-                              </Events>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="namaPelanggan">
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="jenisHewan">
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jenisHewanActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel74">
@@ -1731,11 +1724,6 @@
                                 <Property name="text" type="java.lang.String" value="Nama Hewan"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="tglLahir">
-                              <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tglLahirActionPerformed"/>
-                              </Events>
-                            </Component>
                             <Component class="javax.swing.JLabel" name="jLabel77">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1765,6 +1753,39 @@
                               </Events>
                             </Component>
                             <Component class="javax.swing.JTextField" name="namaHewan1">
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="namaHewan1ActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="jComboBoxJenisHewanCari">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="jComboBoxNamaPelangganCari">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="com.toedter.calendar.JDateChooser" name="tglLahir">
+                              <Properties>
+                                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                                  <Border info="org.netbeans.modules.form.compat2.border.EmptyBorderInfo">
+                                    <EmptyBorder/>
+                                  </Border>
+                                </Property>
+                                <Property name="dateFormatString" type="java.lang.String" value="yyyy-MMMMMM-d"/>
+                              </Properties>
                             </Component>
                           </SubComponents>
                         </Container>

@@ -7,7 +7,7 @@ package view;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import view.LoginAdmin ;
+
 import Controller.AdminControl ;
 import DAO.AdminDao;
 import static DAO.AdminDao.con;
@@ -57,6 +57,7 @@ import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -2255,7 +2256,7 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dataPegawaiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(mainPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(mainPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         dataPegawaiLayout.setVerticalGroup(
@@ -2395,15 +2396,17 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel74, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(btlSimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnSimpanLyn, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btlSimpan1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNamaLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSimpanLyn, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel69, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtNamaLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(30, 30, 30))))
         );
         jPanel10Layout.setVerticalGroup(
@@ -2457,6 +2460,11 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
         tabelLayanan.setGridColor(new java.awt.Color(0, 0, 0));
+        tabelLayanan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelLayananMouseClicked(evt);
+            }
+        });
         jScrollPane7.setViewportView(tabelLayanan);
         if (tabelLayanan.getColumnModel().getColumnCount() > 0) {
             tabelLayanan.getColumnModel().getColumn(0).setResizable(false);
@@ -6332,10 +6340,10 @@ public class MenuAdmin extends javax.swing.JFrame {
                 HL.setIdUkuran(IDX);
                 int idCari = Integer.parseInt(cariIdHargaLyn.getText());
                 AC.editHargaLayanan(HL,idCari);
-                 txtNamaLayananHarga2.setText(" ");
-               jComboBoxNamaLayanan1.setSelectedIndex(0);
-               jComboBoxUkuranHewan1.setSelectedIndex(0);
-               cariIdHargaLyn.setText(" ");
+                txtNamaLayananHarga2.setText(" ");
+                jComboBoxNamaLayanan1.setSelectedIndex(0);
+                jComboBoxUkuranHewan1.setSelectedIndex(0);
+                cariIdHargaLyn.setText(" ");
                 String id = String.valueOf(IDX);
                 
                 tampilHargaLayanan();
@@ -6803,6 +6811,14 @@ public class MenuAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNamaPegawaiKeyPressed
 
+    private void tabelLayananMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelLayananMouseClicked
+        // TODO add your handling code here:
+         int index= tabelLayanan.getSelectedRow();
+        String namaLayanan       = (String) tabelLayanan.getValueAt(index, 1);
+        txtNamaLayanan.setText(namaLayanan);
+       
+    }//GEN-LAST:event_tabelLayananMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -6836,7 +6852,9 @@ public class MenuAdmin extends javax.swing.JFrame {
        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuAdmin().setVisible(true);
+               MenuAdmin MA=  new MenuAdmin();
+               MA.setVisible(true);
+               MA.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 
             }
         });

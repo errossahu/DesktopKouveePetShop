@@ -7,7 +7,6 @@ package view;
 
 import Controller.AdminControl;
 import Model.Pegawai;
-import Model.Pegawai;
 import Session.LoginSession;
 import com.placeholder.PlaceHolder;
 import javax.swing.JOptionPane;
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author ACER
  */
-public class LoginForm extends javax.swing.JFrame {
+public class LoginForm3 extends javax.swing.JFrame {
 
     /**
      * Creates new form LoginForm
@@ -24,7 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
      AdminControl AC ;
       Pegawai PGW;
     Pegawai P ;
-    public LoginForm() {
+    public LoginForm3() {
         initComponents();
             setResizable(false);
             AC = new AdminControl();
@@ -229,13 +228,13 @@ public class LoginForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginForm3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -243,7 +242,7 @@ public class LoginForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginForm().setVisible(true);
+                new LoginForm3().setVisible(true);
             }
         });
     }
