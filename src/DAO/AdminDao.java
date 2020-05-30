@@ -694,7 +694,40 @@ public List<Produk> tampilComboNamaProduk()
     }
             return list ;
 }
-
+public List<Produk>tampilProdukSeluruh()
+{
+     String sql = "Select * from Produk ";
+           
+    System.out.println("Daftar Jenis Produk ");
+    Produk Pr ;
+    List<Produk> list = new ArrayList<>();
+    try
+    {
+        
+        Statement stm = con.createStatement();
+        ResultSet result = stm.executeQuery(sql);
+        if(result!=null)
+        {
+            while (result.next())
+            {
+                Pr = new Produk(result.getString("nama"),result.getString("satuan"),Integer.parseInt(result.getString("JUMLAH_STOK")),
+                Integer.parseInt(result.getString("HARGA")),Integer.parseInt(result.getString("MIN_STOK")),result.getString("CREATED_BY"),result.getString("CREATED_At"),
+                result.getString("MODIFIED_BY"), result.getString("MODIFIED_AT"),result.getString("DELETE_aT"),result.getString("Delete_by"),
+                        Integer.parseInt(result.getString("ID_PRODUK")),result.getString("gambar"));
+                
+                list.add(Pr);
+            }
+        }
+                    result.close();
+            stm.close();
+    }
+   catch(Exception E)
+   {
+       System.out.println(E);
+   }
+    return list ;
+            
+}
 public List<Produk> tampilProduk()
 {
     String sql = "Select * from Produk where aktif= 1";

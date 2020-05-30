@@ -262,7 +262,7 @@ public void autoCompletNamaProduk(String nama)
            totalSeluruh= total-diskon;
            txtTotalSeluruh.setText(String.valueOf(totalSeluruh));
    }
-    private void cetakData(String id)
+private void cetakData(String id)
   {
 String namax= LoginSession.getNama();
       AD.makeConnection();

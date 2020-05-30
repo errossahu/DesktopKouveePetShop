@@ -254,6 +254,14 @@ private final AdminDao aDAO = new AdminDao();
         return P;
         
     }
+    public List<Produk>tampilDataProdukSeluruh()
+    {
+        aDAO.makeConnection();
+        List<Produk> P= aDAO.tampilProdukSeluruh();
+        aDAO.closeConnection();
+        return P ;
+                
+    }       
     public List<Produk>tampilDataProduk()
     {
         aDAO.makeConnection();

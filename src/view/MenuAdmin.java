@@ -59,10 +59,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import javax.swing.table.TableRowSorter;
 import org.apache.commons.io.FileUtils;
 import static org.hsqldb.lib.tar.TarHeaderField.uid;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -101,7 +103,7 @@ public class MenuAdmin extends javax.swing.JFrame {
     /**
      * Creates new form MenuAdmin
      */
-    DefaultTableModel tabelModel,tabelModel1, tabelModel2,tabelModel4,tableModel5,tabelModel6,tabelModel7, tabelModel8 ;
+    DefaultTableModel tabelModel,tabelModel1, tabelModel2,tabelModel4,tableModel5,tabelModel6,tabelModel7, tabelModel8,tabelModel9 ;
     public MenuAdmin() {
         
         initComponents();
@@ -154,7 +156,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         tableModel5 = (DefaultTableModel) tabelProduk.getModel();
         tabelModel6 = (DefaultTableModel) tabelUkuranHewan.getModel();
         tabelModel7 = (DefaultTableModel) tabelHargaLayanan.getModel();
-        
+        tabelModel9 = (DefaultTableModel) tabelProdukTampilSeluruh.getModel();
         tampliSuplier();       
         tampilPegawai();
         tampilLayanan();
@@ -167,6 +169,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(jComboBoxUkuranHewan);
         
         tampilHargaLayanan();
+        tampilProdukSeluruh();
         tampilJenisHewanText();
         atur(tabelUkuranHewan , new int[] {100, 200,100, 150, 100,150});
         atur(tableSupTambahData, new int[]{100,250,200,150, 150,150,150,150});
@@ -174,6 +177,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         atur(tablePegawai, new int []{100,250,90,200,100,150,90,150,90,150} );
         atur(tabelHewan , new int[]{100,150,90,150, 90, 150});
         atur(tabelProduk, new int[]{100,150,100, 150, 150, 150, 150, 150, 150, 150});
+                atur(tabelProdukTampilSeluruh, new int[]{100,150,100, 150, 150, 150, 150, 150, 150, 150,150,150});
 //                        String[] dataField={id,nama_Layanan,Ukuran,harga1,createby , createAt,modifby,modifat};
         atur(tabelHargaLayanan, new int[]{100,150,150,200,150,150,150,150});
     }
@@ -219,6 +223,23 @@ public class MenuAdmin extends javax.swing.JFrame {
         data.add(h.getUkuran());
         data.add(h.getHarga());
         tabelModel7.addRow(data);
+    }
+    public void addTableTampilSeluruhProduk(Produk Pb)
+    {
+           Vector data = new Vector();
+        data.add(Pb.getIdProduk());
+        data.add(Pb.getNama());
+        data.add(Pb.getSatuan());
+        data.add(Pb.getJumlah());
+        data.add(Pb.getHarga());
+        data.add(Pb.getMin_stok());
+        data.add(Pb.getCreate_by());
+        data.add(Pb.getcREATE_aT());
+        data.add(Pb.getModified_by());
+        data.add(Pb.getModifie_at());
+        data.add(Pb.getDeleteBy());
+        data.add(Pb.getDeleteat());
+        tabelModel9.addRow(data);
     }
     public void addTeableProduk(Produk Pb)
     {
@@ -870,6 +891,36 @@ public class MenuAdmin extends javax.swing.JFrame {
             throw  new PanjangData();
         }
     }
+    public void tampilProdukSeluruh()
+    {
+        int a = tabelModel9.getRowCount();
+        
+        for (int i = 0; i < a; i++) {
+          tabelModel9.removeRow(0);  
+            
+        }
+        Produk P ;
+        List<Produk> M = AC.tampilDataProdukSeluruh();
+        for (int i = 0; i <M.size(); i++) {
+            
+            P= new Produk();
+
+            P.setId(M.get(i).getIdProduk());
+            P.setNama(M.get(i).getNama());
+            P.setSatuan(M.get(i).getSatuan());
+            P.setJumlah(M.get(i).getJumlah());
+            P.setHarga(M.get(i).getHarga());
+            P.setMin_Stok(M.get(i).getMin_stok());
+            P.setCreate_By(M.get(i).getCreate_by());
+            P.setCreate_AT(M.get(i).getcREATE_aT());
+           P.setModified_by(M.get(i).getModified_by());
+           P.setModified_at(M.get(i).getModifie_at());
+           P.setDelete_at(M.get(i).getDeleteat());
+           P.setDelete_by(M.get(i).getDeleteBy());
+            addTableTampilSeluruhProduk(P);
+        }
+        
+    }
     public void tampilProduk()
     {
         int a = tableModel5.getRowCount() ;
@@ -1284,6 +1335,8 @@ public class MenuAdmin extends javax.swing.JFrame {
         tampilSeluruh = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablePegawai = new javax.swing.JTable();
+        filterTable = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
         dataLayanan = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnTambahLyn = new javax.swing.JButton();
@@ -1362,8 +1415,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         btnPilih = new javax.swing.JButton();
         namaGambar1 = new javax.swing.JLabel();
         tampilProduk = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tablePegawai1 = new javax.swing.JTable();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        tabelProdukTampilSeluruh = new javax.swing.JTable();
+        filterTable1 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
         dataSupplier = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         btnTambahSup = new javax.swing.JButton();
@@ -2230,19 +2285,45 @@ public class MenuAdmin extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(tablePegawai);
 
+        filterTable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterTableActionPerformed(evt);
+            }
+        });
+        filterTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                filterTableKeyPressed(evt);
+            }
+        });
+
+        jButton4.setText("CARI");
+
         javax.swing.GroupLayout tampilSeluruhLayout = new javax.swing.GroupLayout(tampilSeluruh);
         tampilSeluruh.setLayout(tampilSeluruhLayout);
         tampilSeluruhLayout.setHorizontalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
+                .addGroup(tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(tampilSeluruhLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filterTable, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(tampilSeluruhLayout.createSequentialGroup()
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1079, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         tampilSeluruhLayout.setVerticalGroup(
             tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilSeluruhLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                .addGap(25, 25, 25)
+                .addGroup(tampilSeluruhLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterTable, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3219,24 +3300,76 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         tampilProduk.setBackground(new java.awt.Color(99, 175, 241));
 
-        tablePegawai1.setBackground(new java.awt.Color(255, 255, 255));
-        tablePegawai1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        tablePegawai1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        tablePegawai1.setForeground(new java.awt.Color(0, 0, 0));
-        tablePegawai1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelProdukTampilSeluruh.setBackground(new java.awt.Color(255, 255, 255));
+        tabelProdukTampilSeluruh.setFont(new java.awt.Font("Geometr212 BkCn BT", 1, 12)); // NOI18N
+        tabelProdukTampilSeluruh.setForeground(new java.awt.Color(0, 0, 0));
+        tabelProdukTampilSeluruh.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID_PEGAWAI", "Nama Pegawai", "User Name ", "Password", "Role"
+                "ID_Produk", "Nama ", "Satuan", "Jumlah Stok", "Harga", "Min Stok", "Create By", "Create At", "Modified_By", "Modified_At", "Delete_By", "Delete_At"
             }
-        ));
-        tablePegawai1.setGridColor(new java.awt.Color(0, 0, 0));
-        jScrollPane5.setViewportView(tablePegawai1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelProdukTampilSeluruh.setGridColor(new java.awt.Color(0, 0, 0));
+        jScrollPane10.setViewportView(tabelProdukTampilSeluruh);
+        if (tabelProdukTampilSeluruh.getColumnModel().getColumnCount() > 0) {
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(0).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(1).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(2).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(3).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(4).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(5).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(6).setResizable(false);
+            tabelProdukTampilSeluruh.getColumnModel().getColumn(7).setResizable(false);
+        }
+
+        filterTable1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterTable1ActionPerformed(evt);
+            }
+        });
+        filterTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                filterTable1KeyPressed(evt);
+            }
+        });
+
+        jButton5.setText("CARI");
 
         javax.swing.GroupLayout tampilProdukLayout = new javax.swing.GroupLayout(tampilProduk);
         tampilProduk.setLayout(tampilProdukLayout);
@@ -3244,15 +3377,24 @@ public class MenuAdmin extends javax.swing.JFrame {
             tampilProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilProdukLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1113, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(tampilProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(tampilProdukLayout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filterTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         tampilProdukLayout.setVerticalGroup(
             tampilProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tampilProdukLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(299, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addGroup(tampilProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filterTable1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(228, Short.MAX_VALUE))
         );
 
         mainPanel5.add(tampilProduk, "card4");
@@ -5427,6 +5569,12 @@ public class MenuAdmin extends javax.swing.JFrame {
 
     private void btnTampil1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTampil1ActionPerformed
         // TODO add your handling code here:
+        mainPanel5.removeAll();
+        mainPanel5.repaint();
+        mainPanel5.revalidate();
+        mainPanel5.add(tampilProduk);
+        mainPanel5.repaint();
+        mainPanel5.revalidate();
     }//GEN-LAST:event_btnTampil1ActionPerformed
 
     private void btnHelp2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelp2ActionPerformed
@@ -6819,6 +6967,36 @@ public class MenuAdmin extends javax.swing.JFrame {
        
     }//GEN-LAST:event_tabelLayananMouseClicked
 
+    private void filterTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterTableKeyPressed
+        // TODO add your handling code here:
+        
+        String cari = filterTable.getText();
+        TableRowSorter tr = new TableRowSorter(tabelModel);
+        tablePegawai.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(cari));
+    }//GEN-LAST:event_filterTableKeyPressed
+
+    private void filterTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTableActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterTableActionPerformed
+
+    private void filterTable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterTable1ActionPerformed
+        // TODO add your handling code here:
+        String cari = filterTable.getText();
+        TableRowSorter tr = new TableRowSorter(tabelModel9);
+        tabelProdukTampilSeluruh.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(cari));
+        
+    }//GEN-LAST:event_filterTable1ActionPerformed
+
+    private void filterTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterTable1KeyPressed
+        // TODO add your handling code here:
+                String cari = filterTable1.getText();
+        TableRowSorter tr = new TableRowSorter(tabelModel9);
+        tabelProdukTampilSeluruh.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(cari));
+    }//GEN-LAST:event_filterTable1KeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -6955,9 +7133,13 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel dataProduk;
     private javax.swing.JPanel dataSupplier;
     private javax.swing.JPanel dataUkuran;
+    private javax.swing.JTextField filterTable;
+    private javax.swing.JTextField filterTable1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JComboBox<String> jComboBoxNamaLayanan;
     private javax.swing.JComboBox<String> jComboBoxNamaLayanan1;
     private javax.swing.JComboBox<String> jComboBoxSupllier;
@@ -7050,10 +7232,10 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
@@ -7078,9 +7260,9 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JTable tabelHewan;
     private javax.swing.JTable tabelLayanan;
     private javax.swing.JTable tabelProduk;
+    private javax.swing.JTable tabelProdukTampilSeluruh;
     private javax.swing.JTable tabelUkuranHewan;
     private javax.swing.JTable tablePegawai;
-    private javax.swing.JTable tablePegawai1;
     private javax.swing.JTable tableSupTambahData;
     private javax.swing.JPanel tambahHargaLayanan;
     private javax.swing.JPanel tambahHewan;

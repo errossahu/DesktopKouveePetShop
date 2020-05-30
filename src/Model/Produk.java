@@ -97,6 +97,18 @@ public class Produk {
     {
         this.delete_at = delete_at;
     }
+    public String getDeleteat()
+    {
+        return  delete_at ;
+    }
+    public String getDeleteBy()
+    {
+        return delete_by;
+    }
+    public void setDelete_by(String delet)
+    {
+        this.delete_by= delet;
+    }
     
     public void setHarga(int Harga)
     {
