@@ -505,7 +505,7 @@ public void noTable()
           }
            Chunk c10= new Chunk("Total Pendapatan : "+txtTotalLayanan.getText(), font1);
            Paragraph p10 = new Paragraph();
-                   
+           p10.add(c3);
             
             document.add(p1);
             document.add(p2);
