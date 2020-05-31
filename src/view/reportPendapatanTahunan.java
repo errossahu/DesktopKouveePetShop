@@ -110,16 +110,28 @@ public class reportPendapatanTahunan extends javax.swing.JFrame {
           tampilTransaksiProduk();
           noTable();
 //          hitungTotalHarga();
-          txtTahun.setText(" "+dtn.format(now));
+
      
     }
+     public void cleanTable()
+ {
+
+
+     while(tabelModel2.getRowCount()>0)
+     {
+         tabelModel2.removeRow(0);
+     }
+     
+ }
    public final void tampilTransaksiProduk()
  {
+
      AD.makeConnection();
 
-     String sql ="SELECT monthname(X.created_at) \"bulan\", (select SUM(total) from transaksi_layanan GROUP BY monthname(created_at)) \"penjualan transaksi\", (select SUM(total) from transaksi_produk GROUP BY monthname(created_at)) \"penjualan produk\", (select SUM(total) from transaksi_layanan GROUP BY monthname(created_at))+(select SUM(total) from transaksi_produk GROUP BY monthname(created_at)) \"total\" from (select id_transaksi_produk \"id_transaksi\", total, created_at from transaksi_produk union all select id_transaksi_layanan \"id_transaksi\", total, created_at from transaksi_layanan) X GROUP BY monthname(CREATED_AT) ORDER BY month(CREATED_AT) ASC";
     try
     {
+        String sql ="SELECT monthname(X.created_at) \"bulan\", (select SUM(total) from transaksi_layanan WHERE year(CREATED_AT)= "+PilihTahun.getText()+" GROUP BY monthname(created_at)) \"penjualan transaksi\", (select SUM(total) from transaksi_produk WHERE year(CREATED_AT)= "+PilihTahun.getText()+" GROUP BY monthname(created_at)) \"penjualan produk\", (select SUM(total) from transaksi_layanan WHERE year(CREATED_AT)="+PilihTahun.getText()+" GROUP BY monthname(created_at))+(select SUM(total) from transaksi_produk WHERE year(CREATED_AT)= "+PilihTahun.getText()+" GROUP BY monthname(created_at)) \"total\" from (select id_transaksi_produk \"id_transaksi\", total, created_at from transaksi_produk union all select id_transaksi_layanan \"id_transaksi\", total, created_at from transaksi_layanan) X where year(created_at)="+PilihTahun.getText()+" GROUP BY monthname(CREATED_AT) ORDER BY month(CREATED_AT) ASC";
+ 
         
        Statement stm= con.createStatement();
        ResultSet rs= stm.executeQuery(sql);
@@ -155,7 +167,7 @@ public final void  hitungTotalHarga()
            long total1 = 0 ;
            
            for (int i = 0; i < tableProduk.getRowCount(); i++) {
-              int amount = Integer.parseInt((String)tableProduk.getValueAt(i, 2));
+              int amount = Integer.parseInt((String)tableProduk.getValueAt(i, 4));
                  total1 += amount;
              
        }
@@ -257,8 +269,9 @@ public void noTable()
         tableProduk = new javax.swing.JTable();
         txtTotalLayanan = new javax.swing.JLabel();
         txtTotalLayanan1 = new javax.swing.JLabel();
+        PilihTahun = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtTahun = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -337,11 +350,22 @@ public void noTable()
         txtTotalLayanan1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         txtTotalLayanan1.setForeground(new java.awt.Color(0, 0, 0));
 
+        PilihTahun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PilihTahunActionPerformed(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Tahun :");
+        jLabel5.setText("Tahun");
 
-        txtTahun.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
+        jButton1.setText("LAPORAN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
@@ -349,35 +373,42 @@ public void noTable()
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mainPaneLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTotalLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(mainPaneLayout.createSequentialGroup()
-                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mainPaneLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(mainPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPaneLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTotalLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(mainPaneLayout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PilihTahun, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         mainPaneLayout.setVerticalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPaneLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PilihTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addGap(2, 2, 2)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
-                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTahun, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(412, Short.MAX_VALUE))
+                .addContainerGap(431, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -409,6 +440,19 @@ public void noTable()
         // TODO add your handling code here:
        
     }//GEN-LAST:event_tableProdukMouseClicked
+
+    private void PilihTahunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PilihTahunActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PilihTahunActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        cleanTable();
+        tampilTransaksiProduk();
+     
+     
+ 
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -958,6 +1002,8 @@ public void noTable()
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField PilihTahun;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -966,7 +1012,6 @@ public void noTable()
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel mainPane;
     private javax.swing.JTable tableProduk;
-    private javax.swing.JLabel txtTahun;
     private javax.swing.JLabel txtTotalLayanan;
     private javax.swing.JLabel txtTotalLayanan1;
     // End of variables declaration//GEN-END:variables
