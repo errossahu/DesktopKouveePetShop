@@ -36,7 +36,7 @@ public  LocalDateTime now = LocalDateTime.now();
         }
 public void makeConnection(){
 try {
-    String url ="jdbc:mysql://localhost/db9393";
+    String url ="jdbc:mysql://localhost/smithdev_kouveepetshop";
     String user="root";
     String pass="";
 

@@ -5,7 +5,7 @@
  */
 package Model;
 
-import DAO.NetClientGet;
+import Api.NetClientGet;
 
 /**
  *

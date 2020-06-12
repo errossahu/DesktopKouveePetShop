@@ -30,12 +30,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 import Session.LoginSession;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.placeholder.PlaceHolder;
 import exception.CekAngka;
 import exception.CekHuruf;
 import exception.PanjangData;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -106,10 +115,10 @@ public class reportPendapatanTahunan extends javax.swing.JFrame {
         tabelModel2 = (DefaultTableModel) tableProduk.getModel();
         
         atur(tableProduk, new int []{100,300,300,300} );
-    
+        tgl.setText(dtf.format(now));
           tampilTransaksiProduk();
-          noTable();
-//          hitungTotalHarga();
+          
+          hitungTotalHarga();
 
      
     }
@@ -130,7 +139,7 @@ public class reportPendapatanTahunan extends javax.swing.JFrame {
 
     try
     {
-        String sql ="SELECT monthname(X.created_at) \"bulan\", (select SUM(total) from transaksi_layanan WHERE year(CREATED_AT)= "+PilihTahun.getText()+" GROUP BY monthname(created_at)) \"penjualan transaksi\", (select SUM(total) from transaksi_produk WHERE year(CREATED_AT)= "+PilihTahun.getText()+" GROUP BY monthname(created_at)) \"penjualan produk\", (select SUM(total) from transaksi_layanan WHERE year(CREATED_AT)="+PilihTahun.getText()+" GROUP BY monthname(created_at))+(select SUM(total) from transaksi_produk WHERE year(CREATED_AT)= "+PilihTahun.getText()+" GROUP BY monthname(created_at)) \"total\" from (select id_transaksi_produk \"id_transaksi\", total, created_at from transaksi_produk union all select id_transaksi_layanan \"id_transaksi\", total, created_at from transaksi_layanan) X where year(created_at)="+PilihTahun.getText()+" GROUP BY monthname(CREATED_AT) ORDER BY month(CREATED_AT) ASC";
+        String sql ="SELECT monthname(X.created_at) \"bulan\", (select SUM(total) from transaksi_layanan WHERE year(CREATED_AT)= "+PilihTahun.getText()+" And status='Lunas' GROUP BY monthname(created_at)) \"penjualan transaksi\", (select SUM(total) from transaksi_produk WHERE year(CREATED_AT)= "+PilihTahun.getText()+" And Status='Lunas' GROUP BY monthname(created_at)) \"penjualan produk\", (select SUM(total) from transaksi_layanan WHERE year(CREATED_AT)="+PilihTahun.getText()+" And Status='Lunas' GROUP BY monthname(created_at))+(select SUM(total) from transaksi_produk WHERE year(CREATED_AT)= "+PilihTahun.getText()+" And Status='Lunas' GROUP BY monthname(created_at)) \"total\" from (select id_transaksi_produk \"id_transaksi\", total, created_at from transaksi_produk union all select id_transaksi_layanan \"id_transaksi\", total, created_at from transaksi_layanan) X  GROUP BY monthname(CREATED_AT) ORDER BY month(CREATED_AT) ASC";
  
         
        Statement stm= con.createStatement();
@@ -142,12 +151,19 @@ public class reportPendapatanTahunan extends javax.swing.JFrame {
             while(rs.next())
             {
                 String bulan= rs.getString("bulan");
+                System.out.println(bulan);
                 String pt = rs.getString("penjualan transaksi");
                 String pp = rs.getString("penjualan produk");
                 String total = rs.getString("total");
-                String[] dataField={"",bulan ,pt,pp,total};
-                tabelModel2.addRow(dataField);
+                    if (bulan.equalsIgnoreCase("May")) {
+
+                            
+                            tabelModel2.insertRow(4,new Object[]{"5","May",pt,pp,total});
+                            tabelModel2.removeRow(5);
+                }   
                 
+                
+    
             }
             rs.close();
             stm.close();
@@ -171,7 +187,7 @@ public final void  hitungTotalHarga()
                  total1 += amount;
              
        }
-           txtTotalLayanan1.setText(""+total1);
+           txtTotalLayanan.setText(""+total1);
     
    }
 public void noTable()
@@ -267,11 +283,14 @@ public void noTable()
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tableProduk = new javax.swing.JTable();
-        txtTotalLayanan = new javax.swing.JLabel();
-        txtTotalLayanan1 = new javax.swing.JLabel();
         PilihTahun = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        txtTotalLayanan = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        tgl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -307,12 +326,11 @@ public void noTable()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(85, 85, 85)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(505, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addContainerGap())))
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(266, 266, 266)
+                        .addComponent(jLabel2)))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,7 +349,18 @@ public void noTable()
         tableProduk.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         tableProduk.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {"1", "Januari", "0", "0", "0"},
+                {"2", "Febuari", "0", "0", "0"},
+                {"3", "Maret", "0", "0", "0"},
+                {"4", "April", "0", "0", "0"},
+                {"5", "Mei", "0", "0", "0"},
+                {"6", "Juni", "0", "0", "0"},
+                {"7", "Juli", "0", "0", "0"},
+                {"8", "Agustus", "0", "0", "0"},
+                {"9", "September", "0", "0", "0"},
+                {"10", "Oktober", "0", "0", "0"},
+                {"11", "November", "0", "0", "0"},
+                {null, "Desember", "0", "0", "0"}
             },
             new String [] {
                 "Nomor", "Bulan", "Transaksi Layanan", "Transaksi Produk", "Total"
@@ -343,12 +372,6 @@ public void noTable()
             }
         });
         jScrollPane3.setViewportView(tableProduk);
-
-        txtTotalLayanan.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtTotalLayanan.setForeground(new java.awt.Color(0, 0, 0));
-
-        txtTotalLayanan1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        txtTotalLayanan1.setForeground(new java.awt.Color(0, 0, 0));
 
         PilihTahun.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,48 +390,81 @@ public void noTable()
             }
         });
 
+        txtTotalLayanan.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtTotalLayanan.setForeground(new java.awt.Color(0, 0, 0));
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Total Harga Rp.");
+
+        jButton2.setText("BUAT PDF");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        tgl.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        tgl.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
         mainPane.setLayout(mainPaneLayout);
         mainPaneLayout.setHorizontalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(mainPaneLayout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(mainPaneLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 951, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(mainPaneLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainPaneLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtTotalLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(mainPaneLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(PilihTahun, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(444, 444, 444)
+                        .addComponent(tgl, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(mainPaneLayout.createSequentialGroup()
+                        .addGap(88, 88, 88)
+                        .addComponent(jButton2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPaneLayout.setVerticalGroup(
             mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPaneLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PilihTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(PilihTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(mainPaneLayout.createSequentialGroup()
+                        .addComponent(tgl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addGap(2, 2, 2)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTotalLayanan1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(431, Short.MAX_VALUE))
+                .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtTotalLayanan, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(392, 392, 392))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -430,7 +486,7 @@ public void noTable()
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-        MenuKasir m = new MenuKasir();
+        MenuReport m = new MenuReport();
         this.setVisible(false );
         m.setVisible(true);
         m.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -447,12 +503,129 @@ public void noTable()
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        cleanTable();
-        tampilTransaksiProduk();
      
+        
+        tampilTransaksiProduk();
+         hitungTotalHarga();
      
  
     }//GEN-LAST:event_jButton1ActionPerformed
+private void cetakData()
+  {
+
+      AD.makeConnection();
+      
+      try
+      {
+        String file ="D:\\generete_pdf\\"+"LaporanPendapatanTahunan"+".pdf";
+        com.itextpdf.text.Document document = new com.itextpdf.text.Document();
+        PdfWriter writer= PdfWriter.getInstance(document, new FileOutputStream(file));
+        document.open();
+              
+            Font font1 = new Font(Font.FontFamily.HELVETICA  , 14, Font.BOLD);
+                       Font font2 = new Font(Font.FontFamily.HELVETICA  , 12);
+                       Font font3 = new Font(Font.FontFamily.HELVETICA  , 20);
+                       
+                       Image img = Image.getInstance("nota.jpg");
+                       
+            document.add(img);
+            Chunk c1 = new Chunk("LAPORAN PENDAPATAN TAHUNAN",font1);
+
+            Chunk c3 = new Chunk("Tahun  : "+PilihTahun.getText(),font2);
+           
+            Paragraph p1 = new Paragraph();
+            p1.setAlignment(com.itextpdf.text.Element.ALIGN_CENTER);
+            p1.add(c1);
+            
+            
+            Paragraph p3 = new Paragraph();
+            p3.setAlignment(com.itextpdf.text.Element.ALIGN_LEFT);
+            p3.add(c3);
+            p3.setSpacingAfter(10);
+            
+           
+           
+           document.add(p1);
+           document.add(p3);
+            
+            
+            
+   
+            
+           
+            
+
+            
+           
+            PdfPTable table1 = new PdfPTable(5);
+            table1.addCell("No");
+            table1.addCell("Bulan");
+            table1.addCell("Transaksi Layanan");
+            table1.addCell("Transaksi Produk ");
+            table1.addCell("Total");
+ 
+              for (int i = 0; i <tableProduk.getRowCount(); i++) {
+              String No = (String)tableProduk.getValueAt(i, 0);
+              String Bulan = (String)tableProduk.getValueAt(i,1);
+              String lyn= (String)tableProduk.getValueAt(i,2);
+              String produk= (String)tableProduk.getValueAt(i,3);
+              String harga= (String)tableProduk.getValueAt(i,4);
+              
+              
+              table1.addCell(No);
+              table1.addCell(Bulan);
+              table1.addCell(lyn);
+              table1.addCell(produk);
+              
+              table1.addCell(harga);
+
+          }
+              
+           
+           
+            document.add(table1);
+            Chunk c4 = new Chunk("Total : "+txtTotalLayanan.getText(),font1);
+           
+            Paragraph p4 = new Paragraph();
+            p4.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT);
+            p4.add(c4);
+            p4.setSpacingBefore(5);
+            document.add(p4);
+          
+           Chunk tgl = new Chunk("Dicetak Tgl : "+this.tgl.getText(),font2);
+             Paragraph ptgl = new Paragraph();
+             ptgl.add(tgl)
+                ;
+             ptgl.setAlignment(com.itextpdf.text.Element.ALIGN_BOTTOM);
+             ptgl.setSpacingBefore(20);
+             document.add(ptgl);
+               
+           
+            
+            
+            
+            
+            
+            
+            document.close();
+            writer.close();
+            
+            File myFile = new File("D:\\generete_pdf\\"+"LaporanPendapatanTahunan"+".pdf");
+            Desktop.getDesktop().open(myFile);
+           
+            
+      }
+      catch(Exception e)
+      {
+          System.out.println(e);
+      }
+       AD.closeConnection();
+  }
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+
+        cetakData();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1004,15 +1177,18 @@ public void noTable()
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField PilihTahun;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel mainPane;
     private javax.swing.JTable tableProduk;
+    private javax.swing.JLabel tgl;
     private javax.swing.JLabel txtTotalLayanan;
-    private javax.swing.JLabel txtTotalLayanan1;
     // End of variables declaration//GEN-END:variables
 }

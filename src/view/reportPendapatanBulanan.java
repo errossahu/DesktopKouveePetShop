@@ -456,19 +456,18 @@ public void noTable()
       
       try
       {
-        String file ="F:\\generete_pdf\\"+"LaporanPendapatanBulanan"+".pdf";
+        String file ="D:\\generete_pdf\\"+"LaporanPendapatanBulanan"+".pdf";
         com.itextpdf.text.Document document = new com.itextpdf.text.Document();
         PdfWriter writer= PdfWriter.getInstance(document, new FileOutputStream(file));
         document.open();
-        
+              
             Font font1 = new Font(Font.FontFamily.HELVETICA  , 14, Font.BOLD);
                        Font font2 = new Font(Font.FontFamily.HELVETICA  , 12);
                        Font font3 = new Font(Font.FontFamily.HELVETICA  , 20);
                        
                        Image img = Image.getInstance("nota.jpg");
-                        img.setAbsolutePosition(0f,0f);
-              
-
+                       
+            document.add(img);
             Chunk c1 = new Chunk("LAPORAN PENDAPATAN BULANAN LAYANAN",font1);
             Chunk c2 = new Chunk("Bulan :  "+jComboBox1.getSelectedItem() ,font2);
             Chunk c3 = new Chunk("Tahun  : "+PilihTahun.getText(),font2);
@@ -505,9 +504,14 @@ public void noTable()
           }
            Chunk c10= new Chunk("Total Pendapatan : "+txtTotalLayanan.getText(), font1);
            Paragraph p10 = new Paragraph();
-           p10.add(c3);
-            
-            document.add(p1);
+           Chunk c11= new Chunk("Total Pendapatan : "+txtTotalLayanan1.getText(),font1);
+           Paragraph p11= new  Paragraph();
+           p10.add(c10);
+           p11.add(c11);
+           p10.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT); 
+           p11.setAlignment(com.itextpdf.text.Element.ALIGN_RIGHT); 
+           
+           document.add(p1);
             document.add(p2);
             document.add(p3);
             
@@ -544,11 +548,26 @@ public void noTable()
           }
               
             document.add(table);
-            table.setSpacingAfter(10);
+            document.add(p10);
+            table.setSpacingAfter(7);
+            p4.setSpacingAfter(10);
+            
             document.add(p4); 
            
+           
             document.add(table1);
-            
+                        document.add(p11);
+                        
+             Chunk tgl = new Chunk("Dicetak Tgl : "+this.tgl.getText(),font2);
+             Paragraph ptgl = new Paragraph();
+             ptgl.add(tgl)
+                ;
+             ptgl.setAlignment(com.itextpdf.text.Element.ALIGN_BOTTOM);
+             ptgl.setSpacingBefore(20);
+             document.add(ptgl);
+             
+             
+           
             
             
             
@@ -558,7 +577,7 @@ public void noTable()
             document.close();
             writer.close();
             
-            File myFile = new File("F:\\generete_pdf\\"+"LaporanPendapatanBulanan"+".pdf");
+            File myFile = new File("D:\\generete_pdf\\"+"LaporanPendapatanBulanan"+".pdf");
             Desktop.getDesktop().open(myFile);
            
             
@@ -1093,19 +1112,17 @@ public void noTable()
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
-                        .addContainerGap())))
+                        .addGap(204, 204, 204))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap()
                         .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel19))
         );
 
@@ -1115,7 +1132,7 @@ public void noTable()
 
         jLabel21.setFont(new java.awt.Font("Elephant", 1, 14)); // NOI18N
         jLabel21.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel21.setText("LAPORAN  PRODUK  TERLARIS BULANAN");
+        jLabel21.setText("LAPORAN  PRODUK  PENDAPATAN BULANAN");
 
         tableProduk.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         tableProduk.setModel(new javax.swing.table.DefaultTableModel(
@@ -1229,7 +1246,6 @@ public void noTable()
                         .addContainerGap()
                         .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(mainPaneLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1332,7 +1348,7 @@ public void noTable()
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         // TODO add your handling code here:
-        MenuKasir m = new MenuKasir();
+        MenuReport m = new MenuReport();
         this.setVisible(false );
         m.setVisible(true);
         m.setExtendedState(JFrame.MAXIMIZED_BOTH);

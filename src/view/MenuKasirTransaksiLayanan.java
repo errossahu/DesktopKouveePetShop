@@ -153,7 +153,7 @@ public class MenuKasirTransaksiLayanan extends javax.swing.JFrame {
       
       try
       {
-        String file ="F:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf";
+        String file ="D:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf";
         Document document = new Document();
         PdfWriter writer= PdfWriter.getInstance(document, new FileOutputStream(file));
         document.open();
@@ -264,7 +264,7 @@ public class MenuKasirTransaksiLayanan extends javax.swing.JFrame {
 //            PdfPCell c2 = new PdfPCell(new Paragraph(p1));
 //            table.addCell(c1);
 //            table.addCell(c2);
-            File myFile = new File("F:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf");
+            File myFile = new File("D:\\generete_pdf\\"+LoginSession.getIdTransaksi()+".pdf");
             Desktop.getDesktop().open(myFile);
            
             
